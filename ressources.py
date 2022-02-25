@@ -28,12 +28,11 @@ class CRessources:
         #VAR.IMG["cle"] = FCT.image_decoupe(tmp,  2, 0, 42, 42 )
         VAR.IMG["energie"] = FCT.image_decoupe(tmp,  3, 0, 42, 42 )
        
-        for id, e in enumerate(ENUM_Actions):
-            VAR.IMG[str(e)] = FCT.image_decoupe(pygame.image.load("Images\\icones.png").convert_alpha(), int(e.value), 0, 63, 66 )
-        
-        for id, e in enumerate(ENUM_Objets):
-            VAR.IMG[str(e)] = FCT.image_decoupe(pygame.image.load("Images\\icones3.png").convert_alpha(), int(e.value), 0, 50, 50 )
-            
+        for i, j in enumerate(ENUM_Actions):
+            id = j.value
+            VAR.IMG[id] = FCT.image_decoupe(pygame.image.load("Images\\icones.png").convert_alpha(), id, 0, 63, 66 )
+    
+              
         #VAR.IMG["cle"] = FCT.image_decoupe(tmp, 0, 0, 50, 50 )
         #VAR.IMG["coffre"] = FCT.image_decoupe(tmp, 1, 0, 50, 50 )
         #VAR.IMG["couteaux"] = FCT.image_decoupe(tmp, 2, 0, 50, 50 )
@@ -47,7 +46,9 @@ class CRessources:
         VAR.img1 = pygame.image.load("Images\\persos\\perso1.png").convert_alpha()    
         VAR.img2 = pygame.transform.flip(pygame.image.load("Images\\mechants\\00.png").convert_alpha(), True, False) 
         VAR.des = pygame.image.load("Images\\des.png").convert_alpha()
-     
+        
+        VAR.objets.image_icones = pygame.image.load("images\\objets\\icones.png").convert_alpha()
+
         VAR.SONS["rotation"] = pygame.mixer.Sound("Audios\\2005.wav")
         VAR.SONS["poser"] = pygame.mixer.Sound("Audios\\591.wav")
 
@@ -58,7 +59,7 @@ class CRessources:
         
         VAR.mechants.charger()
         VAR.objets.charger()
-        
+
         VAR.tuiles.placer_piece_centrale()
         
         VAR.heros.charger()

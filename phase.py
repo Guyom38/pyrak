@@ -18,7 +18,7 @@ class CPhase:
                     print("kkkk")
                     jeton_mechant = VAR.jetons.piocher()
                     VAR.terrain[x][y].jeton = jeton_mechant
-                    VAR.mechants.afficher_tirage_monstre(jeton_mechant.id.value)
+                    VAR.mechants.afficher_tirage_monstre(jeton_mechant.id)
                     VAR.combat.jeton = jeton_mechant
                                     
                 if VAR.terrain[x][y].jeton.id != ENUM_Jeton.COFFRE:               # --- Lance le combat

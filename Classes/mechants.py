@@ -25,13 +25,14 @@ class CMechants():
         with open('images\\mechants\\infos.csv') as fichier_csv:
             reader = csv.reader(fichier_csv, delimiter=';')
             for ligne in reader:
-                if len(ligne) == 6:                                                     # --- il faut que la ligne comporte chaque colonne importante
-                    numero, nom, force, tirage, recompense, specialite = ligne
+                if len(ligne) == 7:                                                     # --- il faut que la ligne comporte chaque colonne importante
+                    numero, nom, force, tirage, recompense, specialite, quantite = ligne
                     if numero.__contains__("#") == False:                             # --- evite les lignes commentées
                         tmp_image, tmp_icone = pygame.image.load("Images\\mechants\\" + numero + ".png").convert_alpha(), None
                         #tmp_image = FCT.Generer_Mask_Image(tmp_image)
-                        self.liste[numero] = CMechant(self.moteur, nom, force, tirage, tmp_image, tmp_icone, recompense, specialite)
-                        print ("        + Mechant << " + nom + " >> ajouté.")
+                        
+                        self.liste[numero] = CMechant(self.moteur, nom, force, tirage, tmp_image, tmp_icone, recompense, specialite, quantite)
+                        print ("        + " + quantite + "x Mechant << " + nom + " >> ajouté.")
         
 
     def piocher(self):

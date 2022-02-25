@@ -61,9 +61,9 @@ def icone(codeImg):
     tmp = pygame.transform.scale(tmp, (63, 66))
     return tmp
 
-def image_decoupe(img, x,y,dimx, dimy, dimxZ = -1, dimyZ = -1):
+def image_decoupe(img, x, y, dimx, dimy, dimxZ = -1, dimyZ = -1):
     tmp = pygame.Surface((dimx, dimy),pygame.SRCALPHA,32)
-    tmp.blit(img, (0,0), (x * dimx, y * dimy, dimx, dimy))
+    tmp.blit(img, (0,0), (int(x) * dimx, y * dimy, dimx, dimy))
                         
     # --- Colle le decors 
     if dimxZ != -1 and dimyZ != -1:   

@@ -12,7 +12,7 @@
             "request": "launch",
             //"program": "${file}",
             //"program":"c:\\Users\\Guillaume\\Documents\\#PYTHON\\Karak\\karak.py",
-            "program":"C:\\Users\\009728\\Documents\\#PROJETS\\#PYTHON\\Karak\\karak.py",
+            "program":"C:\\Users\\009728\\Documents\\#PROJETS\\#PYTHON\\PyRak\\pyrak\\karak.py",
             
             "console": "integratedTerminal"
         }

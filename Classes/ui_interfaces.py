@@ -60,7 +60,7 @@ class CInterfaces():
             xP, yP =  (largeur_cadre+30) + (i*(taille_ico1+8)), VAR.EcranY - (taille_ico1+26)
 
             if VAR.joueur_en_cours.armes[i] != None:
-                ico = VAR.objets.liste[VAR.joueur_en_cours.armes[i]].image_icones
+                ico = VAR.objets.liste[VAR.joueur_en_cours.armes[i]].icone
                 VAR.fenetre.blit(ico, (xP, yP))
             else:
                 pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico1, taille_ico1), 0)
@@ -70,7 +70,7 @@ class CInterfaces():
         # --- 1 Item clé
         xP, yP =  (largeur_cadre+30) + (2*(taille_ico1+8)), VAR.EcranY - (taille_ico1+26)
         if VAR.joueur_en_cours.cle == True:
-            ico = VAR.objets.liste["CLE"].image_icones
+            ico = VAR.objets.liste["CLE"].icone
             VAR.fenetre.blit(ico, (xP, yP))
         else:
             pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico1, taille_ico1), 0)
@@ -83,13 +83,7 @@ class CInterfaces():
             # --- Image de la magie
             ico = None
             if VAR.joueur_en_cours.magies[i] != None:
-                if VAR.joueur_en_cours.magies[i] == ENUM_Objets.MAGIE_EPEE: 
-                    ico = VAR.IMG[str(ENUM_Objets.MAGIE_EPEE)]
-                elif VAR.joueur_en_cours.magies[i] == ENUM_Objets.MAGIE_VIE: 
-                    ico = VAR.IMG[str(ENUM_Objets.MAGIE_VIE)]
-            
-            # --- Bouton de la magie
-            if ico != None:
+                ico = VAR.objets.liste[VAR.joueur_en_cours.magies[i]].icone
                 if VAR.phase_du_jeu == ENUM_Phase.COMBAT:
                     ico = pygame.transform.scale(ico, (taille_ico2, taille_ico2))
                     ico.set_alpha(128) 

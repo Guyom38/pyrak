@@ -100,11 +100,11 @@ class CPlateau():
                                 VAR.tuiles.tuileSelect.afficher(x, y)
                                 
                                 if VAR.Zoom > 15:   
-                                    if VAR.objets.zone_clickable(xP, yP, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:
+                                    if VAR.objets_interface.zone_clickable(xP, yP, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:
                                         VAR.tuiles.placer(x, y, VAR.tuiles.tuileSelect, VAR.terrain[x-xD][y-yD], False)
                                         VAR.SONS["poser"].play()
 
-                                    elif VAR.objets.zone_clickable(xP, yP, VAR.v9, VAR.v9, 2) == ENUM_Clic.Clic:            
+                                    elif VAR.objets_interface.zone_clickable(xP, yP, VAR.v9, VAR.v9, 2) == ENUM_Clic.Clic:            
                                         VAR.tuiles.tuileSelect.tourner()
                                         VAR.SONS["rotation"].play()
                                         
@@ -120,7 +120,7 @@ class CPlateau():
                             VAR.plateau.Animation_Curseur((xP, yP))      
                             VAR.fenetre.blit(FCT.icone(ico), (xP, yP, 63, 66))
                             
-                            if VAR.objets.zone_clickable(xP, yP, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:
+                            if VAR.objets_interface.zone_clickable(xP, yP, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:
                                 VAR.joueur_en_cours.deplacer(x, y)
                 
                 # --- Dessine la zone en dehors

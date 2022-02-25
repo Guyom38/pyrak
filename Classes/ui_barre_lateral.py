@@ -31,7 +31,7 @@ class CBarre_Laterale():
             pygame.draw.rect(VAR.fenetre, pygame.Color(50,30,20,255), (x, y, d, 32), 0)
             pygame.draw.rect(VAR.fenetre, pygame.Color(76,54,44,255), (x, y, d, 32), 4)
             
-            if VAR.objets.afficher_bouton_image(x, y, FCT.image_decoupe(VAR.perso, (VAR.heros.liste[i].id * 3) +t , 0, 32, 32)) == ENUM_Clic.Clic:
+            if VAR.objets_interface.afficher_bouton_image(x, y, FCT.image_decoupe(VAR.perso, (VAR.heros.liste[i].id * 3) +t , 0, 32, 32)) == ENUM_Clic.Clic:
                 VAR.heros.liste[i].recentrer_camera()
                 
             VAR.fenetre.blit(FCT.image_decoupe(VAR.perso, (VAR.heros.liste[i].id * 3) +t , 0, 32, 32), (x, y))
@@ -51,26 +51,27 @@ class CBarre_Laterale():
         # - MENU ACTIONS JOUEURS
         # ------------------------------------------------------------
         if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.seDeplace == False:
-            for ico in (ENUM_Actions.PIOCHER, ENUM_Actions.PRENDRE, ENUM_Actions.PAUSE):
-                
-                if ico == ENUM_Actions.PIOCHER and VAR.plateau.nombre_de_zones_libres() > 0:                                       # --- PIOCHE disponible si un acces est visible
-                    if VAR.objets.afficher_bouton_image(xP, yP, VAR.IMG[str(ico)]) == ENUM_Clic.Clic: 
+            for action in (ENUM_Actions.PIOCHER, ENUM_Actions.PRENDRE, ENUM_Actions.PAUSE):
+                ico = action.value
+                if action == ENUM_Actions.PIOCHER and VAR.plateau.nombre_de_zones_libres() > 0:                                       # --- PIOCHE disponible si un acces est visible
+                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic: 
                         VAR.tuiles.piocher()
                     yP = (yP +(hIco + 8))
                 
-                elif ico == ENUM_Actions.PAUSE and VAR.tuiles.tuileSelect == None:                                               # --- PAUSE disponible si aucune pioche n'a été tirée
-                    if VAR.objets.afficher_bouton_image(xP, yP, VAR.IMG(str(ico))) == ENUM_Clic.Clic: 
+                elif action == ENUM_Actions.PAUSE and VAR.tuiles.tuileSelect == None:       
+                                                        # --- PAUSE disponible si aucune pioche n'a été tirée
+                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic: 
                         VAR.heros.joueur_suivant()
                     yP = (yP +(hIco + 8))
                 
-                elif ico == ENUM_Actions.PRENDRE and VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense != None:                                                                                  # --- PRENDRE objet par terre
-                    if VAR.objets.afficher_bouton_image(xP, yP, VAR.IMG(str(ico))) == ENUM_Clic.Clic:
+                elif action == ENUM_Actions.PRENDRE and VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense != None:                                                                                  # --- PRENDRE objet par terre
+                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic:
                          print("kkkk")
                     yP = (yP +(hIco + 8))
                     
         elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:
             if VAR.combat.lance_de_des == False and VAR.combat.combat_termine == False:
-                if VAR.objets.afficher_bouton_image(xP, yP, FCT.icone(6)) == ENUM_Clic.Clic: 
+                if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ENUM_Actions.COMBATTRE]) == ENUM_Clic.Clic: 
                     VAR.combat.nombre_lances = 0
                     VAR.combat.lance_de_des = True
             

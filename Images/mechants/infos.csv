@@ -10,13 +10,13 @@
 #MALEDICTION : donne une malédiction
 #FIN_PARTIE : arrete la partie
 
-#index mechant; nom mechant; point de vie; tirage; recompense; spécialité
-00; Rat; 5; 24; ARME+1; AUCUNE
-01; Mommie; 7; 16; EPEE+1; MALEDICTION
-02; Squelette Clé; 8; 16; CLE; AUCUNE
-03; Squelette Spadassin; 9; 10; EPEE+2; AUCUNE
-04; Roi des squelette; 10; 6; ARME+3; AUCUNE
-05; Mort; 12; 4; COFFRE; AUCUNE
-06; Araignée; 6; 8; VIE+1; AUCUNE
-07; Dragon; 15; 1; SUPER_COFFRE; FIN_PARTIE
-08; Coffre; 0; 0; COFFRE; AUCUNE
+#index mechant; nom mechant; point de vie; tirage; recompense; spécialité; quantité de monstre
+00; Rat; 5; 24; ARME+1; AUCUNE;12
+01; Mommie; 7; 16; EPEE+1; MALEDICTION;8
+02; Squelette Clé; 8; 16; CLE; AUCUNE;8
+03; Squelette Spadassin; 9; 10; EPEE+2; AUCUNE;5
+04; Roi des squelette; 10; 6; ARME+3; AUCUNE;3
+05; Mort; 12; 4; COFFRE; AUCUNE;2
+06; Araignée; 6; 8; VIE+1; AUCUNE;4
+07; Dragon; 15; 1; SUPER_COFFRE; FIN_PARTIE;1
+08; Coffre; 0; 0; COFFRE; AUCUNE;12
