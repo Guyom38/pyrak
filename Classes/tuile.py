@@ -26,14 +26,21 @@ class CTuile(object):
 
         self.depart = False
 
+    # -1 : Rien ne se passe
+    #  0 : Reprise du combat
+    #  1 : Tirage avant combat
     def faut_il_tirer_un_jeton(self):
-        lance_combat = False
+        lance_combat = -1
 
         if self.piece == True and self.depart == False:
-            lance_combat = True
+            lance_combat = 1
+            
             if self.jeton != None:
-                if self.jeton.id == ENUM_Jeton.COFFRE: lance_combat = False
-            if self.recompense != None: lance_combat = False
+                if self.jeton.nom == VAR.COFFRE: 
+                    lance_combat = -1
+                else:
+                    lance_combat = 0
+            if self.recompense != None: lance_combat = -1
             
         return lance_combat
                     
@@ -178,31 +185,8 @@ class CTuile(object):
                 FCT.texte(VAR.fenetre, str(self.jeton.force), xP, yP, 60, pygame.Color(0,0,0,255))
                 FCT.texte(VAR.fenetre, str(self.jeton.force), xP+2, yP+2, 60, pygame.Color(255,255,255,255))
         
-        
             elif self.recompense != None :                                       # --- Dessin de la recompense a prendre
-                ico = VAR.IMG[self.recompense.value]
-                
-                #if self.recompense == ENUM_Objets.CLE :
-                #    ico = VAR.IMG["cle"]
-                #elif self.recompense == ENUM_Objets.COFFRE :
-                #    ico = VAR.IMG["coffre"]
-                #elif self.recompense == ENUM_Objets.COUTEAUX :
-                #    ico = VAR.IMG["couteaux"]
-                #elif self.recompense == ENUM_Objets.HACHE :
-                #    ico = VAR.IMG["hache"]
-                #elif self.recompense == ENUM_Objets.PIEGE :
-                #    ico = VAR.IMG["piege"]
-                #elif self.recompense == ENUM_Objets.MASSE :
-                #    ico = VAR.IMG["masse"]
-                #elif self.recompense == ENUM_Objets.MAGIE_VIE :
-                #    ico = VAR.IMG["vie"]
-                #elif self.recompense == ENUM_Objets.MAGIE_EPEE :
-                #    ico = VAR.IMG["epee"]
-                #else:
-                #    ico = None
-                    
-                if ico != None:
-                    VAR.fenetre.blit(ico, (xP, yP))
+                VAR.fenetre.blit(VAR.objets.liste[self.recompense].icone, (xP, yP))
 
 
     

@@ -22,9 +22,9 @@ class Cheros():
         self.liste.append( Chero("Argentus", 1))
         self.liste.append( Chero("Horan", 2))    
         self.liste.append( Chero("Lord Xanros", 3))
-        self.liste.append( Chero("Taia", 4))
-        self.liste.append( Chero("Victorius", 5))
-        self.liste.append( Chero("Aderyn", 6))
+        #self.liste.append( Chero("Taia", 4))
+        #self.liste.append( Chero("Victorius", 5))
+        #self.liste.append( Chero("Aderyn", 6))
 
     def gestion_deplacement_joueur(self):
          if VAR.joueur_en_cours.seDeplace == True: 

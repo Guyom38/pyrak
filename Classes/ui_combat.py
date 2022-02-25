@@ -59,7 +59,7 @@ class CCombat():
         FCT.texte(VAR.fenetre, txt, x+20+2, y+20+2, 20, pygame.Color(255,255,255,255))
         
         # --- Cadre
-        VAR.fenetre.blit(VAR.objets.cadre(0, 0, w, h), (x, y))
+        VAR.fenetre.blit(VAR.objets_interface.cadre(0, 0, w, h), (x, y))
        
         # --- dessin de joueur en cours
         t = int(3 * math.cos (self.cpt+3))
@@ -75,7 +75,7 @@ class CCombat():
         
         # --- dessin du mechant
         t = int(5 * math.cos (self.cpt))
-        img2 = VAR.mechants.liste["0" + str(self.jeton.id.value)].image
+        img2 = VAR.mechants.liste[self.jeton.id].image
         tmp = pygame.transform.flip(pygame.transform.scale(img2, (img2.get_width(), img2.get_height() + t)), True, False) 
         xP2, yP2 = x+w-tmp.get_width()-32, y+h-tmp.get_height()-32
         
@@ -105,9 +105,8 @@ class CCombat():
     def calcul_attaque(self):
         bonus = 0
         for i in range(2):
-            if VAR.joueur_en_cours.armes[i] == ENUM_Armes.Piege: bonus = bonus +1
-            elif VAR.joueur_en_cours.armes[i] == ENUM_Armes.Couteaux: bonus = bonus +2
-            elif VAR.joueur_en_cours.armes[i] == ENUM_Armes.Hache: bonus = bonus +3
+            if VAR.joueur_en_cours.armes[i] != None:
+                bonus = bonus + int(VAR.joueur_en_cours.armes[i].split("+")[1])
         return (self.de1+self.de2+2) +bonus  
         
 

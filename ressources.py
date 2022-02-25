@@ -31,16 +31,6 @@ class CRessources:
         for i, j in enumerate(ENUM_Actions):
             id = j.value
             VAR.IMG[id] = FCT.image_decoupe(pygame.image.load("Images\\icones.png").convert_alpha(), id, 0, 63, 66 )
-    
-              
-        #VAR.IMG["cle"] = FCT.image_decoupe(tmp, 0, 0, 50, 50 )
-        #VAR.IMG["coffre"] = FCT.image_decoupe(tmp, 1, 0, 50, 50 )
-        #VAR.IMG["couteaux"] = FCT.image_decoupe(tmp, 2, 0, 50, 50 )
-        #VAR.IMG["hache"] = FCT.image_decoupe(tmp, 3, 0, 50, 50 )
-        #VAR.IMG["piege"] = FCT.image_decoupe(tmp, 4, 0, 50, 50 )
-        #VAR.IMG["masse"] = FCT.image_decoupe(tmp, 5, 0, 50, 50 )
-        #VAR.IMG["vie"] = FCT.image_decoupe(tmp, 6, 0, 50, 50 )
-        #VAR.IMG["epee"] = FCT.image_decoupe(tmp, 7, 0, 50, 50 )
         
         VAR.img0 = pygame.image.load("Images\\1674_1057998444.png").convert_alpha()  
         VAR.img1 = pygame.image.load("Images\\persos\\perso1.png").convert_alpha()    

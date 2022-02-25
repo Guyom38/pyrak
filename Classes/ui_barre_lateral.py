@@ -71,7 +71,7 @@ class CBarre_Laterale():
                     
         elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:
             if VAR.combat.lance_de_des == False and VAR.combat.combat_termine == False:
-                if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ENUM_Actions.COMBATTRE]) == ENUM_Clic.Clic: 
+                if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ENUM_Actions.COMBATTRE.value]) == ENUM_Clic.Clic: 
                     VAR.combat.nombre_lances = 0
                     VAR.combat.lance_de_des = True
             

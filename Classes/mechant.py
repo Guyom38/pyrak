@@ -11,7 +11,7 @@ class CMechant():
         
         self.icone = icone
         
-        self.recompense = recompense
+        self.recompense = recompense.strip()    
         self.specialite = specialite
         
         self.tirage = tirage

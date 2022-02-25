@@ -5,6 +5,8 @@ HAUT = 1
 DROITE = 2
 BAS = 3
 
+COFFRE = "Coffre"
+
 class ENUM_Clic(Enum):
     Rien = -1
     Survol = 0
@@ -30,20 +32,6 @@ class ENUM_Pouvoirs(Enum):
     premonition = 10
     risseuse_de_destin = 11
 
-
-
-    
-    
-class ENUM_Jeton(Enum):
-    MONSTRE_RAT = 0
-    MONSTRE_MOMMIE = 1
-    MONSTRE_SQUELETTE = 2
-    MONSTRE_SQUELETTE_CLE = 3
-    MONSTRE_SQUELETTE_ROI = 4
-    MONSTRE_SPECTRE = 5
-    MONSTRE_ARAIGNE = 6
-    MONSTRE_DRAGON = 7
-    COFFRE = 8
 
 class ENUM_Actions(Enum):
     DECOUVRIR = 0

@@ -97,20 +97,14 @@ class Chero(object):
             self.recentrer_camera()    
             
             # --- Si c'est une piece et pas la piece de depart, en avant pour un combat.
-            if VAR.terrain[self.x][self.y].faut_il_tirer_un_jeton() :
+            que_fait_on = VAR.terrain[self.x][self.y].faut_il_tirer_un_jeton()
+            if que_fait_on != -1:
                 VAR.phase_du_jeu = ENUM_Phase.TRANSITION
-                VAR.phase_du_jeu_suivant = ENUM_Phase.TIRAGE   
+                if que_fait_on == 1: 
+                    VAR.phase_du_jeu_suivant = ENUM_Phase.TIRAGE   
+                elif que_fait_on == 0:
+                    VAR.phase_du_jeu_suivant = ENUM_Phase.COMBAT   
             
-            #if tuile.piece == True and tuile.depart == False:
-            #    lance_combat = True
-            #    if tuile.jeton != None:
-            #        if tuile.jeton.id != ENUM_Jeton.COFFRE: lance_combat = False
-            #    if tuile.recompense == False: lance_combat = False
-
-            #    if lance_combat == True:
-            #        VAR.phase_du_jeu = ENUM_Phase.TRANSITION
-            #        VAR.phase_du_jeu_suivant = ENUM_Phase.TIRAGE   
-                 
             
     def recentrer_camera(self):
         VAR.OffsetX = -(((self.x) * 9) * VAR.Zoom) + int((VAR.EcranX - VAR.v9) / 2)
