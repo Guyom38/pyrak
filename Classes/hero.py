@@ -18,8 +18,8 @@ class Chero(object):
         self.mouvement = 4
         self.pouvoirs = [None, None]
         
-        self.armes = [ENUM_Objets.COUTEAUX, None]
-        self.magies = [ENUM_Objets.MAGIE_EPEE, None, None]
+        self.armes = ["ARME+1", None]
+        self.magies = ["MAGIE_VIE", None, None]
         self.cle = True
         self.maudit = False
 

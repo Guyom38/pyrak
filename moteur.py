@@ -11,6 +11,7 @@ from Classes.heros import *
 from Classes.ui_combat import *
 from Classes.jetons import *
 from phase import *
+from objets import *
 
 from ressources import *
 
@@ -32,12 +33,13 @@ class CMoteur:
         VAR.tuiles = CTuiles(self)
         VAR.plateau = CPlateau(self)
         VAR.interfaces = CInterfaces(self)
-        VAR.objets = CObjets_Interface(self)
+        VAR.objets_interface = CObjets_Interface(self)
         VAR.combat = CCombat(self)
         VAR.jetons = CJetons(self)
         VAR.mechants = CMechants(self)
         VAR.phase = CPhase(self)
-
+        VAR.objets = CObjets(self)
+        
         VAR.boucle_principale = True
 
     def demarre(self):

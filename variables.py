@@ -57,18 +57,6 @@ class ENUM_Actions(Enum):
     DEVERROUILLER = 8
     PIOCHER = 9
     
-class ENUM_Objets(Enum):
-    CLE = 0
-    COFFRE = 1
-    COUTEAUX = 2
-    HACHE = 3
-    PIEGE = 4
-    MASSE = 5
-    MAGIE_VIE = 6
-    MAGIE_EPEE = 7
-    EPEE = 8
-    SUPER_COFFRE = 9
-
 class ENUM_Phase(Enum):
     DEPLACEMENT = 0
     COMBAT = 1
@@ -117,13 +105,15 @@ joueur_en_cours = None
 
 tuiles = None
 plateau = None
-interfaces = None
 heros = None
 combat = None
 objets = None
 jetons = None
 phase = None
 ressources = None
+
+interfaces = None
+objets_interface = None
 
 fenetre = None
 clock = None

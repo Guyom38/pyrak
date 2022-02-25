@@ -33,8 +33,6 @@ class CMechants():
                         self.liste[numero] = CMechant(self.moteur, nom, force, tirage, tmp_image, tmp_icone, recompense, specialite)
                         print ("        + Mechant << " + nom + " >> ajouté.")
         
-        print ("        => " + str(self.nb_mechants()))
-        
 
     def piocher(self):
         return random.randint(0, VAR.mechants.nb_mechants())

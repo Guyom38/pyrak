@@ -57,6 +57,8 @@ class CRessources:
 
         
         VAR.mechants.charger()
+        VAR.objets.charger()
+        
         VAR.tuiles.placer_piece_centrale()
         
         VAR.heros.charger()

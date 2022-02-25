@@ -36,7 +36,7 @@ class CInterfaces():
         self.menu.afficher_liste_actions_joueur(hauteur)
         
         if VAR.image_interface is None:
-            VAR.image_interface  = VAR.objets.cadre(0,0, VAR.EcranX, VAR.EcranY)        
+            VAR.image_interface  = VAR.objets_interface.cadre(0,0, VAR.EcranX, VAR.EcranY)        
         VAR.fenetre.blit(VAR.image_interface, (0, 0))
 
 
@@ -59,16 +59,8 @@ class CInterfaces():
         for i in range(2):
             xP, yP =  (largeur_cadre+30) + (i*(taille_ico1+8)), VAR.EcranY - (taille_ico1+26)
 
-            ico = None
             if VAR.joueur_en_cours.armes[i] != None:
-                if VAR.joueur_en_cours.armes[i] == ENUM_Objets.COUTEAUX: 
-                    ico = VAR.IMG[str(ENUM_Objets.COUTEAUX)]
-                elif VAR.joueur_en_cours.armes[i] == ENUM_Objets.HACHE: 
-                    ico = VAR.IMG[str(ENUM_Objets.HACHE)]
-                elif VAR.joueur_en_cours.armes[i] == ENUM_Objets.MASSE: 
-                    ico = VAR.IMG[str(ENUM_Objets.MASSE)]
-            
-            if ico != None:
+                ico = VAR.objets.liste[VAR.joueur_en_cours.armes[i]].image_icones
                 VAR.fenetre.blit(ico, (xP, yP))
             else:
                 pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico1, taille_ico1), 0)
@@ -78,7 +70,7 @@ class CInterfaces():
         # --- 1 Item clé
         xP, yP =  (largeur_cadre+30) + (2*(taille_ico1+8)), VAR.EcranY - (taille_ico1+26)
         if VAR.joueur_en_cours.cle == True:
-            ico = VAR.IMG[str(ENUM_Objets.CLE)]
+            ico = VAR.objets.liste["CLE"].image_icones
             VAR.fenetre.blit(ico, (xP, yP))
         else:
             pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico1, taille_ico1), 0)
@@ -101,7 +93,7 @@ class CInterfaces():
                 if VAR.phase_du_jeu == ENUM_Phase.COMBAT:
                     ico = pygame.transform.scale(ico, (taille_ico2, taille_ico2))
                     ico.set_alpha(128) 
-                if VAR.objets.afficher_bouton_image(xP, yP, ico) == ENUM_Clic.Clic:
+                if VAR.objets_interface.afficher_bouton_image(xP, yP, ico) == ENUM_Clic.Clic:
                     print("oo")   
             else:
                 pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico2, taille_ico2), 0)
