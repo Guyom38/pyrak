@@ -16,8 +16,10 @@ class CMechants():
         self.moteur = moteur
         self.liste = {}
     
+    
     def nb_mechants(self):
         return len(self.liste)   
+     
      
     def charger(self):
         print("    + Chargement du fichier de mechants : infos.csv")
@@ -31,7 +33,7 @@ class CMechants():
                         tmp_image, tmp_icone = pygame.image.load("Images\\mechants\\" + numero + ".png").convert_alpha(), None
                         #tmp_image = FCT.Generer_Mask_Image(tmp_image)
                         
-                        self.liste[numero] = CMechant(self.moteur, nom, force, tirage, tmp_image, tmp_icone, recompense, specialite, quantite)
+                        self.liste[numero] = CMechant(self.moteur, nom.strip(), int(force), int(tirage), tmp_image, tmp_icone, recompense.strip(), specialite.strip(), int(quantite))
                         print ("        + " + quantite + "x Mechant << " + nom + " >> ajouté.")
         
 

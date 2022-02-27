@@ -15,7 +15,6 @@ class CPhase:
                 x, y = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
                 
                 if VAR.terrain[x][y].jeton == None:                         # --- Si aucun jeton, piece decouverte, alors tirage
-                    print("kkkk")
                     jeton_mechant = VAR.jetons.piocher()
                     VAR.terrain[x][y].jeton = jeton_mechant
                     VAR.mechants.afficher_tirage_monstre(int(jeton_mechant.id))
@@ -25,6 +24,8 @@ class CPhase:
                     VAR.phase_du_jeu_suivant = ENUM_Phase.COMBAT
                 
                 else:                                                   # --- Coffre donc on repart sur le plateau
+                    VAR.terrain[x][y].recompense = jeton_mechant.recompense
+                    VAR.terrain[x][y].jeton = None
                     VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
                 
             elif VAR.phase_du_jeu_suivant == ENUM_Phase.COMBAT:

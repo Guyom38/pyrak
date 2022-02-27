@@ -5,6 +5,7 @@ from Classes.tuiles import *
 import variables as VAR
 from variables import *
 import fonctions as FCT
+import outils 
 
 class CPlateau():
 
@@ -17,6 +18,9 @@ class CPlateau():
 
         VAR.terrain = FCT.GenereMat2D(VAR.PlateauX, VAR.PlateauY, 0)  #[[0 for x in range(self.MAX_LARGEUR)] for i in range(self.MAX_HAUTEUR)]
 
+        self.animation_cycle = 0    
+        self.animation_cpt = 0
+        self.animation_delais = 30
         
     def fond(self):
         if VAR.image_fond is None:
@@ -37,12 +41,18 @@ class CPlateau():
             
             if VAR.OffsetX > VAR.v9: VAR.OffsetX = VAR.v9
             if VAR.OffsetY > VAR.v9: VAR.OffsetY = VAR.v9
-                
+            
+    
     def afficher(self):
         VAR.tuiles.afficher()
         self.afficher_curseur()
         VAR.heros.afficher()
-     
+        
+        #if pygame.time.get_ticks() - self.animation_cycle > self.animation_delais:
+        #    self.animation_cycle = pygame.time.get_ticks()
+        self.animation_cpt +=1
+
+        
     def nombre_de_zones_libres(self):
         return self.liste_voisins(True)
     
@@ -81,6 +91,7 @@ class CPlateau():
             return liste_voisins
     
     
+    
     def afficher_curseur(self):
         if VAR.joueur_en_cours.mouvement == 0: 
             VAR.heros.joueur_suivant()
@@ -115,9 +126,10 @@ class CPlateau():
                             
                     else:                               # --- Se déplacer 
                         if VAR.tuiles.verification_placement(VAR.terrain[x][y], x, y, VAR.terrain[x-xD][y-yD]) and VAR.Zoom > 15 and VAR.tuiles.tuileSelect == None:
-
+                            self.Animation_Fleches(xP, yP, xD, yD)
+                            #VAR.plateau.Animation_Curseur((xP, yP))      
+                            
                             ico = FCT.iif(VAR.terrain[x][y].jeton == None or VAR.terrain[x][y].piece == False, 1, 6)
-                            VAR.plateau.Animation_Curseur((xP, yP))      
                             VAR.fenetre.blit(FCT.icone(ico), (xP, yP, 63, 66))
                             
                             if VAR.objets_interface.zone_clickable(xP, yP, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:
@@ -133,6 +145,38 @@ class CPlateau():
         if curseur != (-1, -1):
             VAR.plateau.Animation_Curseur(curseur)
 
+    def Animation_Fleches(self, xP, yP, xD, yD):
+        if VAR.joueur_en_cours.seDeplace == False:
+            x1, y1 = xP-VAR.v4, yP+VAR.v4
+            x2, y2 = xP-(xD * VAR.v9) + VAR.v4, yP-(yD * VAR.v9) + VAR.v4
+            vv = (VAR.cpt % VAR.Zoom)*9
+                                
+            #                 x3
+            #                 █
+            #   x1------------x2 █
+            #   █                   █x4
+            #   x7------------x6 █
+            #                 █
+            #                 x5
+                                
+            # --- Dessine les fleches de deplacement
+            figure, epais = None, 8
+            off = int((VAR.Zoom - 8 ) /2)
+            if xD == -1:            # --- GAUCHE
+                t, figure = 1, ((x2, off+y2), (x2 - vv, off+y2), (x2 - vv, off+y2 - 4), (x2 - vv - epais, off+y2+(epais/2)), (x2 - vv, off+y2 + epais + 4), (x2 - vv, off+y2 + epais), (x2, off+y2+epais))
+            elif xD == 1:           # --- DROITE
+                x2 += VAR.Zoom
+                t, figure = 2, ((x2, off+y2), (x2 + vv, off+y2), (x2 + vv, off+y2 - 4), (x2 + vv + epais, off+y2+(epais/2)), (x2 + vv, off+y2 + epais + 4), (x2 + vv, off+y2 + epais), (x2, off+y2+epais))
+            elif yD == -1:          # --- HAUT
+                t, figure = 3, ((off+x2, y2), (off+x2 , y2- vv), (off+x2 -4, y2 - vv), (off+x2 +(epais/2), y2- vv - epais), (off+x2 +epais+4, y2 - vv), (off+x2 +epais, y2 - vv), (off+x2+epais, y2))
+            elif yD == 1:           # --- BAS
+                y2 += VAR.Zoom
+                t, figure = 4, ((off+x2, y2), (off+x2 , y2+ vv), (off+x2 -4, y2 + vv), (off+x2 +(epais/2), y2+ vv + epais), (off+x2 +epais+4, y2 + vv), (off+x2 + epais, y2 + vv), (off+x2+epais, y2))
+                                    
+            if figure != None :
+                pygame.draw.polygon(VAR.fenetre, (255,255,0,128), figure, 0)
+ 
+                                        
     def Animation_Curseur(self, curseur):
         xP, yP = curseur
         c = pygame.Color(255,0,0,255)

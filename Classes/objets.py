@@ -26,6 +26,5 @@ class CObjets():
                 if len(ligne) == 2:                                                     # --- il faut que la ligne comporte chaque colonne importante
                     numero, nom = ligne
                     if numero.__contains__("#") == False:  
-                        nomf = nom.strip()                           # --- evite les lignes commentées
-                        self.liste[nomf] = CObjet(numero, nomf)
-                        print ("        + Objet << " + nomf + " >> ajouté.")
+                        self.liste[nom.strip()] = CObjet(numero, nom.strip())
+                        print ("        + Objet << " + nom.strip() + " >> ajouté.")

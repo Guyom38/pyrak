@@ -98,9 +98,10 @@ class CCombat():
             self.lancer_les_des()
             
             self.nombre_lances = self.nombre_lances +1
-            if self.nombre_lances>self.nombre_lances_max: 
+            if self.nombre_lances > self.nombre_lances_max: 
                 self.lance_de_des = False
                 self.combat_termine = True
+
 
     def calcul_attaque(self):
         bonus = 0
@@ -119,9 +120,7 @@ class CCombat():
                 x, y = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
                 VAR.terrain[x][y].recompense = VAR.terrain[x][y].jeton.recompense
                 VAR.terrain[x][y].jeton = None
-
                 print ("Gagné : " + str(VAR.terrain[x][y].recompense))
-                
             
             elif self.calcul_attaque() == self.jeton.force:
                 print ("Exequo")

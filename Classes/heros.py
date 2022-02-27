@@ -46,6 +46,7 @@ class Cheros():
                 if FCT.SurEcran(xP, yP, VAR.v9, VAR.v9) == True:
                     VAR.heros.afficher_sur_zone(x, y)
 
+
     def joueur_suivant(self):
         if self.joueur_liste_position < len(self.liste) -1:
             self.joueur_liste_position = self.joueur_liste_position +1

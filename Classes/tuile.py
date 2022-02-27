@@ -51,6 +51,7 @@ class CTuile(object):
         else:
             self.generer_couloir()
 
+
     def generer_couloir(self):
 
         # --- Piece

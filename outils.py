@@ -1,4 +1,8 @@
 import math
+import pygame
+from pygame.locals import *
+
+import variables as VAR
 
 def correspondance(code):
         x, y = 0, 0
@@ -25,3 +29,23 @@ def cercle_COS(x_centre, y_centre, rayon):
  
 def tour(x):
    return (x % 359)
+
+def bresenham(x1,y1,x2, y2):
+   liste = []
+   
+   m_new = 2 * (y2 - y1)
+   slope_error_new = m_new - (x2 - x1)
+ 
+   y=y1
+   for x in range(x1,x2+1):
+      liste.append((x, y))
+     
+      slope_error_new =slope_error_new + m_new
+ 
+      if (slope_error_new >= 0):
+         y=y+1
+         slope_error_new =slope_error_new - 2 * (x2 - x1)
+   
+   return liste
+
+
