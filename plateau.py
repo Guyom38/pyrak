@@ -93,9 +93,7 @@ class CPlateau():
     
     
     def afficher_curseur(self):
-        if VAR.joueur_en_cours.mouvement == 0: 
-            VAR.heros.joueur_suivant()
-            return False
+      
         
         curseur = (-1, -1)
         for xD, yD, videOccupe, enDehors in self.liste_voisins():  #[(-1,0), (1,0), (0,-1), (0,1)]:

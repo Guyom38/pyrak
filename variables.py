@@ -56,6 +56,8 @@ class ENUM_Phase(Enum):
 phase_du_jeu = ENUM_Phase.DEPLACEMENT
 phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT
 
+animations = {}
+
 EcranX = 1024
 EcranY = 768
 

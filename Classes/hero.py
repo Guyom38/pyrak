@@ -45,7 +45,8 @@ class Chero(object):
         elif id == 9: self.avatar = "Images\\persos\\perso5.png"
         
         self.ordre_images = (1,3,2,0)
-    
+        #self.masque = FCT.Generer_Mask_Image(image)
+        
     def se_prend_un_coup(self):
         print( self.nom + " perd une vie !")
         self.vie = self.vie -1

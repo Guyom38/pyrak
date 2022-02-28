@@ -19,6 +19,7 @@ class CCombat():
 
 
     def preparer_combat(self):
+        
         self.cpt_cycle = 0
         self.cpt = 0
         
@@ -27,7 +28,8 @@ class CCombat():
         self.combat_termine = False
 
         self.de_cycle = 0
-
+        self.resultat_cycle = 0
+      
         self.nombre_lances = 0
         self.nombre_lances_max = 30
         
@@ -60,7 +62,8 @@ class CCombat():
         
         # --- Cadre
         VAR.fenetre.blit(VAR.objets_interface.cadre(0, 0, w, h), (x, y))
-       
+        
+        # ---------------------------------------------------------------------
         # --- dessin de joueur en cours
         t = int(3 * math.cos (self.cpt+3))
         tmp = pygame.transform.scale(VAR.img1, (VAR.img1.get_width(), VAR.img1.get_height() + t))
@@ -73,15 +76,22 @@ class CCombat():
             
         VAR.fenetre.blit(tmp, (xP1, yP1))
         
+        # ---------------------------------------------------------------------
         # --- dessin du mechant
         t = int(5 * math.cos (self.cpt))
-        img2 = VAR.mechants.liste[self.jeton.id].image
+        
+        if VAR.combat.combat_termine == False or (self.cpt % 2 == 1):
+            img2 = VAR.mechants.liste[self.jeton.id].image
+        else:
+            img2 = VAR.mechants.liste[self.jeton.id].masque
+        
         tmp = pygame.transform.flip(pygame.transform.scale(img2, (img2.get_width(), img2.get_height() + t)), True, False) 
         xP2, yP2 = x+w-tmp.get_width()-32, y+h-tmp.get_height()-32
         
         FCT.texte(VAR.fenetre, str(self.jeton.force), xP2-30, yP2 - 70, 120)
         VAR.fenetre.blit(tmp, (xP2, yP2))
         
+        # ---------------------------------------------------------------------
         # --- dessin des dés
         self.animation_des_des()
         
@@ -113,23 +123,29 @@ class CCombat():
 
     def gestion_combat(self):
         if VAR.combat.combat_termine == True:
-            VAR.phase_du_jeu = ENUM_Phase.TRANSITION
-            VAR.phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT
-
-            if self.calcul_attaque() > self.jeton.force:
-                x, y = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
-                VAR.terrain[x][y].recompense = VAR.terrain[x][y].jeton.recompense
-                VAR.terrain[x][y].jeton = None
-                print ("Gagné : " + str(VAR.terrain[x][y].recompense))
             
-            elif self.calcul_attaque() == self.jeton.force:
-                print ("Exequo")
-                VAR.joueur_en_cours.demi_tour()
+            if self.resultat_cycle == 0:                      # --- Applique une seule fois le resultat du combat
+                if self.calcul_attaque() > self.jeton.force:
+                    x, y = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
+                    VAR.terrain[x][y].recompense = VAR.terrain[x][y].jeton.recompense
+                    VAR.terrain[x][y].jeton = None
+                    print ("Gagné : " + str(VAR.terrain[x][y].recompense))
+                
+                elif self.calcul_attaque() == self.jeton.force:
+                    print ("Exequo")
+                    VAR.joueur_en_cours.demi_tour()
 
-            elif self.calcul_attaque() < self.jeton.force:
-                print ("Perdu")
-                VAR.joueur_en_cours.se_prend_un_coup()
-                VAR.joueur_en_cours.demi_tour()
+                elif self.calcul_attaque() < self.jeton.force:
+                    print ("Perdu")
+                    VAR.joueur_en_cours.se_prend_un_coup()
+                    VAR.joueur_en_cours.demi_tour()
+                
+                self.resultat_cycle = pygame.time.get_ticks()
+            
+            # --- Pause de 3s avant de revenir au jeu
+            if pygame.time.get_ticks() - self.resultat_cycle > 3000:      
+                VAR.phase_du_jeu = ENUM_Phase.TRANSITION
+                VAR.phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT
 
 
         

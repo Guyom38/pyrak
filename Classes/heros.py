@@ -27,8 +27,12 @@ class Cheros():
         #self.liste.append( Chero("Aderyn", 6))
 
     def gestion_deplacement_joueur(self):
-         if VAR.joueur_en_cours.seDeplace == True: 
-             VAR.joueur_en_cours.gestion_deplacement()
+        if VAR.joueur_en_cours.seDeplace == True: 
+            VAR.joueur_en_cours.gestion_deplacement()
+        
+        elif VAR.joueur_en_cours.mouvement == 0: 
+            self.joueur_suivant()
+            
 
     def afficher_sur_zone(self, x, y): 
         for hero in self.liste:
