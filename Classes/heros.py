@@ -6,32 +6,45 @@ from Classes.hero import *
 import variables as VAR
 import fonctions as FCT
 
+import csv
 
 class Cheros():
     def __init__(self, moteur):
         print("    + Initialisation module << Heros >>")
         
         self.liste = []
+        self.liste_heros = {}
         self.joueur_liste_position = 0
         self.moteur = moteur
         
         self.cpt_cycle = 0
         self.cpt = 0
-
+        
     def charger(self):
-        self.liste.append( Chero("Argentus", 1))
-        self.liste.append( Chero("Horan", 2))    
-        self.liste.append( Chero("Lord Xanros", 3))
-        #self.liste.append( Chero("Taia", 4))
-        #self.liste.append( Chero("Victorius", 5))
-        #self.liste.append( Chero("Aderyn", 6))
+        print("\n    + Chargement du fichier de heros : infos.csv")
+        
+        with open('images\\heros\\infos.csv') as fichier_csv:
+            reader = csv.reader(fichier_csv, delimiter=';')
+            for ligne in reader:
+                if len(ligne) == 4:                                                     # --- il faut que la ligne comporte chaque colonne importante
+                    numero, nom, capacite1, capacite2 = ligne
+                    if numero.__contains__("#") == False:                             # --- evite les lignes commentées
+                        self.liste_heros[numero.strip()] = Chero(self.moteur, numero.strip(), nom.strip())
+                        print ("        + Heros << " + nom + " >> ajouté.")
+        
+
+        self.liste.append(self.liste_heros["00"])
+        self.liste.append(self.liste_heros["01"])
+        self.liste.append(self.liste_heros["02"])
+        
 
     def gestion_deplacement_joueur(self):
-        if VAR.joueur_en_cours.seDeplace == True: 
-            VAR.joueur_en_cours.gestion_deplacement()
-        
-        elif VAR.joueur_en_cours.mouvement == 0: 
-            self.joueur_suivant()
+        if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:
+            if VAR.joueur_en_cours.seDeplace == True: 
+                VAR.joueur_en_cours.gestion_deplacement()
+            
+            elif VAR.joueur_en_cours.mouvement == 0: 
+                self.joueur_suivant()
             
 
     def afficher_sur_zone(self, x, y): 

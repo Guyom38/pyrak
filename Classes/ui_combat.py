@@ -25,8 +25,9 @@ class CCombat():
         
         self.lance_de_des = False
         self.de1, self.de2 = -1, -1
+        
         self.combat_termine = False
-
+      
         self.de_cycle = 0
         self.resultat_cycle = 0
       
@@ -43,6 +44,7 @@ class CCombat():
         
     def afficher(self):
         x, y, w, h = 128, 128, VAR.EcranX - 254, VAR.EcranY - 256
+        img_clignotte = (VAR.combat.combat_termine == False or (self.cpt % 2 == 1))
         
         # --- Rythme animation
         if pygame.time.get_ticks() - self.cpt_cycle > 150:
@@ -66,12 +68,13 @@ class CCombat():
         # ---------------------------------------------------------------------
         # --- dessin de joueur en cours
         t = int(3 * math.cos (self.cpt+3))
-        tmp = pygame.transform.scale(VAR.img1, (VAR.img1.get_width(), VAR.img1.get_height() + t))
+        img_hero = FCT.iif(img_clignotte == True and self.calcul_qui_gagne() == -1, VAR.joueur_en_cours.masque, VAR.joueur_en_cours.image)
+        tmp = pygame.transform.scale(img_hero, (img_hero.get_width(), img_hero.get_height() + t))
         xP1, yP1 = x+32, y+h-tmp.get_height()-32
         
         if self.de1 != -1 and self.de2 != -1:
             points_attaques = self.calcul_attaque()
-            FCT.texte(VAR.fenetre, str(points_attaques), xP1+VAR.img1.get_width()-30, yP1 - 70, 120)
+            FCT.texte(VAR.fenetre, str(points_attaques), xP1+img_hero.get_width()-30, yP1 - 70, 120)
             
             
         VAR.fenetre.blit(tmp, (xP1, yP1))
@@ -79,12 +82,8 @@ class CCombat():
         # ---------------------------------------------------------------------
         # --- dessin du mechant
         t = int(5 * math.cos (self.cpt))
-        
-        if VAR.combat.combat_termine == False or (self.cpt % 2 == 1):
-            img2 = VAR.mechants.liste[self.jeton.id].image
-        else:
-            img2 = VAR.mechants.liste[self.jeton.id].masque
-        
+        img2 = FCT.iif(img_clignotte == True and self.calcul_qui_gagne() == 1, VAR.mechants.liste[self.jeton.id].masque, VAR.mechants.liste[self.jeton.id].image)
+ 
         tmp = pygame.transform.flip(pygame.transform.scale(img2, (img2.get_width(), img2.get_height() + t)), True, False) 
         xP2, yP2 = x+w-tmp.get_width()-32, y+h-tmp.get_height()-32
         
@@ -95,7 +94,7 @@ class CCombat():
         # --- dessin des dés
         self.animation_des_des()
         
-        x = x+VAR.img1.get_width()
+        x = x+img_hero.get_width()
         if self.de1 != -1 and self.de2 != -1:
             for des, id, xD, yD in ((self.de1, 1, 12, 286), (self.de2, 2, 52, 256)):
                 dd = FCT.image_decoupe(VAR.des, des, id, 85, 85)
@@ -119,23 +118,35 @@ class CCombat():
             if VAR.joueur_en_cours.armes[i] != None:
                 bonus = bonus + int(VAR.joueur_en_cours.armes[i].split("+")[1])
         return (self.de1+self.de2+2) +bonus  
+    
+    def calcul_qui_gagne(self):
+        if VAR.combat.combat_termine == False: return -2
         
+        if self.calcul_attaque() > self.jeton.force:
+            return 1
+        elif self.calcul_attaque() == self.jeton.force:
+            return 0
+        elif self.calcul_attaque() < self.jeton.force:
+            return -1
+            
 
     def gestion_combat(self):
         if VAR.combat.combat_termine == True:
             
             if self.resultat_cycle == 0:                      # --- Applique une seule fois le resultat du combat
-                if self.calcul_attaque() > self.jeton.force:
+                resultat = self.calcul_qui_gagne()
+                if resultat == 1:
                     x, y = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
                     VAR.terrain[x][y].recompense = VAR.terrain[x][y].jeton.recompense
                     VAR.terrain[x][y].jeton = None
                     print ("Gagné : " + str(VAR.terrain[x][y].recompense))
-                
-                elif self.calcul_attaque() == self.jeton.force:
+                    VAR.joueur_en_cours.gestion_reaction_sur_place()
+                    
+                elif resultat == 0:
                     print ("Exequo")
                     VAR.joueur_en_cours.demi_tour()
 
-                elif self.calcul_attaque() < self.jeton.force:
+                elif resultat == -1:
                     print ("Perdu")
                     VAR.joueur_en_cours.se_prend_un_coup()
                     VAR.joueur_en_cours.demi_tour()

@@ -48,8 +48,6 @@ class CPlateau():
         self.afficher_curseur()
         VAR.heros.afficher()
         
-        #if pygame.time.get_ticks() - self.animation_cycle > self.animation_delais:
-        #    self.animation_cycle = pygame.time.get_ticks()
         self.animation_cpt +=1
 
         
@@ -122,7 +120,7 @@ class CPlateau():
                                 VAR.plateau.Animation_Zone(xP, yP, 0)
                                 VAR.fenetre.blit(FCT.icone(0), (xP, yP, 63, 66))
                             
-                    else:                               # --- Se déplacer 
+                    elif VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:                               # --- Se déplacer 
                         if VAR.tuiles.verification_placement(VAR.terrain[x][y], x, y, VAR.terrain[x-xD][y-yD]) and VAR.Zoom > 15 and VAR.tuiles.tuileSelect == None:
                             self.Animation_Fleches(xP, yP, xD, yD)
                             #VAR.plateau.Animation_Curseur((xP, yP))      

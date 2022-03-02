@@ -45,7 +45,7 @@ class CInterfaces():
         x, taille_ico1, taille_ico2 = 20, 50, 64
         
         if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:
-            img = pygame.image.load(VAR.joueur_en_cours.avatar).convert_alpha()
+            img = VAR.joueur_en_cours.image
             x, taille_ico1, taille_ico2 = img.get_width(), 50, 50
             largeur_cadre = 500
             
@@ -75,6 +75,7 @@ class CInterfaces():
         else:
             pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico1, taille_ico1), 0)
         pygame.draw.rect(VAR.fenetre, pygame.Color(76,54,44,255), (xP, yP, taille_ico1, taille_ico1), 4)    
+        self.chemin(xP, yP, taille_ico1, taille_ico1)
         
         # --- 3 Items de magie FORCE ET VIE
         for i in range(3):
@@ -112,7 +113,14 @@ class CInterfaces():
         for i in range(VAR.joueur_en_cours.mouvement):
             VAR.fenetre.blit(VAR.IMG["energie"],(x + ((5+i) * 24) + 30, VAR.EcranY -60))   
     
-  
+    def chemin(self, xP, yP, dimX, dimY):
+        xT, yT = VAR.OffsetX + ((VAR.joueur_en_cours.x * 9)  * VAR.Zoom) + VAR.v2, VAR.OffsetY + ((VAR.joueur_en_cours.y * 9) * VAR.Zoom) + VAR.v2
+        
+        
+        pygame.draw.rect(VAR.fenetre, (255,0,0,255), (xP, yP, dimX, dimY), 4)
+        pygame.draw.rect(VAR.fenetre, (255,0,0,255), (xT, yT, 50, 50), 4)
+        pygame.draw.line(VAR.fenetre, (255,255,255,255), (xT+25, yT+50), (xP+25, yP), 6)
+        
             
             
 

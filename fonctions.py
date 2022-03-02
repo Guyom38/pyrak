@@ -78,6 +78,8 @@ def GenereMat2D(xDim, yDim, valeurDefaut):
 
 def Generer_Mask_Image(img):
     pixel_array = pygame.PixelArray(img.copy())
+    VAR.TRANSPARENCE = pixel_array[0][0]
+    print(VAR.TRANSPARENCE)
     for y in range(img.get_height()):
         for x in range(img.get_width()):
             if pixel_array[x][y] != VAR.TRANSPARENCE:

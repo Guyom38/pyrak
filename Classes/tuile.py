@@ -25,23 +25,24 @@ class CTuile(object):
         self.recompense = None
 
         self.depart = False
-
-    # -1 : Rien ne se passe
+        
+    # -2 : Rien ne se passe
+    # -1 : Objet a prendre
     #  0 : Reprise du combat
     #  1 : Tirage avant combat
-    def faut_il_tirer_un_jeton(self):
-        lance_combat = -1
 
-        if self.piece == True and self.depart == False:
-            lance_combat = 1
+    def faut_il_tirer_un_jeton(self):
+        lance_combat = ENUM_Piece.RIEN_FAIRE
+
+        if self.piece == True and self.depart == False:             # --- Est-ce une piece qui n'est pas la piece centrale ?
+            lance_combat = ENUM_Piece.TIRAGE_AU_SORT                                           # --- Va y avoir un tirage !
             
-            if self.jeton != None:
-                if self.jeton.nom == VAR.COFFRE: 
-                    lance_combat = -1
-                else:
-                    lance_combat = 0
-            if self.recompense != None: lance_combat = -1
-            
+            if self.jeton != None:                                      # --- Tirage déjà fait, pièce déjà découverte !
+                if self.jeton.nom != VAR.COFFRE:                            # --- Si c'est pas un coffre !
+                    lance_combat = ENUM_Piece.COMBATTRE                                            # --- On combat !
+                    
+            if self.recompense != None:                                     # --- Il y a t-il une recompense a prendre ?
+                lance_combat = ENUM_Piece.OBJET_A_RECUPERER                                                # --- Indique qu'il y a un objet donc pas de combat !
         return lance_combat
                     
 

@@ -8,6 +8,10 @@ class CPhase:
         self.moteur = moteur
     
     def gestion_des_phases_de_jeu(self):
+        self.gestion_de_la_phase_combat()
+    
+        
+    def gestion_de_la_phase_combat(self):
         if VAR.phase_du_jeu == ENUM_Phase.TRANSITION: 
             TRANSITION.transition_glisser(False)
                 

@@ -7,19 +7,20 @@ from variables import *
 import fonctions as FCT
 
 class Chero(object):
-    def __init__(self, nom, id):
+    def __init__(self, moteur, id, nom):
+        self.moteur = moteur
         
         self.animationCycle = 0
         self.animationCpt = 0
         
         self.nom = nom
-        self.id = id
+        self.id = int(id)
         self.vie = 5
         self.mouvement = 4
         self.pouvoirs = [None, None]
         
-        self.armes = ["ARME+1", None]
-        self.magies = ["MAGIE_VIE", None, None]
+        self.armes = [None, None]
+        self.magies = [None, None, None]
         self.cle = True
         self.maudit = False
 
@@ -33,19 +34,11 @@ class Chero(object):
         self.deplaceVitesse = 8
         self.seDeplace = False
         self.direction = VAR.BAS
-
-        if id == 1: self.avatar = "Images\\persos\\perso_argentus.png"
-        elif id == 2: self.avatar = "Images\\persos\\perso_horan.png"
-        elif id == 3: self.avatar = "Images\\persos\\perso_lord.png"
-        elif id == 4: self.avatar = "Images\\persos\\perso_taia.png"
-        elif id == 5: self.avatar = "Images\\persos\\perso_victorius.png"
-        elif id == 6: self.avatar = "Images\\persos\\perso_voleuse.png"
-        elif id == 7: self.avatar = "Images\\persos\\perso_chevaliere.png"
-        elif id == 8: self.avatar = "Images\\persos\\perso1.png"
-        elif id == 9: self.avatar = "Images\\persos\\perso5.png"
         
+        self.image = pygame.image.load("Images\\heros\\" + id + ".png").convert_alpha()
+        self.masque = FCT.Generer_Mask_Image(self.image)
         self.ordre_images = (1,3,2,0)
-        #self.masque = FCT.Generer_Mask_Image(image)
+        self.image_offsetx, self.image_offsety = 8, 20
         
     def se_prend_un_coup(self):
         print( self.nom + " perd une vie !")
@@ -96,25 +89,36 @@ class Chero(object):
             self.deplaceX, self.deplaceY = 0, 0
             self.mouvement -= 1
             self.recentrer_camera()    
-            
-            # --- Si c'est une piece et pas la piece de depart, en avant pour un combat.
-            que_fait_on = VAR.terrain[self.x][self.y].faut_il_tirer_un_jeton()
-            if que_fait_on != -1:
-                VAR.phase_du_jeu = ENUM_Phase.TRANSITION
-                if que_fait_on == 1: 
-                    VAR.phase_du_jeu_suivant = ENUM_Phase.TIRAGE   
-                elif que_fait_on == 0:
-                    VAR.phase_du_jeu_suivant = ENUM_Phase.COMBAT   
+            self.gestion_reaction_sur_place()
             
             
+    def gestion_reaction_sur_place(self):
+        # --- Si c'est une piece et pas la piece de depart, en avant pour un combat.
+        que_fait_on = VAR.terrain[self.x][self.y].faut_il_tirer_un_jeton()
+        if que_fait_on == ENUM_Piece.TIRAGE_AU_SORT or que_fait_on == ENUM_Piece.COMBATTRE:
+            VAR.phase_du_jeu = ENUM_Phase.TRANSITION
+                
+            if que_fait_on == ENUM_Piece.TIRAGE_AU_SORT: 
+                VAR.phase_du_jeu_suivant = ENUM_Phase.TIRAGE   
+            elif que_fait_on == ENUM_Piece.COMBATTRE:
+                VAR.phase_du_jeu_suivant = ENUM_Phase.COMBAT   
+            
+        elif que_fait_on == ENUM_Piece.OBJET_A_RECUPERER :                                        # --- Objet a prendre ?
+            print("On se gave")
+                
     def recentrer_camera(self):
         VAR.OffsetX = -(((self.x) * 9) * VAR.Zoom) + int((VAR.EcranX - VAR.v9) / 2)
         VAR.OffsetY = -(((self.y) * 9) * VAR.Zoom) + int((VAR.EcranY - VAR.v9) / 2)
-        
+    
+    def position_sur_ecran(self):
+        decalage_milieu = 4
+        x = VAR.OffsetX + (((self.x * 9)+decalage_milieu) * VAR.Zoom) + self.deplaceX - self.image_offsetx
+        y = VAR.OffsetY + (((self.y * 9)+decalage_milieu) * VAR.Zoom) + self.deplaceY - self.image_offsety
+        return (x, y)
+    
     def afficher(self):
         t = VAR.heros.cpt % 3
-        x = VAR.OffsetX + (((self.x * 9)+4) * VAR.Zoom) + self.deplaceX - 8
-        y = VAR.OffsetY + (((self.y * 9)+4) * VAR.Zoom) + self.deplaceY - 20
+        x, y = self.position_sur_ecran()
         
         if self == VAR.joueur_en_cours:
             pygame.draw.circle(VAR.fenetre, pygame.Color(255,0,0,255), (x+16, y+24), 16+t, 3)

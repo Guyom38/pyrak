@@ -33,7 +33,7 @@ class CRessources:
             VAR.IMG[id] = FCT.image_decoupe(pygame.image.load("Images\\icones.png").convert_alpha(), id, 0, 63, 66 )
         
         VAR.img0 = pygame.image.load("Images\\1674_1057998444.png").convert_alpha()  
-        VAR.img1 = pygame.image.load("Images\\persos\\perso1.png").convert_alpha()    
+  
         VAR.img2 = pygame.transform.flip(pygame.image.load("Images\\mechants\\00.png").convert_alpha(), True, False) 
         VAR.des = pygame.image.load("Images\\des.png").convert_alpha()
         
