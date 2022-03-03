@@ -66,8 +66,8 @@ class CBarre_Laterale():
                 
                 elif action == ENUM_Actions.PRENDRE and VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense != None:                                                                                  # --- PRENDRE objet par terre
                     if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic:
+                        print(VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense)
                         VAR.phase_du_jeu = ENUM_Phase.INVENTAIRE
-                        
                     yP = (yP +(hIco + 8))
                     
         elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:

@@ -106,6 +106,7 @@ objets = None
 jetons = None
 phase = None
 ressources = None
+camera = None
 
 interfaces = None
 objets_interface = None

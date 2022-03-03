@@ -12,6 +12,7 @@ from Classes.ui_combat import *
 from Classes.jetons import *
 from phase import *
 from Classes.objets import *
+from Classes.camera import *
 
 from ressources import *
 
@@ -28,6 +29,7 @@ class CMoteur:
     def __init__(self):
         print("+ Initialisation module << Moteur >>")
 
+        VAR.camera = CCamera(self)
         VAR.ressources = CRessources(self)    
         VAR.heros = Cheros(self)
         VAR.tuiles = CTuiles(self)
@@ -42,12 +44,13 @@ class CMoteur:
 
         VAR.boucle_principale = True
 
+
     def demarre(self):
         pygame.init()
         pygame.mixer.init()
 
         VAR.fenetre = pygame.display.set_mode((VAR.EcranX, VAR.EcranY), pygame.DOUBLEBUF, 32)
-        pygame.display.set_caption("PyRAK v0.01")
+        pygame.display.set_caption("PyRAK v0.02")
         
         VAR.ressources.chargement()
         self.boucle()
@@ -91,23 +94,22 @@ class CMoteur:
 
         self.gestion_rythme(0)
         self.charger_musique("JEU1")
-        
+        VAR.camera.centrer_sur_joueur()
         
         while VAR.boucle_principale:
                  
             self.gestion_clavier_souris()
             #VAR.plateau.gestion_deplacement_plateau()
             VAR.heros.gestion_deplacement_joueur()
-            
+            VAR.camera.gestion()
+
             VAR.plateau.fond()
             VAR.plateau.afficher()
             VAR.interfaces.afficher()
 
             VAR.phase.gestion_des_phases_de_jeu()
-           
-                    
-            
-            
+
+
             # ---------------------------------
 
             # ---------------------------------  

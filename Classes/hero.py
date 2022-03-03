@@ -21,7 +21,8 @@ class Chero(object):
         
         self.armes = [None, None]
         self.magies = [None, None, None]
-        self.cle = True
+        self.cle = False
+        self.coffres = 0
         self.maudit = False
 
         self.x = VAR.posPieceCentrale[0]
@@ -44,11 +45,11 @@ class Chero(object):
         print( self.nom + " perd une vie !")
         self.vie = self.vie -1
 
-    def demi_tour(self):
-        self.deplacer(self.xOld, self.yOld)
+    def demi_tour(self, force = False):
+        self.deplacer(self.xOld, self.yOld, force)
 
-    def deplacer(self, x, y):
-        if self.mouvement < 1: return False
+    def deplacer(self, x, y, force = False):
+        if self.mouvement < 1 and force == False: return False
         self.xOld, self.yOld = self.x, self.y           # --- enregistre le chemin précédent
 
         self.seDeplace = True
@@ -104,11 +105,23 @@ class Chero(object):
                 VAR.phase_du_jeu_suivant = ENUM_Phase.COMBAT   
             
         elif que_fait_on == ENUM_Piece.OBJET_A_RECUPERER :                                        # --- Objet a prendre ?
-            print("On se gave")
+            if VAR.joueur_en_cours.cle == False:
+                if VAR.terrain[self.x][self.y].recompense == "CLE":
+                    VAR.joueur_en_cours.cle = True
+                    VAR.terrain[self.x][self.y].recompense = None
+                    print(VAR.joueur_en_cours.nom + " trouve une clé")
+            else:
+                if VAR.terrain[self.x][self.y].recompense == "COFFRE":
+                    VAR.joueur_en_cours.coffres += 1
+                    VAR.joueur_en_cours.cle = False
+                    VAR.terrain[self.x][self.y].recompense = None
+                    print(VAR.joueur_en_cours.nom + "utilise sa clé avec le coffre")
+            
                 
     def recentrer_camera(self):
-        VAR.OffsetX = -(((self.x) * 9) * VAR.Zoom) + int((VAR.EcranX - VAR.v9) / 2)
-        VAR.OffsetY = -(((self.y) * 9) * VAR.Zoom) + int((VAR.EcranY - VAR.v9) / 2)
+        VAR.camera.deplacer(self.x, self.y)
+        #VAR.OffsetX = -(((self.x) * 9) * VAR.Zoom) + int((VAR.EcranX - VAR.v9) / 2)
+        #VAR.OffsetY = -(((self.y) * 9) * VAR.Zoom) + int((VAR.EcranY - VAR.v9) / 2)
     
     def position_sur_ecran(self):
         decalage_milieu = 4

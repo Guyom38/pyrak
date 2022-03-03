@@ -83,7 +83,7 @@ class CMechants():
             pygame.draw.polygon(VAR.fenetre, c2, ((centreX-30, centreCadreY + 220 -mouvement), (centreX+30, centreCadreY + 220 -mouvement), (centreX, centreCadreY + 155 -mouvement))) #610,610,545
 
             if tirage == True:
-                if pygame.time.get_ticks() - animation_cycle > 150 :            # --- Tempo de l'animation
+                if pygame.time.get_ticks() - animation_cycle > 50 :            # --- Tempo de l'animation
                     j = j +1 
                     animation_cycle = pygame.time.get_ticks()
                 
