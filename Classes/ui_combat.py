@@ -154,7 +154,7 @@ class CCombat():
                 self.resultat_cycle = pygame.time.get_ticks()
             
             # --- Pause de 3s avant de revenir au jeu
-            if pygame.time.get_ticks() - self.resultat_cycle > 3000:      
+            if pygame.time.get_ticks() - self.resultat_cycle > 2000:      
                 VAR.phase_du_jeu = ENUM_Phase.TRANSITION
                 VAR.phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT
 

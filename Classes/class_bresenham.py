@@ -1,9 +1,10 @@
 class bresenham:
-	def __init__(self, start, end):
+	def __init__(self, start, end, pas):
 		self.start = list(start)
 		self.end = list(end)
 		self.path = []
-		
+		self.p = 0
+  
 		self.steep = abs(self.end[1]-self.start[1]) > abs(self.end[0]-self.start[0])
 		
 		if self.steep:
@@ -36,10 +37,13 @@ class bresenham:
 		
 		for x in range(int(self.start[0]),int(self.end[0])+1):
 			if self.steep:
-				self.path.append((y,x))
+				if self.p%pas == 0:
+					self.path.append((y,x))
+				self.p +=1
 			else:
-				self.path.append((x,y))
-			
+				if self.p%pas == 0:
+					self.path.append((x,y))
+				self.p +=1
 			error += derr
 			
 			if error >= 0.5:

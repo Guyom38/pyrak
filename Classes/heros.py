@@ -65,6 +65,7 @@ class Cheros():
 
 
     def joueur_suivant(self):
+        print("Joueur suivant")
         if self.joueur_liste_position < len(self.liste) -1:
             self.joueur_liste_position = self.joueur_liste_position +1
         else:

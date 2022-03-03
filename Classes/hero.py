@@ -40,13 +40,16 @@ class Chero(object):
         self.masque = FCT.Generer_Mask_Image(self.image)
         self.ordre_images = (1,3,2,0)
         self.image_offsetx, self.image_offsety = 8, 20
+
         
     def se_prend_un_coup(self):
         print( self.nom + " perd une vie !")
         self.vie = self.vie -1
 
+
     def demi_tour(self, force = False):
         self.deplacer(self.xOld, self.yOld, force)
+
 
     def deplacer(self, x, y, force = False):
         if self.mouvement < 1 and force == False: return False
@@ -57,6 +60,7 @@ class Chero(object):
         if self.x < x: self.direction = VAR.DROITE
         if self.y > y: self.direction = VAR.HAUT
         if self.y < y: self.direction = VAR.BAS
+    
         
     def gestion_deplacement(self):
         if self.direction == VAR.GAUCHE:
@@ -119,15 +123,18 @@ class Chero(object):
             
                 
     def recentrer_camera(self):
-        VAR.camera.deplacer(self.x, self.y)
-        #VAR.OffsetX = -(((self.x) * 9) * VAR.Zoom) + int((VAR.EcranX - VAR.v9) / 2)
-        #VAR.OffsetY = -(((self.y) * 9) * VAR.Zoom) + int((VAR.EcranY - VAR.v9) / 2)
+        print("Recentrer camera")
+        #VAR.camera.deplacer(self.x, self.y)
+        VAR.OffsetX = -(((self.x) * 9) * VAR.Zoom) + int((VAR.EcranX - VAR.v9) / 2)
+        VAR.OffsetY = -(((self.y) * 9) * VAR.Zoom) + int((VAR.EcranY - VAR.v9) / 2)
+    
     
     def position_sur_ecran(self):
         decalage_milieu = 4
         x = VAR.OffsetX + (((self.x * 9)+decalage_milieu) * VAR.Zoom) + self.deplaceX - self.image_offsetx
         y = VAR.OffsetY + (((self.y * 9)+decalage_milieu) * VAR.Zoom) + self.deplaceY - self.image_offsety
         return (x, y)
+    
     
     def afficher(self):
         t = VAR.heros.cpt % 3
