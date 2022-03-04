@@ -25,6 +25,7 @@ class CTuile(object):
         self.recompense = None
 
         self.depart = False
+        self.pillier = False
         
     # -2 : Rien ne se passe
     # -1 : Objet a prendre
@@ -34,7 +35,7 @@ class CTuile(object):
     def faut_il_tirer_un_jeton(self):
         lance_combat = ENUM_Piece.RIEN_FAIRE
 
-        if self.piece == True and self.depart == False:             # --- Est-ce une piece qui n'est pas la piece centrale ?
+        if self.piece == True and self.depart == False and self.pillier == False:             # --- Est-ce une piece qui n'est pas la piece centrale ?
             lance_combat = ENUM_Piece.TIRAGE_AU_SORT                                           # --- Va y avoir un tirage !
             
             if self.jeton != None:                                      # --- Tirage déjà fait, pièce déjà découverte !

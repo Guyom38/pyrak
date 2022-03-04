@@ -63,8 +63,8 @@ phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT
 
 animations = {}
 
-EcranX = 1024
-EcranY = 768
+EcranX = 1280
+EcranY = 800
 
 PlateauX, PlateauY = 20, 20
 
@@ -107,6 +107,7 @@ jetons = None
 phase = None
 ressources = None
 camera = None
+notifications = None
 
 interfaces = None
 objets_interface = None
@@ -128,7 +129,6 @@ image_zone = [], []
 terrain = None
 
 fonts = {}
-image_interface = None
 
 posPieceCentrale = (0,0)
 
@@ -146,3 +146,6 @@ des = None
 
 TRANSPARENCE = 16777215
 
+# Notifications
+notif_largeur, notif_hauteur = 350, 30
+notif_duree = 10000

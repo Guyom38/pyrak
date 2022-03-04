@@ -40,7 +40,7 @@ def image_tourbillon(posCentre, rotation, couleur, largeur, offset):
     centreX, centreY = posCentre
     
     if cercle == None:
-        cercle = outils.cercle_COS(centreX, centreY , 800)
+        cercle = outils.cercle_COS(centreX, centreY , VAR.EcranX)
         
     larg = int(360 / largeur)
     tmp_image = pygame.Surface((VAR.EcranX, VAR.EcranY), pygame.SRCALPHA)

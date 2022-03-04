@@ -33,7 +33,7 @@ class CCombat():
       
         self.nombre_lances = 0
         self.nombre_lances_max = 30
-        
+        self.message_fin_de_combat = ""
 
 
     def lancer_les_des(self):
@@ -95,10 +95,12 @@ class CCombat():
         self.animation_des_des()
         
         x = x+img_hero.get_width()
+       
         if self.de1 != -1 and self.de2 != -1:
-            for des, id, xD, yD in ((self.de1, 1, 12, 286), (self.de2, 2, 52, 256)):
+            for des, id, xD, yD in ((self.de1, 1, 12, 116), (self.de2, 2, 52, 86)):
                 dd = FCT.image_decoupe(VAR.des, des, id, 85, 85)
-                VAR.fenetre.blit(dd, (x+xD, w-yD))
+                VAR.fenetre.blit(dd, (x+xD, y+h+img_hero.get_height()-yD))
+              
 
 
     def animation_des_des(self):
@@ -139,15 +141,15 @@ class CCombat():
                     x, y = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
                     VAR.terrain[x][y].recompense = VAR.terrain[x][y].jeton.recompense
                     VAR.terrain[x][y].jeton = None
-                    print ("Gagné : " + str(VAR.terrain[x][y].recompense))
+                    self.message_fin_de_combat = "remporte << " + str(VAR.terrain[x][y].recompense) + ">>"
                     VAR.joueur_en_cours.gestion_reaction_sur_place()
                     
                 elif resultat == 0:
-                    print ("Exequo")
+                    self.message_fin_de_combat = "repart brodouille"
                     VAR.joueur_en_cours.demi_tour()
 
                 elif resultat == -1:
-                    print ("Perdu")
+                    self.message_fin_de_combat = "perd un point de vie"
                     VAR.joueur_en_cours.se_prend_un_coup()
                     VAR.joueur_en_cours.demi_tour()
                 
@@ -157,6 +159,7 @@ class CCombat():
             if pygame.time.get_ticks() - self.resultat_cycle > 2000:      
                 VAR.phase_du_jeu = ENUM_Phase.TRANSITION
                 VAR.phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT
+                VAR.notifications.ajouter(VAR.joueur_en_cours, "COMBAT", VAR.joueur_en_cours.nom + " " + self.message_fin_de_combat)
 
 
         

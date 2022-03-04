@@ -13,33 +13,51 @@ from Classes.ui_objets_interface import *
 from Classes.class_bresenham import *
 
 class CInterfaces():
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Interface >>")
+        self.menu = CBarre_Laterale()
         
-        self.moteur = moteur
-        self.menu = CBarre_Laterale(moteur)
+        # --- Dimensions
+        self.largeur_cadre_joueur = 330
+
+        # --- Couleurs
+        self.couleur1 = pygame.Color(33,105,33,255)
+        self.couleur2 = pygame.Color(105,74,64,255)
+        self.couleur3 = pygame.Color(76,54,44,255)
+        self.couleur4 = pygame.Color(64,64,64,32)
+        self.couleur5 = pygame.Color(117,94,74,255)
         
+        self.couleurTraces = pygame.Color(255,255,0,255)
+        self.couleurNom = pygame.Color(255,255,255,255)
+
+        self.imageCadreGlobal = None
+
+
 
     def afficher(self):
 
         self.afficher_cadre_joueur()
         hauteur = self.menu.afficher_liste_joueurs()
         self.menu.afficher_liste_actions_joueur(hauteur)
-        
-        if VAR.image_interface is None:
-            VAR.image_interface  = VAR.objets_interface.cadre(0,0, VAR.EcranX, VAR.EcranY)        
-        VAR.fenetre.blit(VAR.image_interface, (0, 0))
+        self.afficher_cadre_global()
 
+
+    def afficher_cadre_global(self):
+        if self.imageCadreGlobal is None:
+            self.imageCadreGlobal  = VAR.objets_interface.cadre(0,0, VAR.EcranX, VAR.EcranY)        
+        VAR.fenetre.blit(self.imageCadreGlobal, (0, 0))
 
     def afficher_cadre_heros(self):
         largInterf = 200
         scX, scY = pygame.display.get_surface().get_size()
         pX, pY = scX - largInterf, 0
 
-        pygame.Surface.fill(VAR.fenetre, pygame.Color(64,64,64,32), (pX, pY, largInterf, scY))
+        pygame.Surface.fill(VAR.fenetre, self.couleur4, (pX, pY, largInterf, scY))
 
-
+    
     def afficher_cadre_joueur(self):
+
+
         largeur_cadre = 330
         x, taille_ico1, taille_ico2 = 20, 50, 64
         xJ, yJ = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
@@ -51,11 +69,24 @@ class CInterfaces():
             
         
         # --- Barre decors
-        pygame.draw.rect(VAR.fenetre, pygame.Color(33,105,33,255), (0, VAR.EcranY - 106, (largeur_cadre-50), 6), 0)
-        pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (0, VAR.EcranY - 50, VAR.EcranX, 50), 0)
-        pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (0, VAR.EcranY - 60, VAR.EcranX, 5), 0)
+        pygame.draw.rect(VAR.fenetre, self.couleur1, (0, VAR.EcranY - 106, (largeur_cadre-50), 6), 0)         # Courbe1
+        pygame.draw.rect(VAR.fenetre, self.couleur2, (0, VAR.EcranY - 50, VAR.EcranX, 50), 0)                 # Courbe2
+        pygame.draw.rect(VAR.fenetre, self.couleur2, (0, VAR.EcranY - 60, VAR.EcranX, 5), 0)                  # Courbe3
 
         # --- Items
+        #xP, yP =  (largeur_cadre+30), VAR.EcranY - (taille_ico1+26)
+        #for emplacement in ("ARME", "ARME", "CLE", "MAGIE", "MAGIE", "MAGIE"):
+        #""    if emplacement == "ARME":
+        #        pass
+        #    elif emplacement == "CLE":
+        #        pass
+        #    elif emplacement == "MAGIE":
+        #        pass
+
+
+        #self.afficher_joueur_en_cours(x, largeur_cadre)
+        #return 0
+
         for i in range(2):
             xP, yP =  (largeur_cadre+30) + (i*(taille_ico1+8)), VAR.EcranY - (taille_ico1+26)
 
@@ -64,22 +95,21 @@ class CInterfaces():
                 if VAR.objets_interface.afficher_bouton_image(xP, yP, ico) == ENUM_Clic.Clic:
                     print("oo1") 
             else:
-                pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico1, taille_ico1), 0)
+                pygame.draw.rect(VAR.fenetre, self.couleur2, (xP, yP, taille_ico1, taille_ico1), 0)
             
             if VAR.phase_du_jeu == ENUM_Phase.INVENTAIRE and VAR.terrain[xJ][yJ].recompense != None:           # --- Chemin pointillé
-                
-                
                 if VAR.terrain[xJ][yJ].recompense.__contains__("ARME+") == True :
                     self.calculer_trajet_pointille(xP, yP, taille_ico1, taille_ico1)   
                     if VAR.objets_interface.zone_clickable(xP, yP, taille_ico1, taille_ico1, 0) == ENUM_Clic.Clic:
                         objet_du_joueur = VAR.joueur_en_cours.armes[i]
                         VAR.joueur_en_cours.armes[i] = VAR.terrain[xJ][yJ].recompense
                         VAR.terrain[xJ][yJ].recompense = objet_du_joueur
+                        VAR.terrain[self.x][self.y].pillier = (objet_du_joueur == None)                 # --- Si le joueur ne depose rien a la place, la piece est consideree pilliée
                         print(VAR.joueur_en_cours.nom + " a depose " + str(objet_du_joueur) + " et a pris " + str(VAR.terrain[xJ][yJ].recompense))
                         VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
 
             else:             
-                pygame.draw.rect(VAR.fenetre, pygame.Color(76,54,44,255), (xP, yP, taille_ico1, taille_ico1), 4)
+                pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico1, taille_ico1), 4)
         
         # --- 1 Item clé
         xP, yP =  (largeur_cadre+30) + (2*(taille_ico1+8)), VAR.EcranY - (taille_ico1+26)
@@ -87,8 +117,8 @@ class CInterfaces():
             ico = VAR.objets.liste["CLE"].icone
             VAR.fenetre.blit(ico, (xP, yP))
         else:
-            pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico1, taille_ico1), 0)
-        pygame.draw.rect(VAR.fenetre, pygame.Color(76,54,44,255), (xP, yP, taille_ico1, taille_ico1), 4)    
+            pygame.draw.rect(VAR.fenetre, self.couleur2 , (xP, yP, taille_ico1, taille_ico1), 0)
+        pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico1, taille_ico1), 4)    
         
         # --- 3 Items de magie FORCE ET VIE
         for i in range(3):
@@ -106,7 +136,7 @@ class CInterfaces():
                 else:
                     VAR.fenetre.blit(ico, (xP, yP))    
             else:
-                pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (xP, yP, taille_ico2, taille_ico2), 0)
+                pygame.draw.rect(VAR.fenetre, self.couleur2 , (xP, yP, taille_ico2, taille_ico2), 0)
             
             if VAR.phase_du_jeu == ENUM_Phase.INVENTAIRE and VAR.terrain[xJ][yJ].recompense != None:           # --- Chemin pointillé
 
@@ -116,15 +146,20 @@ class CInterfaces():
                         objet_du_joueur = VAR.joueur_en_cours.magies[i]
                         VAR.joueur_en_cours.magies[i] = VAR.terrain[xJ][yJ].recompense
                         VAR.terrain[xJ][yJ].recompense = objet_du_joueur
+                        VAR.terrain[self.x][self.y].pillier = (objet_du_joueur == None)                 # --- Si le joueur ne depose rien a la place, la piece est consideree pilliée
                         print(VAR.joueur_en_cours.nom + " a depose " + str(objet_du_joueur) + " et a pris " + str(VAR.terrain[xJ][yJ].recompense))  
                         VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
             else:             
-                pygame.draw.rect(VAR.fenetre, pygame.Color(76,54,44,255), (xP, yP, taille_ico2, taille_ico2), 4)
+                pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico2, taille_ico2), 4)
         
+        self.afficher_joueur_en_cours(x, largeur_cadre)
+    
+
+    def afficher_joueur_en_cours(self, x, largeur_cadre):
         # --- Cadre
         f = [(0, VAR.EcranY - 100), (0, VAR.EcranY), (largeur_cadre, VAR.EcranY), (largeur_cadre - 50, VAR.EcranY - 100)]
-        pygame.draw.polygon(VAR.fenetre, pygame.Color(117,94,74,255), f, 0)
-        pygame.draw.polygon(VAR.fenetre, pygame.Color(76 ,54,44,255), f, 4)
+        pygame.draw.polygon(VAR.fenetre, self.couleur5, f, 0)
+        pygame.draw.polygon(VAR.fenetre, self.couleur3, f, 4)
 
         if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:
             img = VAR.joueur_en_cours.image
@@ -132,14 +167,14 @@ class CInterfaces():
         
         # --- Pseudo
         FCT.texte(VAR.fenetre, VAR.joueur_en_cours.nom, x + 20, VAR.EcranY - 95, 30,  (0,0,0))
-        FCT.texte(VAR.fenetre, VAR.joueur_en_cours.nom, x + 22, VAR.EcranY - 93, 30,  (255,255,255))
+        FCT.texte(VAR.fenetre, VAR.joueur_en_cours.nom, x + 22, VAR.EcranY - 93, 30, self.couleurNom)
 
         # --- Vie et Energie
         for i in range(VAR.joueur_en_cours.vie):
             VAR.fenetre.blit(VAR.IMG["coeur"],(x + (i * 24) + 20, VAR.EcranY - 60))
         for i in range(VAR.joueur_en_cours.mouvement):
-            VAR.fenetre.blit(VAR.IMG["energie"],(x + ((5+i) * 24) + 30, VAR.EcranY -60))   
-    
+            VAR.fenetre.blit(VAR.IMG["energie"],(x + ((5+i) * 24) + 30, VAR.EcranY -60))  
+
 
 
     def calculer_trajet_pointille(self, xP, yP, dimX, dimY):
@@ -158,12 +193,12 @@ class CInterfaces():
             for pts in tr:
 
                 if p %8 == (VAR.cpt %8):  
-                    pygame.draw.rect(VAR.fenetre, (255,255,0,255), (pts[0]-2, pts[1]-2, 4, 4), 0)
+                    pygame.draw.rect(VAR.fenetre, self.couleurTraces, (pts[0]-2, pts[1]-2, 4, 4), 0)
 
                 p += 1
         
-        pygame.draw.rect(VAR.fenetre, (255,255,0,255), (xP, yP, dimX, dimY), 4)
-        pygame.draw.rect(VAR.fenetre, (255,255,0,255), (xT, yT, dimX, dimY), 4)
+        pygame.draw.rect(VAR.fenetre, self.couleurTraces, (xP, yP, dimX, dimY), 4)
+        pygame.draw.rect(VAR.fenetre, self.couleurTraces, (xT, yT, dimX, dimY), 4)
             
 
 

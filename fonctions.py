@@ -40,9 +40,9 @@ def zoom(grossir):
     
         
         
-def texte(fenetre, txt, x, y, taille, color = (255,255,255)):
+def texte(image, txt, x, y, taille, color = (255,255,255)):
     text =  VAR.fonts[taille].render(txt, True, color) 
-    VAR.fenetre.blit(text, (x, y))
+    image.blit(text, (x, y))
 
 def image(codeImg):
     tmp = pygame.Surface((VAR.Taille, VAR.Taille),pygame.SRCALPHA,32)

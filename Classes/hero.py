@@ -113,13 +113,18 @@ class Chero(object):
                 if VAR.terrain[self.x][self.y].recompense == "CLE":
                     VAR.joueur_en_cours.cle = True
                     VAR.terrain[self.x][self.y].recompense = None
-                    print(VAR.joueur_en_cours.nom + " trouve une clé")
+                    VAR.terrain[self.x][self.y].pillier = True
+                    VAR.notifications.ajouter(VAR.joueur_en_cours, "OBJET", "Ramasse la clé")
+
+                elif VAR.terrain[self.x][self.y].recompense == "COFFRE": 
+                    VAR.notifications.ajouter(VAR.joueur_en_cours, "OBJET", "N'a pas la clé !!")
             else:
                 if VAR.terrain[self.x][self.y].recompense == "COFFRE":
                     VAR.joueur_en_cours.coffres += 1
                     VAR.joueur_en_cours.cle = False
                     VAR.terrain[self.x][self.y].recompense = None
-                    print(VAR.joueur_en_cours.nom + "utilise sa clé avec le coffre")
+                    VAR.terrain[self.x][self.y].pillier = True
+                    VAR.notifications.ajouter(VAR.joueur_en_cours, "OBJET", "Ouvre le coffre")
             
                 
     def recentrer_camera(self):

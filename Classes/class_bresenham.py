@@ -1,5 +1,5 @@
 class bresenham:
-	def __init__(self, start, end, pas):
+	def __init__(self, start, end, pas=1):
 		self.start = list(start)
 		self.end = list(end)
 		self.path = []

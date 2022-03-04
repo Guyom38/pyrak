@@ -13,6 +13,7 @@ from Classes.jetons import *
 from phase import *
 from Classes.objets import *
 from Classes.camera import *
+from Classes.notifications import *
 
 from ressources import *
 
@@ -34,14 +35,14 @@ class CMoteur:
         VAR.heros = Cheros(self)
         VAR.tuiles = CTuiles(self)
         VAR.plateau = CPlateau(self)
-        VAR.interfaces = CInterfaces(self)
+        VAR.interfaces = CInterfaces()
         VAR.objets_interface = CObjets_Interface(self)
         VAR.combat = CCombat(self)
         VAR.jetons = CJetons(self)
         VAR.mechants = CMechants(self)
         VAR.phase = CPhase(self)
         VAR.objets = CObjets(self)
-
+        VAR.notifications = CNotifications()
         VAR.boucle_principale = True
 
 
@@ -106,6 +107,7 @@ class CMoteur:
             VAR.plateau.fond()
             VAR.plateau.afficher()
             VAR.interfaces.afficher()
+            VAR.notifications.afficher()
 
             VAR.phase.gestion_des_phases_de_jeu()
 

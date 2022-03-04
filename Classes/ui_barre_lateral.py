@@ -8,9 +8,9 @@ import fonctions as FCT
 
 
 class CBarre_Laterale():
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Barre laterale >>")
-        self.moteur = moteur
+        
         
     def afficher_liste_joueurs(self):
         hauteur, largeur = (len(VAR.heros.liste) * 50) + 50, 150
@@ -65,10 +65,15 @@ class CBarre_Laterale():
                     yP = (yP +(hIco + 8))
                 
                 elif action == ENUM_Actions.PRENDRE and VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense != None:                                                                                  # --- PRENDRE objet par terre
-                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic:
-                        print(VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense)
-                        VAR.phase_du_jeu = ENUM_Phase.INVENTAIRE
-                    yP = (yP +(hIco + 8))
+                    
+                    coffre = (VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense == "COFFRE")
+                    joueur_a_une_cle = VAR.joueur_en_cours.cle
+
+                    if coffre == False or joueur_a_une_cle == True:
+                        if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic:
+                            print(VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense)
+                            VAR.phase_du_jeu = ENUM_Phase.INVENTAIRE
+                        yP = (yP +(hIco + 8))
                     
         elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:
             if VAR.combat.lance_de_des == False and VAR.combat.combat_termine == False:
