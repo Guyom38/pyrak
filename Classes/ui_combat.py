@@ -95,11 +95,10 @@ class CCombat():
         self.animation_des_des()
         
         x = x+img_hero.get_width()
-       
         if self.de1 != -1 and self.de2 != -1:
-            for des, id, xD, yD in ((self.de1, 1, 12, 116), (self.de2, 2, 52, 86)):
+            for des, id, xD, yD in ((self.de1, 1, 12, 216), (self.de2, 2, 52, 186)):
                 dd = FCT.image_decoupe(VAR.des, des, id, 85, 85)
-                VAR.fenetre.blit(dd, (x+xD, y+h+img_hero.get_height()-yD))
+                VAR.fenetre.blit(dd, (x+xD, y+h-yD))
               
 
 
@@ -120,6 +119,7 @@ class CCombat():
             if VAR.joueur_en_cours.armes[i] != None:
                 bonus = bonus + int(VAR.joueur_en_cours.armes[i].split("+")[1])
         return (self.de1+self.de2+2) +bonus  
+    
     
     def calcul_qui_gagne(self):
         if VAR.combat.combat_termine == False: return -2

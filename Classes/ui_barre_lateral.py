@@ -66,10 +66,11 @@ class CBarre_Laterale():
                 
                 elif action == ENUM_Actions.PRENDRE and VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense != None:                                                                                  # --- PRENDRE objet par terre
                     
+                    cle = (VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense == "CLE")
                     coffre = (VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense == "COFFRE")
                     joueur_a_une_cle = VAR.joueur_en_cours.cle
 
-                    if coffre == False or joueur_a_une_cle == True:
+                    if (coffre == False or joueur_a_une_cle == True) and cle == False:
                         if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic:
                             print(VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense)
                             VAR.phase_du_jeu = ENUM_Phase.INVENTAIRE

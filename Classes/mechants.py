@@ -83,12 +83,12 @@ class CMechants():
             pygame.draw.polygon(VAR.fenetre, c2, ((centreX-30, centreCadreY + 220 -mouvement), (centreX+30, centreCadreY + 220 -mouvement), (centreX, centreCadreY + 155 -mouvement))) #610,610,545
 
             if tirage == True:
-                if pygame.time.get_ticks() - animation_cycle > 50 :            # --- Tempo de l'animation
+                if pygame.time.get_ticks() - animation_cycle > 100 :            # --- Tempo de l'animation
                     j = j +1 
                     animation_cycle = pygame.time.get_ticks()
                 
                 if pygame.time.get_ticks() - arret_tirage_cycle > tirage_delais:            # --- Arret de la roulette sur le monstre selectionné
-                    resultat = (((int(nbImages/2)+j-1) % (self.nb_mechants())) == choix)       # --- 6 = position de l'image selectionnée
+                    resultat = (((int(nbImages/2)+j-2) % (self.nb_mechants())) == choix)       # --- 6 = position de l'image selectionnée
                     if resultat == True:
                         tirage, arret_tirage_cycle = False, pygame.time.get_ticks() 
             

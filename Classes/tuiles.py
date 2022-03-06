@@ -22,7 +22,7 @@ class CTuiles():
     def charger(self):
         for i in range(20):  self.pioche.append( CTuile(self.moteur, [True, True, False, False], False, True, False))
         for i in range(30):  self.pioche.append( CTuile(self.moteur, [True, True, False, False], False, False, False))
-        for i in range(13): self.pioche.append( CTuile(self.moteur, [True, False, True, False], True, False, False))
+        for i in range(130): self.pioche.append( CTuile(self.moteur, [True, False, True, False], True, False, False))
         for i in range(13): self.pioche.append( CTuile(self.moteur, [True, True, False, False], True, False, False))
         for i in range(14): self.pioche.append( CTuile(self.moteur, [True, True, True, True], True, False, False))
         for i in range(10):  self.pioche.append( CTuile(self.moteur, [True, True, True, False], False, False, False))

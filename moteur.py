@@ -26,6 +26,7 @@ from variables import *
 import fonctions as FCT
 import Classes.ui_transitions
 
+
 class CMoteur:
     def __init__(self):
         print("+ Initialisation module << Moteur >>")
@@ -48,10 +49,15 @@ class CMoteur:
 
     def demarre(self):
         pygame.init()
+        
+       
         pygame.mixer.init()
 
         VAR.fenetre = pygame.display.set_mode((VAR.EcranX, VAR.EcranY), pygame.DOUBLEBUF, 32)
         pygame.display.set_caption("PyRAK v0.02")
+        
+
+     
         
         VAR.ressources.chargement()
         self.boucle()
