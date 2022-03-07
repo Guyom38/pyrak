@@ -6,17 +6,16 @@ from Classes.mechants import *
 from Classes.mechant import *
 
 class CJetons():
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Jetons >>")
         
-        self.moteur = moteur
         self.pioche = [] 
         self.jetonSelect = None
          
     def charger(self):
         for i, monstre in VAR.mechants.liste.items():
             for j in range(0, monstre.quantite):
-                self.pioche.append( CJeton(self.moteur, i, monstre) )
+                self.pioche.append( CJeton( i, monstre) )
  
         random.shuffle(self.pioche)
 

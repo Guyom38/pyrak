@@ -7,8 +7,7 @@ import outils
 
 
 class CJeton(object):
-    def __init__(self, moteur, id, monstre):
-        self.moteur = moteur
+    def __init__(self, id, monstre):
         
         self.id = id
         self.x, self.y = 0, 0

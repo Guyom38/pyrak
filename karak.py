@@ -1,8 +1,6 @@
 from test import *
 from moteur import *
 
-import json
-import urllib
 
 print("\n\n")
 print("------------------------------------------------------\n")

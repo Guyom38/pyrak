@@ -8,14 +8,13 @@ from Classes.class_bresenham import *
 
 
 class CObjets_Interface():
-    def __init__(self, moteur):
-        self.moteur = moteur
+    def __init__(self):
         
         self.couleurTraces = pygame.Color(255,255,0,255)
     
     def zone_clickable(self, xP, yP, dimX, dimY, bouton):
         clic = VAR.ENUM_Clic.Rien
-        if self.moteur.mX >= xP and self.moteur.mX <= xP + dimX and self.moteur.mY >= yP and self.moteur.mY <= yP + dimY:
+        if VAR.mX >= xP and VAR.mX <= xP + dimX and VAR.mY >= yP and VAR.mY <= yP + dimY:
             clic = VAR.ENUM_Clic.Survol
             if FCT.clic(bouton, 300) == True:
                 clic = VAR.ENUM_Clic.Clic

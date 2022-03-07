@@ -8,10 +8,9 @@ import variables as VAR
 
 
 class CTuiles():
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Tuiles >>")
 
-        self.moteur = moteur
         self.pioche = []
         
         self.charger()
@@ -20,16 +19,16 @@ class CTuiles():
 # //
 # // ---   
     def charger(self):
-        for i in range(20):  self.pioche.append( CTuile(self.moteur, [True, True, False, False], False, True, False))
-        for i in range(30):  self.pioche.append( CTuile(self.moteur, [True, True, False, False], False, False, False))
-        for i in range(130): self.pioche.append( CTuile(self.moteur, [True, False, True, False], True, False, False))
-        for i in range(13): self.pioche.append( CTuile(self.moteur, [True, True, False, False], True, False, False))
-        for i in range(14): self.pioche.append( CTuile(self.moteur, [True, True, True, True], True, False, False))
-        for i in range(10):  self.pioche.append( CTuile(self.moteur, [True, True, True, False], False, False, False))
-        for i in range(13): self.pioche.append( CTuile(self.moteur, [True, True, True, False], True, False, False))
-        for i in range(14):  self.pioche.append( CTuile(self.moteur, [True, True, True, True], False, False, False))
-        for i in range(20):  self.pioche.append( CTuile(self.moteur, [True, False, True, False], False, False, True))
-        for i in range(20):  self.pioche.append( CTuile(self.moteur, [True, False, True, False], False, False, False))
+        for i in range(20):  self.pioche.append( CTuile( [True, True, False, False], False, True, False))
+        for i in range(30):  self.pioche.append( CTuile( [True, True, False, False], False, False, False))
+        for i in range(130): self.pioche.append( CTuile( [True, False, True, False], True, False, False))
+        for i in range(13): self.pioche.append( CTuile( [True, True, False, False], True, False, False))
+        for i in range(14): self.pioche.append( CTuile( [True, True, True, True], True, False, False))
+        for i in range(10):  self.pioche.append( CTuile( [True, True, True, False], False, False, False))
+        for i in range(13): self.pioche.append( CTuile( [True, True, True, False], True, False, False))
+        for i in range(14):  self.pioche.append( CTuile( [True, True, True, True], False, False, False))
+        for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, True))
+        for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, False))
 
         random.shuffle(self.pioche)
 
@@ -110,7 +109,7 @@ class CTuiles():
 # // ---
     def placer_piece_centrale(self):
         VAR.posPieceCentrale = int(VAR.PlateauX/2), int(VAR.PlateauY/2)
-        piece_centrale = CTuile(self.moteur, [True, True, True, True], True, True, False)
+        piece_centrale = CTuile( [True, True, True, True], True, True, False)
         
         self.placer(VAR.posPieceCentrale[0], VAR.posPieceCentrale[1], piece_centrale, None, True)
 

@@ -10,10 +10,9 @@ import random
 import math
 
 class CCombat():
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Combats >>")
         
-        self.moteur = moteur
         self.jeton = None
         self.preparer_combat()
 
@@ -141,7 +140,7 @@ class CCombat():
                     x, y = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
                     VAR.terrain[x][y].recompense = VAR.terrain[x][y].jeton.recompense
                     VAR.terrain[x][y].jeton = None
-                    self.message_fin_de_combat = "remporte << " + str(VAR.terrain[x][y].recompense) + ">>"
+                    self.message_fin_de_combat = "remporte le combat"
                     VAR.joueur_en_cours.gestion_reaction_sur_place()
                     
                 elif resultat == 0:

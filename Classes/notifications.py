@@ -26,14 +26,23 @@ class CNotifications():
         self.animation_bandeau_y = VAR.EcranY - 100
         self.animation_bandeau_x = 0
         self.animation_etape = CNotifications.NON_INITIALISE
-        self.animation_delais_pause = 1500
+        self.animation_delais_pause = 1000
 
         self.couleur1 = pygame.Color(33,105,33,255)
         self.couleur2 = pygame.Color(105,74,64,255)
         self.couleur3 = pygame.Color(76,54,44,255)
         self.couleur4 = pygame.Color(64,64,64,32)
         self.couleur5 = pygame.Color(117,94,74,255)
-
+ 
+    def afficher(self):
+        self.afficher_liste_notifications()
+        if VAR.phase_du_jeu == ENUM_Phase.BANDEAU: self.afficher_bandeau()
+        
+# --------------------------------------------------------------------------------------------------------------------------
+#
+#       NOTIFICATIONS
+#
+# --------------------------------------------------------------------------------------------------------------------------
 
     def ajouter(self, joueur, icone, texte):
         self.liste.append ( CNotification(joueur, icone, texte) )
@@ -41,9 +50,8 @@ class CNotifications():
 
     def nb_notifications(self):
         return len(self.liste)
-
-
-    def afficher(self):
+       
+    def afficher_liste_notifications(self):
         x = VAR.EcranX - VAR.notif_largeur
         y = VAR.EcranY - ((VAR.notif_hauteur + 4) * 6) - 50
 
@@ -55,6 +63,12 @@ class CNotifications():
                 self.liste.remove(notification)
 
 
+
+# --------------------------------------------------------------------------------------------------------------------------
+#
+#       GROS BANDEAU
+#
+# --------------------------------------------------------------------------------------------------------------------------
     def afficher_bandeau(self, txt=""):
 
         # --- Initialise le bandeau de titre

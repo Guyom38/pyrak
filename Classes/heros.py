@@ -9,13 +9,12 @@ import fonctions as FCT
 import csv
 
 class Cheros():
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Heros >>")
         
         self.liste = []
         self.liste_heros = {}
         self.joueur_liste_position = 0
-        self.moteur = moteur
         
         self.cpt_cycle = 0
         self.cpt = 0
@@ -29,7 +28,7 @@ class Cheros():
                 if len(ligne) == 4:                                                     # --- il faut que la ligne comporte chaque colonne importante
                     numero, nom, capacite1, capacite2 = ligne
                     if numero.__contains__("#") == False:                             # --- evite les lignes commentées
-                        self.liste_heros[numero.strip()] = Chero(self.moteur, numero.strip(), nom.strip())
+                        self.liste_heros[numero.strip()] = Chero(numero.strip(), nom.strip())
                         print ("        + Heros << " + nom + " >> ajouté.")
         
 

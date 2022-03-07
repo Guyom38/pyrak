@@ -8,8 +8,8 @@ import fonctions as FCT
 
 
 class CTuile(object):
-    def __init__(self, moteur, acces, piece, fontaine, teleport, x = -1, y = -1):
-        self.moteur = moteur
+    def __init__(self, acces, piece, fontaine, teleport, x = -1, y = -1):
+
         
         self.acces = acces
         self.piece = piece

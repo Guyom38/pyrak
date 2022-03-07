@@ -9,10 +9,9 @@ import outils
 
 class CPlateau():
 
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Plateau >>")
         
-        self.moteur = moteur
         VAR.image_fond = None
         VAR.image_zone = [], []
 
@@ -34,10 +33,10 @@ class CPlateau():
 
     def gestion_deplacement_plateau(self):
         if pygame.mouse.get_focused() == True and VAR.phase_du_jeu == VAR.ENUM_Phase.DEPLACEMENT:
-            if self.moteur.mX < VAR.bord: VAR.OffsetX = VAR.OffsetX + VAR.Taille
-            if self.moteur.mX > VAR.EcranX - VAR.bord: VAR.OffsetX = VAR.OffsetX - VAR.Taille
-            if self.moteur.mY < VAR.bord: VAR.OffsetY = VAR.OffsetY + VAR.Taille
-            if self.moteur.mY > VAR.EcranY - VAR.bord: VAR.OffsetY = VAR.OffsetY - VAR.Taille
+            if VAR.mX < VAR.bord: VAR.OffsetX = VAR.OffsetX + VAR.Taille
+            if VAR.mX > VAR.EcranX - VAR.bord: VAR.OffsetX = VAR.OffsetX - VAR.Taille
+            if VAR.mY < VAR.bord: VAR.OffsetY = VAR.OffsetY + VAR.Taille
+            if VAR.mY > VAR.EcranY - VAR.bord: VAR.OffsetY = VAR.OffsetY - VAR.Taille
             
             if VAR.OffsetX > VAR.v9: VAR.OffsetX = VAR.v9
             if VAR.OffsetY > VAR.v9: VAR.OffsetY = VAR.v9
@@ -102,7 +101,7 @@ class CPlateau():
                 if enDehors == False:
                     if isinstance(VAR.terrain[x][y], CTuile) == False:
                         if VAR.tuiles.tuileSelect != None:
-                            if self.moteur.mX >= xP and self.moteur.mX <= xP + VAR.v9 and self.moteur.mY >= yP and self.moteur.mY <= yP + VAR.v9:
+                            if VAR.mX >= xP and VAR.mX <= xP + VAR.v9 and VAR.mY >= yP and VAR.mY <= yP + VAR.v9:
                                 VAR.tuiles.tuileSelect.generer()
                                 VAR.tuiles.tuileSelect.afficher(x, y)
                                 

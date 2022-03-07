@@ -57,12 +57,12 @@ class CInterfaces():
 
     
     def afficher_cadre_joueur(self):
-
+        phase_normale = ( VAR.phase_du_jeu in (ENUM_Phase.DEPLACEMENT, ENUM_Phase.INVENTAIRE, ENUM_Phase.BANDEAU) )
         xJ, yJ = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
         img = VAR.joueur_en_cours.image
         
-        x, taille_ico1, taille_ico2 = img.get_width(), 50, 50
-        largeur_cadre = 500
+        x, taille_ico1 = img.get_width(), 50
+        largeur_cadre = FCT.iif(phase_normale == True, 500, 300)
         
         # --- Barre decors
         pygame.draw.rect(VAR.fenetre, self.couleur1, (0, VAR.EcranY - 106, (largeur_cadre-50), 6), 0)         # Courbe1
@@ -124,7 +124,7 @@ class CInterfaces():
             pygame.draw.polygon(VAR.fenetre, self.couleur5, f, 0)
             pygame.draw.polygon(VAR.fenetre, self.couleur3, f, 4)
 
-            if VAR.phase_du_jeu in (ENUM_Phase.DEPLACEMENT, ENUM_Phase.INVENTAIRE, ENUM_Phase.BANDEAU):
+            if phase_normale == True:
                 img = VAR.joueur_en_cours.image
                 VAR.fenetre.blit(img, (0, VAR.EcranY - img.get_height() + 30))
             
@@ -134,9 +134,9 @@ class CInterfaces():
 
             # --- Vie et Energie
             for i in range(VAR.joueur_en_cours.vie):
-                VAR.fenetre.blit(VAR.IMG["coeur"],(x + (i * 24) + 20, VAR.EcranY - 60))
+                VAR.fenetre.blit(VAR.IMG["coeur"],(x + (i * 24) , VAR.EcranY - 60))
             for i in range(VAR.joueur_en_cours.mouvement):
-                VAR.fenetre.blit(VAR.IMG["energie"],(x + ((5+i) * 24) + 30, VAR.EcranY -60))  
+                VAR.fenetre.blit(VAR.IMG["energie"],(x + ((5+i) * 24) + 10, VAR.EcranY -60))  
 
 
 

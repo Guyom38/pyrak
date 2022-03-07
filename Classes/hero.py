@@ -7,8 +7,8 @@ from variables import *
 import fonctions as FCT
 
 class Chero(object):
-    def __init__(self, moteur, id, nom):
-        self.moteur = moteur
+    def __init__(self, id, nom):
+
         
         self.animationCycle = 0
         self.animationCpt = 0

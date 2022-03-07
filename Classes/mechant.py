@@ -1,7 +1,6 @@
 import fonctions as FCT
 class CMechant():
-    def __init__(self, moteur, nom, force, tirage, image, icone, recompense, specialite, quantite):
-        self.moteur = moteur
+    def __init__(self, nom, force, tirage, image, icone, recompense, specialite, quantite):
         
         self.nom = nom
         self.force = int(force)

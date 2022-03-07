@@ -150,3 +150,7 @@ TRANSPARENCE = 16777215
 # Notifications
 notif_largeur, notif_hauteur = 350, 30
 notif_duree = 10000
+
+souris = 0
+mouseG, mouseM, mouseD = 0, 0, 0
+mX, mY = 0, 0

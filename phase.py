@@ -4,8 +4,8 @@ from variables import *
 
 
 class CPhase:
-    def __init__(self, moteur):
-        self.moteur = moteur
+    def __init__(self):
+        pass
     
     def gestion_des_phases_de_jeu(self):
         self.gestion_de_la_phase_combat()
@@ -42,10 +42,9 @@ class CPhase:
             elif VAR.phase_du_jeu_suivant == ENUM_Phase.DEPLACEMENT:
                 VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
 
-        elif VAR.phase_du_jeu == ENUM_Phase.BANDEAU:
-            VAR.notifications.afficher_bandeau()
+        #elif VAR.phase_du_jeu == ENUM_Phase.BANDEAU:
+        #    VAR.notifications.afficher_bandeau()
 
         elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:
-            self.moteur.charger_musique("COMBAT")
             VAR.combat.gestion_combat()
             VAR.combat.afficher()

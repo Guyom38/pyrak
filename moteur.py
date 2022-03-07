@@ -31,18 +31,18 @@ class CMoteur:
     def __init__(self):
         print("+ Initialisation module << Moteur >>")
 
-        VAR.camera = CCamera(self)
-        VAR.ressources = CRessources(self)    
-        VAR.heros = Cheros(self)
-        VAR.tuiles = CTuiles(self)
-        VAR.plateau = CPlateau(self)
+        VAR.camera = CCamera()
+        VAR.ressources = CRessources()    
+        VAR.heros = Cheros()
+        VAR.tuiles = CTuiles()
+        VAR.plateau = CPlateau()
         VAR.interfaces = CInterfaces()
-        VAR.objets_interface = CObjets_Interface(self)
-        VAR.combat = CCombat(self)
-        VAR.jetons = CJetons(self)
-        VAR.mechants = CMechants(self)
-        VAR.phase = CPhase(self)
-        VAR.objets = CObjets(self)
+        VAR.objets_interface = CObjets_Interface()
+        VAR.combat = CCombat()
+        VAR.jetons = CJetons()
+        VAR.mechants = CMechants()
+        VAR.phase = CPhase()
+        VAR.objets = CObjets()
         VAR.notifications = CNotifications()
         VAR.boucle_principale = True
 
@@ -67,15 +67,15 @@ class CMoteur:
 
         
     def gestion_clavier_souris(self):
-        self.mouseG, self.mouseM, self.mouseD = pygame.mouse.get_pressed()
-        self.mX, self.mY = pygame.mouse.get_pos()
+        VAR.mouseG, VAR.mouseM, VAR.mouseD = pygame.mouse.get_pressed()
+        VAR.mX, VAR.mY = pygame.mouse.get_pos()
             
         for event in pygame.event.get():        
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                 VAR.boucle_principale = False
                 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                self.souris = pygame.mouse.get_pressed()
+                VAR.souris = pygame.mouse.get_pressed()
                     
             if event.type == KEYDOWN:  
                 if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:
@@ -91,24 +91,19 @@ class CMoteur:
                     if VAR.OffsetX > VAR.v9: VAR.OffsetX = VAR.v9
                     if VAR.OffsetY > VAR.v9: VAR.OffsetY = VAR.v9
     
-    def charger_musique(self, musique):
-        pygame.mixer.music.load("Audios\\" + VAR.MUSICS[musique])
-        pygame.mixer.music.set_volume(0.7)
-        pygame.mixer.music.play()
+    
         
     def boucle(self):
         
 
         self.gestion_rythme(0)
-        self.charger_musique("JEU1")
+        VAR.ressources.charger_musique("JEU1")
         VAR.camera.centrer_sur_joueur()
         VAR.notifications.afficher_bandeau(VAR.joueur_en_cours.nom + ", a vous de jouer !")
+        
         while VAR.boucle_principale:
                  
-            self.gestion_clavier_souris()
             #VAR.plateau.gestion_deplacement_plateau()
-            VAR.heros.gestion_deplacement_joueur()
-            VAR.camera.gestion()
 
             VAR.plateau.fond()
             VAR.plateau.afficher()
@@ -116,6 +111,9 @@ class CMoteur:
             VAR.notifications.afficher()
 
             VAR.phase.gestion_des_phases_de_jeu()
+            VAR.heros.gestion_deplacement_joueur()
+            VAR.camera.gestion()
+            self.gestion_clavier_souris()
 
 
             # ---------------------------------

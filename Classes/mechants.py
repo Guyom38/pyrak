@@ -10,10 +10,9 @@ import csv, math, random
 from Classes.mechant import *
 
 class CMechants():
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Mechants >>")
         
-        self.moteur = moteur
         self.liste = {}
     
     
@@ -33,7 +32,7 @@ class CMechants():
                         tmp_image, tmp_icone = pygame.image.load("Images\\mechants\\" + numero + ".png").convert_alpha(), None
                         #tmp_image = FCT.Generer_Mask_Image(tmp_image)
                         
-                        self.liste[numero] = CMechant(self.moteur, nom.strip(), int(force), int(tirage), tmp_image, tmp_icone, recompense.strip(), specialite.strip(), int(quantite))
+                        self.liste[numero] = CMechant(nom.strip(), int(force), int(tirage), tmp_image, tmp_icone, recompense.strip(), specialite.strip(), int(quantite))
                         print ("        + " + quantite + "x Mechant << " + nom + " >> ajouté.")
         
 

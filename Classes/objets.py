@@ -8,9 +8,8 @@ import fonctions as FCT
 from Classes.objet import *
 
 class CObjets():
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Objets >>")
-        self.moteur = moteur
         self.liste = {}
 
         self.image_icone_x, self.image_icone_y = 50, 50

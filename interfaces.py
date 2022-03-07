@@ -5,8 +5,8 @@ import variables as VAR
 import outils
 
 class CInterfaces():
-    def __init__(self, moteur):
-        self.moteur = moteur
+    def __init__(self):
+        pass
         
     def afficher_cadre_heros(self):
         largInterf = 200

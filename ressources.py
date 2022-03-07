@@ -8,9 +8,8 @@ import fonctions as FCT
 import time
 
 class CRessources:
-    def __init__(self, moteur):
+    def __init__(self):
         print("    + Initialisation module << Ressources >>")
-        self.moteur = moteur
 
 
     def afficher(self):
@@ -28,7 +27,11 @@ class CRessources:
 
         pygame.display.update()
         
-        
+    def charger_musique(self, musique):
+        pygame.mixer.music.load("Audios\\" + VAR.MUSICS[musique])
+        pygame.mixer.music.set_volume(0.7)
+        pygame.mixer.music.play()
+            
     def barre_progression(self, valeur, max = 100):
         largeur_barre = int((VAR.EcranX / 3) * 2)
         hauteur_barre = 30
