@@ -44,21 +44,17 @@ class CMoteur:
         VAR.phase = CPhase()
         VAR.objets = CObjets()
         VAR.notifications = CNotifications()
+        
         VAR.boucle_principale = True
 
 
     def demarre(self):
         pygame.init()
-        
-       
         pygame.mixer.init()
 
         VAR.fenetre = pygame.display.set_mode((VAR.EcranX, VAR.EcranY), pygame.DOUBLEBUF, 32)
-        pygame.display.set_caption("PyRAK v0.02")
-        
+        pygame.display.set_caption("PyRAK v0.03")
 
-     
-        
         VAR.ressources.chargement()
         self.boucle()
 
@@ -97,9 +93,9 @@ class CMoteur:
         
 
         self.gestion_rythme(0)
-        VAR.ressources.charger_musique("JEU1")
+        #VAR.ressources.charger_musique("JEU1")
         VAR.camera.centrer_sur_joueur()
-        VAR.notifications.afficher_bandeau(VAR.joueur_en_cours.nom + ", a vous de jouer !")
+        VAR.notifications.initialiser_bandeau(VAR.joueur_en_cours.nom + ", a vous de jouer !")
         
         while VAR.boucle_principale:
                  

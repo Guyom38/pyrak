@@ -49,7 +49,9 @@ class CPlateau():
         
         self.animation_cpt +=1
 
-        
+    def on_peut_construire(self):
+        return (self.nombre_de_zones_libres() > 0)
+    
     def nombre_de_zones_libres(self):
         return self.liste_voisins(True)
     
@@ -100,7 +102,7 @@ class CPlateau():
             if FCT.SurEcran(xP, yP, VAR.v9, VAR.v9) == True:
                 if enDehors == False:
                     if isinstance(VAR.terrain[x][y], CTuile) == False:
-                        if VAR.tuiles.tuileSelect != None:
+                        if VAR.tuiles.joueur_a_deja_pioche() == True:
                             if VAR.mX >= xP and VAR.mX <= xP + VAR.v9 and VAR.mY >= yP and VAR.mY <= yP + VAR.v9:
                                 VAR.tuiles.tuileSelect.generer()
                                 VAR.tuiles.tuileSelect.afficher(x, y)
@@ -119,7 +121,7 @@ class CPlateau():
                                 VAR.plateau.Animation_Zone(xP, yP, 0)
                                 VAR.fenetre.blit(FCT.icone(0), (xP, yP, 63, 66))
                             
-                    elif VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:                               # --- Se déplacer 
+                    elif VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.peut_bouger():                               # --- Se déplacer 
                         if VAR.tuiles.verification_placement(VAR.terrain[x][y], x, y, VAR.terrain[x-xD][y-yD]) and VAR.Zoom > 15 and VAR.tuiles.tuileSelect == None:
                             self.Animation_Fleches(xP, yP, xD, yD)
                             #VAR.plateau.Animation_Curseur((xP, yP))      

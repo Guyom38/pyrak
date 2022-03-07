@@ -50,7 +50,9 @@ class Chero(object):
     def demi_tour(self, force = False):
         self.deplacer(self.xOld, self.yOld, force)
 
-
+    def peut_bouger(self):
+        return (self.mouvement > 0)
+    
     def deplacer(self, x, y, force = False):
         if self.mouvement < 1 and force == False: return False
         self.xOld, self.yOld = self.x, self.y           # --- enregistre le chemin précédent

@@ -102,10 +102,10 @@ class CRessources:
             VAR.fonts[taille] = pygame.font.SysFont('arial', taille) 
 
 
-        VAR.notifications.ajouter("","","Bonjour et bienvenu !")
-        VAR.notifications.ajouter("","","Piocher une carte")
-        VAR.notifications.ajouter("","","dans le sac à droite.")
-        VAR.notifications.ajouter("","","A vous de jouer ...")
+        #VAR.notifications.ajouter("","","Bonjour et bienvenu !")
+        #VAR.notifications.ajouter("","","Piocher une carte")
+       # VAR.notifications.ajouter("","","dans le sac à droite.")
+        #VAR.notifications.ajouter("","","A vous de jouer ...")
 
         self.barre_progression(100)
         time.sleep(1)

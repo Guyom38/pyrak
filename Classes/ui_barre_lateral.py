@@ -53,7 +53,7 @@ class CBarre_Laterale():
         if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.seDeplace == False:
             for action in (ENUM_Actions.PIOCHER, ENUM_Actions.PRENDRE, ENUM_Actions.PAUSE):
                 ico = action.value
-                if action == ENUM_Actions.PIOCHER and VAR.plateau.nombre_de_zones_libres() > 0:                                       # --- PIOCHE disponible si un acces est visible
+                if action == ENUM_Actions.PIOCHER and VAR.plateau.on_peut_construire() == True and VAR.joueur_en_cours.peut_bouger() and VAR.tuiles.joueur_a_deja_pioche() == False:                                       # --- PIOCHE disponible si un acces est visible
                     if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic: 
                         VAR.tuiles.piocher()
                     yP = (yP +(hIco + 8))

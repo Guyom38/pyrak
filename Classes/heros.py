@@ -42,8 +42,8 @@ class Cheros():
             if VAR.joueur_en_cours.seDeplace == True: 
                 VAR.joueur_en_cours.gestion_deplacement()
             
-            elif VAR.joueur_en_cours.mouvement == 0: 
-                self.joueur_suivant()
+           # elif VAR.joueur_en_cours.mouvement == 0: 
+           #     VAR.phase_du_jeu = ENUM_Phase.AU_SUIVANT
             
 
     def afficher_sur_zone(self, x, y): 
@@ -64,7 +64,7 @@ class Cheros():
 
 
     def joueur_suivant(self):
-        VAR.notifications.afficher_bandeau(VAR.joueur_en_cours.nom + ", c'est a vous de jouer !")
+        VAR.notifications.initialiser_bandeau(VAR.joueur_en_cours.nom + ", c'est a vous de jouer !")
         if self.joueur_liste_position < len(self.liste) -1:
             self.joueur_liste_position = self.joueur_liste_position +1
         else:

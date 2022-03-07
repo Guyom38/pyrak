@@ -16,6 +16,8 @@ class CTuiles():
         self.charger()
         self.tuileSelect = None
 
+    def joueur_a_deja_pioche(self):
+        return (self.tuileSelect != None)
 # //
 # // ---   
     def charger(self):
