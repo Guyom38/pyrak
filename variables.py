@@ -155,3 +155,5 @@ notif_duree = 10000
 souris = 0
 mouseG, mouseM, mouseD = 0, 0, 0
 mX, mY = 0, 0
+
+pos_minimum_dragon = 20

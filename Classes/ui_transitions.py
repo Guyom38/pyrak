@@ -1,7 +1,7 @@
   
 import pygame
 from pygame.locals import *
-import random, math
+
 
 import variables as VAR
 import fonctions as FCT
@@ -12,13 +12,13 @@ cercle = None
 
 def transition_glisser(vertical): #1435
     i,j, largeur, cpt_cycle = 0, 1, 16, 0
-    boucle_transition = True
+    
     image_tmp = pygame.Surface((VAR.EcranX, VAR.EcranY),pygame.SRCALPHA,32)
     image_tmp.blit(VAR.fenetre, (0,0))
-    
-    t = pygame.time.get_ticks()
+
+    boucle_transition = True
     while boucle_transition:
-        if pygame.time.get_ticks() - cpt_cycle > 20:
+        if pygame.time.get_ticks() - cpt_cycle > 15:
             i = i + 16
             cpt_cycle = pygame.time.get_ticks() 
         
@@ -30,6 +30,7 @@ def transition_glisser(vertical): #1435
             for colonne in range(int(VAR.EcranX/largeur)):
                 j=FCT.iif(j == 1, -1, 1)
                 VAR.fenetre.blit(image_tmp, ( (colonne*largeur), i * j ), ( colonne*largeur, 0, largeur, VAR.EcranY))
+                
         pygame.display.update()   
         if i > VAR.EcranX: 
             boucle_transition = False

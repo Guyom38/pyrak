@@ -1,10 +1,11 @@
 
 #index objet; nom_objet
 00; CLE
-01; COFFRE
+01; L
 02; ARME+2
 03; ARME+3
 04; ARME+1
 05; ARME+4
 06; MAGIE_VIE
 07; MAGIE_FORCE
+08; COFFRE
