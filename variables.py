@@ -51,6 +51,7 @@ class ENUM_Phase(Enum):
     TRANSITION = 2
     TIRAGE = 3
     INVENTAIRE = 4
+    BANDEAU = 5
     
 class ENUM_Piece(Enum):
     RIEN_FAIRE = -2

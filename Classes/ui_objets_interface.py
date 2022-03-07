@@ -10,6 +10,8 @@ from Classes.class_bresenham import *
 class CObjets_Interface():
     def __init__(self, moteur):
         self.moteur = moteur
+        
+        self.couleurTraces = pygame.Color(255,255,0,255)
     
     def zone_clickable(self, xP, yP, dimX, dimY, bouton):
         clic = VAR.ENUM_Clic.Rien

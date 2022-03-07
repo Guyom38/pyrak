@@ -27,7 +27,6 @@ class CInterfaces():
         self.couleur4 = pygame.Color(64,64,64,32)
         self.couleur5 = pygame.Color(117,94,74,255)
         
-        self.couleurTraces = pygame.Color(255,255,0,255)
         self.couleurNom = pygame.Color(255,255,255,255)
 
         self.imageCadreGlobal = None
@@ -115,8 +114,7 @@ class CInterfaces():
                                 print(VAR.joueur_en_cours.nom + " a depose " + str(objet_du_joueur) + " et a pris " + str(VAR.terrain[xJ][yJ].recompense))
                                 VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT         
 
-                else:
-                    pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico1, taille_ico1), 4)   
+                pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico1, taille_ico1), 4)   # --- Contour objet
                                  
                 xP += taille_ico1
             xP += 8
@@ -126,7 +124,7 @@ class CInterfaces():
             pygame.draw.polygon(VAR.fenetre, self.couleur5, f, 0)
             pygame.draw.polygon(VAR.fenetre, self.couleur3, f, 4)
 
-            if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT or VAR.phase_du_jeu == ENUM_Phase.INVENTAIRE:
+            if VAR.phase_du_jeu in (ENUM_Phase.DEPLACEMENT, ENUM_Phase.INVENTAIRE, ENUM_Phase.BANDEAU):
                 img = VAR.joueur_en_cours.image
                 VAR.fenetre.blit(img, (0, VAR.EcranY - img.get_height() + 30))
             

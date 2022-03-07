@@ -18,9 +18,3 @@ class CJeton(object):
         self.recompense = monstre.recompense
 
         self.image = FCT.image_decoupe(VAR.icones_mechants, id , 0, 100, 100, VAR.v5, VAR.v5)
-        
-    def afficher(self):
-        pass
-        
-        
-        

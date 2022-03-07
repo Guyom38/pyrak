@@ -102,7 +102,7 @@ class CMoteur:
         self.gestion_rythme(0)
         self.charger_musique("JEU1")
         VAR.camera.centrer_sur_joueur()
-        
+        VAR.notifications.afficher_bandeau(VAR.joueur_en_cours.nom + ", a vous de jouer !")
         while VAR.boucle_principale:
                  
             self.gestion_clavier_souris()

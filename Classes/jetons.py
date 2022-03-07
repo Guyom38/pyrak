@@ -28,7 +28,3 @@ class CJetons():
             self.pioche.remove(self.pioche[0])   
             return self.jetonSelect 
         return None
-       
-    def afficher(self):
-        pass
-   

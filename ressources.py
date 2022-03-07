@@ -95,7 +95,7 @@ class CRessources:
         VAR.joueur_en_cours = VAR.heros.liste[0]
         VAR.joueur_en_cours.recentrer_camera()
 
-        for taille in (10,20,30,60,120,150):
+        for taille in (10,20,30,60,90,120,150):
             VAR.fonts[taille] = pygame.font.SysFont('arial', taille) 
 
 
