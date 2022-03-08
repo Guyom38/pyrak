@@ -58,21 +58,23 @@ class CInterfaces():
     
     def afficher_cadre_joueur(self):
         phase_normale = ( VAR.phase_du_jeu in (ENUM_Phase.DEPLACEMENT, ENUM_Phase.INVENTAIRE, ENUM_Phase.BANDEAU) )
+
         xJ, yJ = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
         img = VAR.joueur_en_cours.image
         
-        x, taille_ico1 = img.get_width(), 50
+        x, taille_ico_ref = FCT.iif(phase_normale == True, img.get_width(), 32), 50
         largeur_cadre = FCT.iif(phase_normale == True, 500, 300)
-        
+
         # --- Barre decors
         pygame.draw.rect(VAR.fenetre, self.couleur1, (0, VAR.EcranY - 106, (largeur_cadre-50), 6), 0)         # Courbe1
         pygame.draw.rect(VAR.fenetre, self.couleur2, (0, VAR.EcranY - 50, VAR.EcranX, 50), 0)                 # Courbe2
         pygame.draw.rect(VAR.fenetre, self.couleur2, (0, VAR.EcranY - 60, VAR.EcranX, 5), 0)                  # Courbe3
 
         # --- Items
-        xP, yP =  (largeur_cadre+30), VAR.EcranY - (taille_ico1+26)
+        xP, yP =  (largeur_cadre+30), VAR.EcranY - (taille_ico_ref+26)
         for posItem, typeItem in ((0,"ARME"), (1,"ARME"), (0,"CLE"), (0, ""), (0,"MAGIE"), (1,"MAGIE"), (2,"MAGIE")):
-            
+            taille_ico = taille_ico_ref
+
             # --- Recupere info sur l'objet du joueur
             nomObjet = None
             if typeItem == "ARME":
@@ -82,23 +84,27 @@ class CInterfaces():
                 if VAR.joueur_en_cours.cle == True: nomObjet = "CLE"
                 
             elif typeItem == "MAGIE":
-                if VAR.joueur_en_cours.magies[posItem] != None: nomObjet = VAR.joueur_en_cours.magies[posItem]
-            
+                if VAR.joueur_en_cours.magies[posItem] != None: 
+                    nomObjet = VAR.joueur_en_cours.magies[posItem]
+                    if VAR.phase_du_jeu == ENUM_Phase.COMBAT:
+                        if VAR.objets_interface.zone_clickable(xP, yP, taille_ico, taille_ico, 0) == ENUM_Clic.Clic:
+                            VAR.combat.magies_selectionnees[posItem] = VAR.joueur_en_cours.magies[posItem]  
+
             # --- Dessine l'objet trouvé
             if typeItem != "":
                 if nomObjet != None:
                     ico = VAR.objets.liste[nomObjet].icone
                     VAR.fenetre.blit(ico, (xP, yP))
                 else:
-                    pygame.draw.rect(VAR.fenetre, self.couleur2, (xP, yP, taille_ico1, taille_ico1), 0)
+                    pygame.draw.rect(VAR.fenetre, self.couleur2, (xP, yP, taille_ico, taille_ico), 0)
                 
                 # --- Gestion du ramassage
                 objetAPrendre = (VAR.phase_du_jeu == ENUM_Phase.INVENTAIRE and VAR.terrain[xJ][yJ].recompense != None)
                 if objetAPrendre == True:
                     if typeItem != "CLE":
                         if VAR.terrain[xJ][yJ].recompense.__contains__(typeItem) == True:
-                            VAR.objets_interface.calculer_trajet_pointille(xP, yP, taille_ico1, taille_ico1)   
-                            if VAR.objets_interface.zone_clickable(xP, yP, taille_ico1, taille_ico1, 0) == ENUM_Clic.Clic:
+                            VAR.objets_interface.tracer_pointilles_entre_joueur_et_inventaire(xP, yP, taille_ico, taille_ico)   
+                            if VAR.objets_interface.zone_clickable(xP, yP, taille_ico, taille_ico, 0) == ENUM_Clic.Clic:
                                 
                                 if typeItem == "ARME":
                                     objet_du_joueur = VAR.joueur_en_cours.armes[posItem]
@@ -111,12 +117,11 @@ class CInterfaces():
                                     VAR.terrain[xJ][yJ].recompense = objet_du_joueur
                                     
                                 VAR.terrain[xJ][yJ].pillier = (objet_du_joueur == None)                 # --- Si le joueur ne depose rien a la place, la piece est consideree pilliée
-                                print(VAR.joueur_en_cours.nom + " a depose " + str(objet_du_joueur) + " et a pris " + str(VAR.terrain[xJ][yJ].recompense))
                                 VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT         
 
-                pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico1, taille_ico1), 4)   # --- Contour objet
+                pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico, taille_ico), 4)   # --- Contour objet
                                  
-                xP += taille_ico1
+                xP += taille_ico
             xP += 8
                 
             # --- Cadre
@@ -137,6 +142,8 @@ class CInterfaces():
                 VAR.fenetre.blit(VAR.IMG["coeur"],(x + (i * 24) , VAR.EcranY - 60))
             for i in range(VAR.joueur_en_cours.mouvement):
                 VAR.fenetre.blit(VAR.IMG["energie"],(x + ((5+i) * 24) + 10, VAR.EcranY -60))  
+
+  
 
 
 

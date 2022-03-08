@@ -20,7 +20,7 @@ class Chero(object):
         self.pouvoirs = [None, None]
         
         self.armes = [None, None]
-        self.magies = [None, None, None]
+        self.magies = ["MAGIE_VIE", None, "MAGIE_VIE"]
         self.cle = False
         self.coffres = 0
         self.maudit = False
@@ -100,6 +100,8 @@ class Chero(object):
             
             
     def gestion_reaction_sur_place(self):
+        nb_coffres = 0
+
         # --- Si c'est une piece et pas la piece de depart, en avant pour un combat.
         que_fait_on = VAR.terrain[self.x][self.y].faut_il_tirer_un_jeton()
         if que_fait_on == ENUM_Piece.TIRAGE_AU_SORT or que_fait_on == ENUM_Piece.COMBATTRE:
@@ -120,15 +122,30 @@ class Chero(object):
 
                 elif VAR.terrain[self.x][self.y].recompense == "COFFRE": 
                     VAR.notifications.ajouter(VAR.joueur_en_cours, "OBJET", "N'a pas la clé !!")
+
+                elif VAR.terrain[self.x][self.y].recompense == "COFFRE_OUVERT":
+                    nb_coffres = 1
+                    VAR.notifications.ajouter(VAR.joueur_en_cours, "OBJET", "Récupére le coffre")
+                
+                elif VAR.terrain[self.x][self.y].recompense == "SUPER_COFFRE_OUVERT":
+                    nb_coffres = 2
+                    VAR.notifications.ajouter(VAR.joueur_en_cours, "OBJET", "Récupére un super coffre")
+
+
             else:
                 if VAR.terrain[self.x][self.y].recompense == "COFFRE":
-                    VAR.joueur_en_cours.coffres += 1
+                    nb_coffres = 1
                     VAR.joueur_en_cours.cle = False
-                    VAR.terrain[self.x][self.y].recompense = None
-                    VAR.terrain[self.x][self.y].pillier = True
                     VAR.notifications.ajouter(VAR.joueur_en_cours, "OBJET", "Ouvre le coffre")
-            
-                
+
+            if nb_coffres >0:
+                VAR.terrain[self.x][self.y].recompense = None
+                VAR.terrain[self.x][self.y].pillier = True
+                VAR.phase_du_jeu = ENUM_Phase.RECOMPENSE
+                VAR.joueur_en_cours.coffres += nb_coffres
+
+
+
     def recentrer_camera(self):
         print("Recentrer camera")
         #VAR.camera.deplacer(self.x, self.y)

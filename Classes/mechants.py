@@ -103,4 +103,4 @@ class CMechants():
                     
             k=k+1    
             pygame.display.update()
-            VAR.clock.tick(25)
+            VAR.clock.tick(VAR.fps)

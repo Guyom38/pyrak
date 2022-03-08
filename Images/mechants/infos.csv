@@ -16,7 +16,7 @@
 02; Squelette Clé; 8; 16; CLE; AUCUNE;8
 03; Squelette Spadassin; 9; 10; ARME+1; AUCUNE;5
 04; Roi des squelette; 10; 6; ARME+3; AUCUNE;3
-05; Mort; 12; 4; COFFRE; AUCUNE;2
+05; Mort; 12; 4; COFFRE_OUVERT; AUCUNE;2
 06; Araignée; 6; 8; MAGIE_VIE; AUCUNE;4
-07; Dragon; 15; 1; SUPER_COFFRE; FIN_PARTIE;1
+07; Dragon; 15; 1; SUPER_COFFRE_OUVERT; FIN_PARTIE;1
 08; Coffre; 0; 0; COFFRE; AUCUNE;12

@@ -14,6 +14,8 @@ class CCombat():
         print("    + Initialisation module << Combats >>")
         
         self.jeton = None
+
+
         self.preparer_combat()
 
 
@@ -34,6 +36,8 @@ class CCombat():
         self.nombre_lances_max = 30
         self.message_fin_de_combat = ""
 
+        self.mode_magie = False
+        self.magies_selectionnees = [None, None, None]
 
     def lancer_les_des(self):
         self.combat_termine = False

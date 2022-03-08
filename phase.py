@@ -17,8 +17,6 @@ class CPhase:
             TRANSITION.transition_glisser(False)
                 
             if VAR.phase_du_jeu_suivant == ENUM_Phase.TIRAGE:
-                
-                
                 if VAR.terrain[x][y].jeton == None:                         # --- Si aucun jeton, piece decouverte, alors tirage
                     jeton_mechant = VAR.jetons.piocher()
                     VAR.terrain[x][y].jeton = jeton_mechant
@@ -33,6 +31,8 @@ class CPhase:
                     VAR.terrain[x][y].recompense = jeton_mechant.recompense
                     VAR.terrain[x][y].jeton = None
                     VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
+                    
+
                 
             elif VAR.phase_du_jeu_suivant == ENUM_Phase.COMBAT:
                 VAR.combat.preparer_combat()
@@ -42,8 +42,8 @@ class CPhase:
             elif VAR.phase_du_jeu_suivant == ENUM_Phase.DEPLACEMENT:
                 VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
 
-        #elif VAR.phase_du_jeu == ENUM_Phase.BANDEAU:
-        #    VAR.notifications.afficher_bandeau()
+        elif VAR.phase_du_jeu == ENUM_Phase.RECOMPENSE:
+            VAR.recompense.afficher()
 
         elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:
             VAR.combat.gestion_combat()

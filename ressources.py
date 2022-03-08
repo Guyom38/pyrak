@@ -58,6 +58,7 @@ class CRessources:
         
         tmp = pygame.image.load("Images\\icones2.png").convert_alpha()   
     
+        VAR.IMG["coffre_ouvert"] = pygame.image.load("Images\\objets\\coffre_ouvert.png").convert_alpha()   
         VAR.IMG["coeur"] = FCT.image_decoupe(tmp, 0, 0, 42, 42 )
         VAR.IMG["mini_coeur"] = FCT.image_decoupe(tmp, 0, 0, 42, 42, 16, 16 )
         VAR.IMG["mort"] = FCT.image_decoupe(tmp,  1, 0, 42, 42 )

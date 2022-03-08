@@ -53,8 +53,7 @@ class CObjets_Interface():
         
         return tmp
     
-    def calculer_trajet_pointille(self, xP, yP, dimX, dimY):
-        
+    def tracer_pointilles_entre_joueur_et_inventaire(self, xP, yP, dimX, dimY):
         xT, yT = VAR.OffsetX + ((VAR.joueur_en_cours.x * 9)  * VAR.Zoom) + VAR.v2, VAR.OffsetY + ((VAR.joueur_en_cours.y * 9) * VAR.Zoom) + VAR.v2
         xM, yM = (xT -xP) /2, (yT -yP)  /2
         d2 = dimX / 2
@@ -63,16 +62,19 @@ class CObjets_Interface():
         trajets.append(bresenham([xT+d2, yT+dimY], [xT+d2, yT+dimY-yM]).path)      #      |
         trajets.append(bresenham([xT+d2, yT+dimY-yM], [xP+d2, yT+dimY-yM]).path)   #      -----
         trajets.append(bresenham([xP+d2, yT+dimY-yM], [xP+d2, yP]).path)           #          |
-        
+
+        debut = (xP, yP, dimX, dimY)
+        fin = (xT, yT, dimX, dimY)
+        self.calculer_trajet_pointille(debut, fin, trajets)
+
+    def calculer_trajet_pointille(self, debut, fin, trajets):
         p = 0
         for tr in trajets:
             for pts in tr:
 
-                if p %8 == (VAR.cpt %8):  
-                    pygame.draw.rect(VAR.fenetre, self.couleurTraces, (pts[0]-2, pts[1]-2, 4, 4), 0)
-
+                if p %8 == (VAR.cpt %8): pygame.draw.rect(VAR.fenetre, self.couleurTraces, (pts[0]-2, pts[1]-2, 4, 4), 0)
                 p += 1
         
-        pygame.draw.rect(VAR.fenetre, self.couleurTraces, (xP, yP, dimX, dimY), 4)
-        pygame.draw.rect(VAR.fenetre, self.couleurTraces, (xT, yT, dimX, dimY), 4)
+        pygame.draw.rect(VAR.fenetre, self.couleurTraces, debut, 4)
+        pygame.draw.rect(VAR.fenetre, self.couleurTraces, fin, 4)
             

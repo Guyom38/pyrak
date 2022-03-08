@@ -14,6 +14,7 @@ from phase import *
 from Classes.objets import *
 from Classes.camera import *
 from Classes.notifications import *
+from Classes.ui_recompense import *
 
 from ressources import *
 
@@ -44,6 +45,7 @@ class CMoteur:
         VAR.phase = CPhase()
         VAR.objets = CObjets()
         VAR.notifications = CNotifications()
+        VAR.recompense = CRecompense()
         
         VAR.boucle_principale = True
 
@@ -100,16 +102,16 @@ class CMoteur:
         while VAR.boucle_principale:
                  
             #VAR.plateau.gestion_deplacement_plateau()
-
-            VAR.plateau.fond()
-            VAR.plateau.afficher()
-            VAR.interfaces.afficher()
-            VAR.notifications.afficher()
-
-            VAR.phase.gestion_des_phases_de_jeu()
             VAR.heros.gestion_deplacement_joueur()
             VAR.camera.gestion()
             self.gestion_clavier_souris()
+
+            VAR.plateau.fond()
+            VAR.plateau.afficher()
+            VAR.phase.gestion_des_phases_de_jeu()
+            VAR.interfaces.afficher()
+            VAR.notifications.afficher()
+
 
 
             # ---------------------------------

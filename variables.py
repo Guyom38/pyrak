@@ -39,7 +39,7 @@ class ENUM_Actions(Enum):
     PAUSE = 2
     HACHE = 3
     PRENDRE = 4
-    BOTTE = 5
+    MAGIE = 5
     COMBATTRE = 6
     OUVRIR = 7
     DEVERROUILLER = 8
@@ -53,6 +53,7 @@ class ENUM_Phase(Enum):
     INVENTAIRE = 4
     BANDEAU = 5
     AU_SUIVANT = 6
+    RECOMPENSE = 7
     
 class ENUM_Piece(Enum):
     RIEN_FAIRE = -2
@@ -110,6 +111,7 @@ phase = None
 ressources = None
 camera = None
 notifications = None
+recompense = None
 
 interfaces = None
 objets_interface = None
