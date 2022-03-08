@@ -21,15 +21,16 @@ class CTuiles():
 # //
 # // ---   
     def charger(self):
-        for i in range(20):  self.pioche.append( CTuile( [True, True, False, False], False, True, False))
+        #def __init__(acces, piece, fontaine, teleport, x = -1, y = -1):
+        for i in range(200):  self.pioche.append( CTuile( [True, True, False, False], False, True, False))
         for i in range(30):  self.pioche.append( CTuile( [True, True, False, False], False, False, False))
-        for i in range(130): self.pioche.append( CTuile( [True, False, True, False], True, False, False))
+        for i in range(13): self.pioche.append( CTuile( [True, False, True, False], True, False, False))
         for i in range(13): self.pioche.append( CTuile( [True, True, False, False], True, False, False))
         for i in range(14): self.pioche.append( CTuile( [True, True, True, True], True, False, False))
         for i in range(10):  self.pioche.append( CTuile( [True, True, True, False], False, False, False))
         for i in range(13): self.pioche.append( CTuile( [True, True, True, False], True, False, False))
         for i in range(14):  self.pioche.append( CTuile( [True, True, True, True], False, False, False))
-        for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, True))
+        for i in range(200):  self.pioche.append( CTuile( [True, False, True, False], False, False, True))
         for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, False))
 
         random.shuffle(self.pioche)

@@ -178,7 +178,13 @@ class CTuile(object):
         
         xP, yP = VAR.OffsetX + ((xX * 9)  * VAR.Zoom), VAR.OffsetY + ((yY * 9) * VAR.Zoom)
         VAR.fenetre.blit(self.image, (xP, yP, VAR.Zoom, VAR.Zoom))
-        
+
+        if self.fontaine == True:
+            VAR.fenetre.blit(VAR.IMG["eau" + str(VAR.cpt % 32)], (xP + VAR.v3, yP + VAR.v3))
+        if self.teleport == True:
+            
+            VAR.fenetre.blit(VAR.IMG["passage" + str(VAR.cpt % 24)], (xP + VAR.v3, yP + VAR.v3))
+
         # --- affichage du mechant
         if self.piece == True and VAR.Zoom > 15 :
             xP, yP = xP+VAR.v2, yP+VAR.v2

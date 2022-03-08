@@ -25,7 +25,6 @@ class CPhase:
                                     
                 if VAR.terrain[x][y].jeton.nom != VAR.COFFRE:               # --- Lance le combat
                     VAR.phase_du_jeu_suivant = ENUM_Phase.COMBAT
-                    
                 
                 else:                                                   # --- Coffre donc on repart sur le plateau
                     VAR.terrain[x][y].recompense = jeton_mechant.recompense
@@ -48,3 +47,6 @@ class CPhase:
         elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:
             VAR.combat.gestion_combat()
             VAR.combat.afficher()
+        
+        else:
+            VAR.plateau.afficher()

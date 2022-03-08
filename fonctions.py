@@ -30,6 +30,7 @@ def zoom(grossir):
     VAR.joueur_en_cours.recentrer_camera()
         
     VAR.v2 = (2 * VAR.Zoom)
+    VAR.v3 = (3 * VAR.Zoom)
     VAR.v4 = (4 * VAR.Zoom)
     VAR.v5 = (5 * VAR.Zoom)
     VAR.v7 = (7 * VAR.Zoom)
@@ -63,7 +64,7 @@ def icone(codeImg):
 
 def image_decoupe(img, x, y, dimx, dimy, dimxZ = -1, dimyZ = -1):
     tmp = pygame.Surface((dimx, dimy),pygame.SRCALPHA,32)
-    tmp.blit(img, (0,0), (int(x) * dimx, y * dimy, dimx, dimy))
+    tmp.blit(img, (0,0), (int(x) * dimx, int(y) * dimy, dimx, dimy))
                         
     # --- Colle le decors 
     if dimxZ != -1 and dimyZ != -1:   

@@ -73,6 +73,7 @@ PlateauX, PlateauY = 20, 20
 
 Zoom = 16
 v2 = (2 * Zoom)
+v3 = (3 * Zoom)
 v4 = (4 * Zoom)
 v5 = (5 * Zoom)
 v7 = (7 * Zoom)

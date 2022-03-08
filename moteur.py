@@ -46,7 +46,7 @@ class CMoteur:
         VAR.objets = CObjets()
         VAR.notifications = CNotifications()
         VAR.recompense = CRecompense()
-        
+
         VAR.boucle_principale = True
 
 
@@ -107,7 +107,7 @@ class CMoteur:
             self.gestion_clavier_souris()
 
             VAR.plateau.fond()
-            VAR.plateau.afficher()
+            
             VAR.phase.gestion_des_phases_de_jeu()
             VAR.interfaces.afficher()
             VAR.notifications.afficher()

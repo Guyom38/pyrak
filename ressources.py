@@ -56,8 +56,23 @@ class CRessources:
 
         VAR.perso = pygame.image.load("Images\\EnemySpriteSheet1.png-par-Kazzador.png").convert_alpha()   
         
+       
+        # --- eau
+        i = 0
+        tmp = pygame.image.load("Images\\eau2.png").convert_alpha()   
+        for y in range(0, 4):
+            for x in range(0, 8):
+                VAR.IMG["eau" + str(i)] = FCT.image_decoupe(tmp, x, y, 48, 48 )
+                i = i +1
+
+        i = 0
+        tmp = pygame.image.load("Images\\passage2.png").convert_alpha()   
+        for y in range(0, 3):
+            for x in range(0, 8):
+                VAR.IMG["passage" + str(i)] = FCT.image_decoupe(tmp, x, y, 48, 48 )
+                i = i +1
+
         tmp = pygame.image.load("Images\\icones2.png").convert_alpha()   
-    
         VAR.IMG["coffre_ouvert"] = pygame.image.load("Images\\objets\\coffre_ouvert.png").convert_alpha()   
         VAR.IMG["coeur"] = FCT.image_decoupe(tmp, 0, 0, 42, 42 )
         VAR.IMG["mini_coeur"] = FCT.image_decoupe(tmp, 0, 0, 42, 42, 16, 16 )

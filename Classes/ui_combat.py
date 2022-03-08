@@ -55,19 +55,9 @@ class CCombat():
             self.cpt_cycle = pygame.time.get_ticks() 
 
         # --- Cadre
-        VAR.fenetre.blit(pygame.transform.scale(VAR.img0, (w-16, h-16)), (x, y))
+        VAR.fenetre.blit(pygame.transform.scale(VAR.img0, (VAR.EcranX, VAR.EcranY)), (0, 0))
         
-         # --- Barre titre
-        pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (x, y, w, 50), 0)
-        pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (x, y+55, w, 5), 0)
-        
-        txt = "Veuillez lancer les dés."
-        FCT.texte(VAR.fenetre, txt, x+20, y+20, 20, pygame.Color(0,0,0,255))
-        FCT.texte(VAR.fenetre, txt, x+20+2, y+20+2, 20, pygame.Color(255,255,255,255))
-        
-        # --- Cadre
-        VAR.fenetre.blit(VAR.objets_interface.cadre(0, 0, w, h), (x, y))
-        
+
         # ---------------------------------------------------------------------
         # --- dessin de joueur en cours
         t = int(3 * math.cos (self.cpt+3))
