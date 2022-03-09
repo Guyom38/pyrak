@@ -29,6 +29,7 @@ class CPhase:
                 else:                                                   # --- Coffre donc on repart sur le plateau
                     VAR.terrain[x][y].recompense = jeton_mechant.recompense
                     VAR.terrain[x][y].jeton = None
+                    VAR.joueur_en_cours.mouvement = 0
                     VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
                     
 

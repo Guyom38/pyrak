@@ -117,7 +117,8 @@ class CInterfaces():
                                     VAR.terrain[xJ][yJ].recompense = objet_du_joueur
                                     
                                 VAR.terrain[xJ][yJ].pillier = (objet_du_joueur == None)                 # --- Si le joueur ne depose rien a la place, la piece est consideree pilliée
-                                VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT         
+                                VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
+                                VAR.joueur_en_cours.mouvement = 0       
 
                 pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico, taille_ico), 4)   # --- Contour objet
                                  

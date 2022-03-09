@@ -14,8 +14,6 @@ class CCombat():
         print("    + Initialisation module << Combats >>")
         
         self.jeton = None
-
-
         self.preparer_combat()
 
 
@@ -100,7 +98,7 @@ class CCombat():
             self.de_cycle = pygame.time.get_ticks()
             self.lancer_les_des()
             
-            self.nombre_lances = self.nombre_lances +1
+            self.nombre_lances += 1
             if self.nombre_lances > self.nombre_lances_max: 
                 self.lance_de_des = False
                 self.combat_termine = True
@@ -136,15 +134,18 @@ class CCombat():
                     VAR.terrain[x][y].jeton = None
                     self.message_fin_de_combat = "remporte le combat"
                     VAR.joueur_en_cours.gestion_reaction_sur_place()
+                    VAR.joueur_en_cours.se_repose()
                     
                 elif resultat == 0:
                     self.message_fin_de_combat = "repart brodouille"
-                    VAR.joueur_en_cours.demi_tour()
+                    VAR.joueur_en_cours.fait_un_demi_tour()
+                    VAR.joueur_en_cours.se_repose()
 
                 elif resultat == -1:
                     self.message_fin_de_combat = "perd un point de vie"
                     VAR.joueur_en_cours.se_prend_un_coup()
-                    VAR.joueur_en_cours.demi_tour()
+                    VAR.joueur_en_cours.fait_un_demi_tour()
+                    VAR.joueur_en_cours.se_repose()
                 
                 self.resultat_cycle = pygame.time.get_ticks()
             

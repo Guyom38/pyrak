@@ -54,12 +54,15 @@ class ENUM_Phase(Enum):
     BANDEAU = 5
     AU_SUIVANT = 6
     RECOMPENSE = 7
+    TELEPORTER = 8
     
 class ENUM_Piece(Enum):
     RIEN_FAIRE = -2
     OBJET_A_RECUPERER = -1
     COMBATTRE = 0
     TIRAGE_AU_SORT = 1
+    
+    
 # ---------------------------------------------------------------------------------------    
 phase_du_jeu = ENUM_Phase.DEPLACEMENT
 phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT

@@ -59,7 +59,7 @@ class CBarre_Laterale():
                         VAR.tuiles.piocher()
                     yP = (yP +(hIco + 8))
                 
-                elif action == ENUM_Actions.PAUSE and VAR.tuiles.tuileSelect == None:       
+                elif action == ENUM_Actions.PAUSE and VAR.tuiles.tuileSelect == None and VAR.joueur_en_cours.peut_bouger() == False:       
                                                         # --- PAUSE disponible si aucune pioche n'a été tirée
                     if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic: 
                         VAR.heros.joueur_suivant()
@@ -76,6 +76,8 @@ class CBarre_Laterale():
                             print(VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense)
                             VAR.phase_du_jeu = ENUM_Phase.INVENTAIRE
                         yP = (yP +(hIco + 8))
+                        
+                    
                     
             elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:
                 if VAR.combat.lance_de_des == False and VAR.combat.combat_termine == False:
@@ -84,5 +86,7 @@ class CBarre_Laterale():
                             VAR.combat.nombre_lances = 0
                             VAR.combat.lance_de_des = True
                         yP = (yP +(hIco + 8))
+                    
+                   
 
             

@@ -23,6 +23,7 @@ class CPlateau():
         self.animation_delais = 30
         
         self.mX, self.mY, self.mXOld, self.mYOld = 0,0,0,0
+        self.teleport_destination = (-1, -1)
         
     def fond(self):
         if VAR.image_fond is None:
@@ -106,10 +107,27 @@ class CPlateau():
     
     def afficher_teleporteurs(self):
         # --- Fleche de teleporteur
-        if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.peut_bouger():   
+        if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.peut_bouger() and VAR.tuiles.tuileSelect == None:   
             if VAR.terrain[VAR.joueur_en_cours.x][ VAR.joueur_en_cours.y].teleport == True and len(VAR.liste_teleports)>1:
                 self.Animation_Teleporteurs()
+                
+        if VAR.phase_du_jeu == ENUM_Phase.TELEPORTER:
+            VAR.joueur_en_cours.direction = (VAR.BAS, VAR.GAUCHE, VAR.HAUT, VAR.DROITE)[VAR.cpt % 3]
+            if pygame.time.get_ticks() - self.animation_cycle > 1000 :
+                if self.teleport_destination != (-1, -1):
+                    
+                    VAR.joueur_en_cours.x, VAR.joueur_en_cours.y = self.teleport_destination 
+                    self.animation_cycle = pygame.time.get_ticks()
+                    self.teleport_destination = (-1,-1)
+                    VAR.joueur_en_cours.recentrer_camera()    
+                    VAR.joueur_en_cours.mouvement -= 1
+                    
+                else:
+                    VAR.joueur_en_cours.direction = VAR.BAS
+                    VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
+                    VAR.notifications.ajouter(VAR.joueur_en_cours, "DEPLACEMENT", VAR.joueur_en_cours.nom + " s'est téléporté")
 
+                
     def afficher_curseur(self):
         
         # --- Fleche de deplacement
@@ -138,7 +156,7 @@ class CPlateau():
                                 curseur = (xP, yP)
                             elif VAR.Zoom > 15:                               # --- Mettre piece
                                 VAR.plateau.Animation_Zone(xP, yP, 0)
-                                VAR.fenetre.blit(FCT.icone(0), (xP, yP, 63, 66))
+                            ###    VAR.fenetre.blit(FCT.icone(0), (xP, yP, 63, 66))
                             
                     elif VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.peut_bouger():                               # --- Se déplacer 
                         if VAR.tuiles.verification_placement(VAR.terrain[x][y], x, y, VAR.terrain[x-xD][y-yD]) and VAR.Zoom > 15 and VAR.tuiles.tuileSelect == None:
@@ -146,8 +164,8 @@ class CPlateau():
                             #VAR.plateau.Animation_Curseur((xP, yP))      
                             
 
-                            ico = FCT.iif(VAR.terrain[x][y].jeton == None or VAR.terrain[x][y].piece == False, 1, 6)
-                            VAR.fenetre.blit(FCT.icone(ico), (xP, yP, 63, 66))
+                            ###ico = FCT.iif(VAR.terrain[x][y].jeton == None or VAR.terrain[x][y].piece == False, 1, 6)
+                            ###VAR.fenetre.blit(FCT.icone(ico), (xP, yP, 63, 66))
                             
                             if VAR.objets_interface.zone_clickable(xP, yP, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:
                                 VAR.joueur_en_cours.deplacer(x, y)
@@ -156,10 +174,7 @@ class CPlateau():
                 else :
                     VAR.plateau.Animation_Zone(xP, yP, 1)
 
-              
-        #if FCT.clic(1, 300) == True:
-        #    VAR.joueur_en_cours.recentrer_camera()
-                            
+  
         if curseur != (-1, -1):
             VAR.plateau.Animation_Curseur(curseur)
 
@@ -175,7 +190,10 @@ class CPlateau():
                 trajets.append(tmp_liste)  
 
                 if VAR.objets_interface.zone_clickable(xT-VAR.v4, yT-VAR.v4, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:  
-                    print("Disparition")      
+                    VAR.joueur_en_cours.recentrer_camera()
+                    self.animation_cycle = pygame.time.get_ticks()
+                    self.teleport_destination = (x2, y2)
+                    VAR.phase_du_jeu = ENUM_Phase.TELEPORTER
 
         p = 0
         for tr in trajets:

@@ -5,6 +5,7 @@ import variables as VAR
 from variables import *
 
 import fonctions as FCT
+import outils
 
 class Chero(object):
     def __init__(self, id, nom):
@@ -35,6 +36,7 @@ class Chero(object):
         self.deplaceVitesse = 8
         self.seDeplace = False
         self.direction = VAR.BAS
+        self.mort = False
         
         self.image = pygame.image.load("Images\\heros\\" + id + ".png").convert_alpha()
         self.masque = FCT.Generer_Mask_Image(self.image)
@@ -43,18 +45,21 @@ class Chero(object):
 
         
     def se_prend_un_coup(self):
-        print( self.nom + " perd une vie !")
-        self.vie = self.vie -1
+        self.vie -= 1
+        if self.vie == 0:
+            self.mort = True
+    
 
-
-    def demi_tour(self, force = False):
+    def fait_un_demi_tour(self, force = False):
         self.deplacer(self.xOld, self.yOld, force)
 
     def peut_bouger(self):
         return (self.mouvement > 0)
     
     def deplacer(self, x, y, force = False):
-        if self.mouvement < 1 and force == False: return False
+        if self.peut_bouger() == False and force == False: 
+            return False
+        
         self.xOld, self.yOld = self.x, self.y           # --- enregistre le chemin précédent
 
         self.seDeplace = True
@@ -94,11 +99,16 @@ class Chero(object):
         # --- Deplacement terminé
         if self.seDeplace == False:
             self.deplaceX, self.deplaceY = 0, 0
-            self.mouvement -= 1
+            self.se_deplace()
             self.recentrer_camera()    
             self.gestion_reaction_sur_place()
             
-            
+    def se_repose(self):
+        self.mouvement = 0
+        
+    def se_deplace(self):
+        self.mouvement -=1
+               
     def gestion_reaction_sur_place(self):
         nb_coffres = 0
 
@@ -155,8 +165,9 @@ class Chero(object):
     
     def position_sur_ecran(self):
         decalage_milieu = 4
-        x = VAR.OffsetX + (((self.x * 9)+decalage_milieu) * VAR.Zoom) + self.deplaceX - self.image_offsetx
-        y = VAR.OffsetY + (((self.y * 9)+decalage_milieu) * VAR.Zoom) + self.deplaceY - self.image_offsety
+        x, y = outils.position(self.x, self.y, decalage_milieu, decalage_milieu)
+        x += (self.deplaceX - self.image_offsetx)
+        y += (self.deplaceY - self.image_offsety)
         return (x, y)
     
     

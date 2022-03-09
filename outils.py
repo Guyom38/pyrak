@@ -32,5 +32,6 @@ def tour(x):
 
 # --- Retourne la position de la cellule sur l'ecran en pixel
 def position(x, y, xOff = 0, yOff = 0):
+   if (xOff, yOff) == (0, 0): return VAR.OffsetX + ((x * VAR.Zoom) * 9), (VAR.OffsetY + (y * VAR.Zoom) * 9) 
    return VAR.OffsetX + ((x * VAR.Zoom) * 9) + (xOff * VAR.Zoom), (VAR.OffsetY + (y * VAR.Zoom) * 9) + (yOff * VAR.Zoom)
 

@@ -11,8 +11,8 @@
             "type": "python",
             "request": "launch",
             //"program": "${file}",
-            //"program":"D:\\#PROJETS\\#PYTHON\\pyrak\\karak.py",
-            "program":"C:\\Users\\009728\\Documents\\#PROJETS\\#PYTHON\\PyRak\\pyrak\\karak.py",
+            "program":"D:\\#PROJETS\\#PYTHON\\pyrak\\karak.py",
+            //"program":"C:\\Users\\009728\\Documents\\#PROJETS\\#PYTHON\\PyRak\\pyrak\\karak.py",
             
             "console": "integratedTerminal"
         }
