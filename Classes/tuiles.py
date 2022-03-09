@@ -125,7 +125,10 @@ class CTuiles():
         tu.x, tu.y = x, y
         tu.depart = premiere
         VAR.terrain[x][y] = tu
-    
+        
+        if tu.teleport == True:
+            VAR.liste_teleports.append((x, y))
+
         if premiere == False:
             VAR.joueur_en_cours.deplacer(x, y)
         self.tuileSelect = None

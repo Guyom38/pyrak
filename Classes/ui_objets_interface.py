@@ -9,17 +9,16 @@ from Classes.class_bresenham import *
 
 class CObjets_Interface():
     def __init__(self):
-        
         self.couleurTraces = pygame.Color(255,255,0,255)
     
-    def zone_clickable(self, xP, yP, dimX, dimY, bouton):
+    def zone_clickable(self, x, y, dimX, dimY, bouton):
         clic = VAR.ENUM_Clic.Rien
-        if VAR.mX >= xP and VAR.mX <= xP + dimX and VAR.mY >= yP and VAR.mY <= yP + dimY:
+        if VAR.mX >= x and VAR.mX <= x + dimX and VAR.mY >= y and VAR.mY <= y + dimY:
             clic = VAR.ENUM_Clic.Survol
             if FCT.clic(bouton, 300) == True:
                 clic = VAR.ENUM_Clic.Clic
                 FCT.reset_clic()
-            pygame.draw.rect(VAR.fenetre, pygame.Color(255,0,0,255), (xP, yP, dimX,dimY), 8)
+            pygame.draw.rect(VAR.fenetre, pygame.Color(255,0,0,255), (x, y, dimX,dimY), (VAR.cpt % 6)+2)
         return clic
         
     def afficher_bouton_image(self, xP, yP, image, bouton = 0):

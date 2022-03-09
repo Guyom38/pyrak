@@ -6,6 +6,7 @@ import variables as VAR
 from variables import *
 import fonctions as FCT
 import outils 
+from Classes.class_bresenham import *
 
 class CPlateau():
 
@@ -21,6 +22,8 @@ class CPlateau():
         self.animation_cpt = 0
         self.animation_delais = 30
         
+        self.mX, self.mY, self.mXOld, self.mYOld = 0,0,0,0
+        
     def fond(self):
         if VAR.image_fond is None:
             VAR.image_fond = pygame.Surface((VAR.EcranX, VAR.EcranY),pygame.SRCALPHA,32)
@@ -32,19 +35,30 @@ class CPlateau():
         VAR.fenetre.blit(VAR.image_fond, (0, 0))
 
     def gestion_deplacement_plateau(self):
-        if pygame.mouse.get_focused() == True and VAR.phase_du_jeu == VAR.ENUM_Phase.DEPLACEMENT:
-            if VAR.mX < VAR.bord: VAR.OffsetX = VAR.OffsetX + VAR.Taille
-            if VAR.mX > VAR.EcranX - VAR.bord: VAR.OffsetX = VAR.OffsetX - VAR.Taille
-            if VAR.mY < VAR.bord: VAR.OffsetY = VAR.OffsetY + VAR.Taille
-            if VAR.mY > VAR.EcranY - VAR.bord: VAR.OffsetY = VAR.OffsetY - VAR.Taille
-            
-            if VAR.OffsetX > VAR.v9: VAR.OffsetX = VAR.v9
-            if VAR.OffsetY > VAR.v9: VAR.OffsetY = VAR.v9
-            
+        if pygame.mouse.get_focused() == True: 
+            if VAR.phase_du_jeu == VAR.ENUM_Phase.DEPLACEMENT:
+
+                if pygame.mouse.get_pressed()[1] == 1:
+                    
+                    self.mXOld = self.mX
+                    self.mYOld = self.mY
+                    self.mX = VAR.mX
+                    self.mY = VAR.mY
+
+                    VAR.OffsetX = VAR.OffsetX - (self.mXOld - self.mX)
+                    VAR.OffsetY = VAR.OffsetY - (self.mYOld - self.mY)
+                   
+                else:
+                    self.mXOld = VAR.mX
+                    self.mYOld = VAR.mY
+                    self.mX = VAR.mX
+                    self.mY = VAR.mY
     
     def afficher(self):
+        
         VAR.tuiles.afficher()
         self.afficher_curseur()
+        self.afficher_teleporteurs()
         VAR.heros.afficher()
         
         self.animation_cpt +=1
@@ -90,10 +104,15 @@ class CPlateau():
             return liste_voisins
     
     
-    
+    def afficher_teleporteurs(self):
+        # --- Fleche de teleporteur
+        if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.peut_bouger():   
+            if VAR.terrain[VAR.joueur_en_cours.x][ VAR.joueur_en_cours.y].teleport == True and len(VAR.liste_teleports)>1:
+                self.Animation_Teleporteurs()
+
     def afficher_curseur(self):
-      
         
+        # --- Fleche de deplacement
         curseur = (-1, -1)
         for xD, yD, videOccupe, enDehors in self.liste_voisins():  #[(-1,0), (1,0), (0,-1), (0,1)]:
             x, y = VAR.joueur_en_cours.x + xD, VAR.joueur_en_cours.y + yD
@@ -126,6 +145,7 @@ class CPlateau():
                             self.Animation_Fleches(xP, yP, xD, yD)
                             #VAR.plateau.Animation_Curseur((xP, yP))      
                             
+
                             ico = FCT.iif(VAR.terrain[x][y].jeton == None or VAR.terrain[x][y].piece == False, 1, 6)
                             VAR.fenetre.blit(FCT.icone(ico), (xP, yP, 63, 66))
                             
@@ -135,12 +155,35 @@ class CPlateau():
                 # --- Dessine la zone en dehors
                 else :
                     VAR.plateau.Animation_Zone(xP, yP, 1)
-                    
-        if FCT.clic(1, 300) == True:
-            VAR.joueur_en_cours.recentrer_camera()
+
+              
+        #if FCT.clic(1, 300) == True:
+        #    VAR.joueur_en_cours.recentrer_camera()
                             
         if curseur != (-1, -1):
             VAR.plateau.Animation_Curseur(curseur)
+
+    def Animation_Teleporteurs(self):
+        xP, yP = outils.position(VAR.joueur_en_cours.x, VAR.joueur_en_cours.y, 4, 4) 
+        trajets = []
+        zd2 = int(VAR.Zoom / 2)
+        for x2, y2 in VAR.liste_teleports:
+            xT, yT = outils.position(x2, y2, 4, 4) 
+            if xP != xT or yP != yT:
+                tmp_liste = bresenham([xP+zd2, yP+zd2], [xT+zd2, yT+zd2]).path
+                if (tmp_liste[0] == (xT+zd2, yT+zd2)): tmp_liste.reverse()
+                trajets.append(tmp_liste)  
+
+                if VAR.objets_interface.zone_clickable(xT-VAR.v4, yT-VAR.v4, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:  
+                    print("Disparition")      
+
+        p = 0
+        for tr in trajets:
+            for pts in tr:
+                if p %16 == (VAR.cpt %16): pygame.draw.rect(VAR.fenetre, (255,255,0,255), (pts[0]-4, pts[1]-4, 8, 8), 0)
+                p += 1
+
+              
 
     def Animation_Fleches(self, xP, yP, xD, yD):
         if VAR.joueur_en_cours.seDeplace == False:

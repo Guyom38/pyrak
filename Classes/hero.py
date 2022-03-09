@@ -147,7 +147,7 @@ class Chero(object):
 
 
     def recentrer_camera(self):
-        print("Recentrer camera")
+        #print("Recentrer camera")
         #VAR.camera.deplacer(self.x, self.y)
         VAR.OffsetX = -(((self.x) * 9) * VAR.Zoom) + int((VAR.EcranX - VAR.v9) / 2)
         VAR.OffsetY = -(((self.y) * 9) * VAR.Zoom) + int((VAR.EcranY - VAR.v9) / 2)

@@ -132,6 +132,7 @@ icones_mechants = None
 image_fond = None
 image_zone = [], []
 terrain = None
+liste_teleports = []
 
 fonts = {}
 

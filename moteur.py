@@ -55,7 +55,7 @@ class CMoteur:
         pygame.mixer.init()
 
         VAR.fenetre = pygame.display.set_mode((VAR.EcranX, VAR.EcranY), pygame.DOUBLEBUF, 32)
-        pygame.display.set_caption("PyRAK v0.03")
+        pygame.display.set_caption("PyRAK v0.04")
 
         VAR.ressources.chargement()
         self.boucle()
@@ -81,10 +81,10 @@ class CMoteur:
                     if event.key == 269 and VAR.Zoom > 5: FCT.zoom(False)
                         
                     
-                    if event.key == K_LEFT: VAR.OffsetX = VAR.OffsetX + VAR.Taille
-                    if event.key == K_RIGHT: VAR.OffsetX = VAR.OffsetX - VAR.Taille
-                    if event.key == K_UP: VAR.OffsetY = VAR.OffsetY + VAR.Taille
-                    if event.key == K_DOWN: VAR.OffsetY = VAR.OffsetY - VAR.Taille
+                    if event.key == K_LEFT: VAR.OffsetX = VAR.OffsetX + VAR.v9
+                    if event.key == K_RIGHT: VAR.OffsetX = VAR.OffsetX - VAR.v9
+                    if event.key == K_UP: VAR.OffsetY = VAR.OffsetY + VAR.v9
+                    if event.key == K_DOWN: VAR.OffsetY = VAR.OffsetY - VAR.v9
                     
                     if VAR.OffsetX > VAR.v9: VAR.OffsetX = VAR.v9
                     if VAR.OffsetY > VAR.v9: VAR.OffsetY = VAR.v9
@@ -101,7 +101,7 @@ class CMoteur:
         
         while VAR.boucle_principale:
                  
-            #VAR.plateau.gestion_deplacement_plateau()
+            VAR.plateau.gestion_deplacement_plateau()
             VAR.heros.gestion_deplacement_joueur()
             VAR.camera.gestion()
             self.gestion_clavier_souris()

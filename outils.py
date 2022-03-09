@@ -30,3 +30,7 @@ def cercle_COS(x_centre, y_centre, rayon):
 def tour(x):
    return (x % 359)
 
+# --- Retourne la position de la cellule sur l'ecran en pixel
+def position(x, y, xOff = 0, yOff = 0):
+   return VAR.OffsetX + ((x * VAR.Zoom) * 9) + (xOff * VAR.Zoom), (VAR.OffsetY + (y * VAR.Zoom) * 9) + (yOff * VAR.Zoom)
+
