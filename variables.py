@@ -45,6 +45,7 @@ class ENUM_Actions(Enum):
     DEVERROUILLER = 8
     PIOCHER = 9
     
+    
 class ENUM_Phase(Enum):
     DEPLACEMENT = 0
     COMBAT = 1
@@ -55,6 +56,7 @@ class ENUM_Phase(Enum):
     AU_SUIVANT = 6
     RECOMPENSE = 7
     TELEPORTER = 8
+    MENU = 9
     
 class ENUM_Piece(Enum):
     RIEN_FAIRE = -2
@@ -64,7 +66,7 @@ class ENUM_Piece(Enum):
     
     
 # ---------------------------------------------------------------------------------------    
-phase_du_jeu = ENUM_Phase.DEPLACEMENT
+phase_du_jeu = ENUM_Phase.MENU
 phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT
 
 animations = {}
@@ -116,11 +118,16 @@ ressources = None
 camera = None
 notifications = None
 recompense = None
+partie = None
+menu = None 
+clavier = None
 
 interfaces = None
 objets_interface = None
 
 fenetre = None
+evenements = None
+
 clock = None
 boucle_principale = True
 

@@ -34,7 +34,7 @@ class Cheros():
 
         self.liste.append(self.liste_heros["00"])
         self.liste.append(self.liste_heros["01"])
-        self.liste.append(self.liste_heros["02"])
+       # self.liste.append(self.liste_heros["02"])
         
 
     def gestion_deplacement_joueur(self):

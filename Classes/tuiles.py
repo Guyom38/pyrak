@@ -12,6 +12,7 @@ class CTuiles():
         print("    + Initialisation module << Tuiles >>")
 
         self.pioche = []
+        self.piochePosition = 0
         
         self.charger()
         self.tuileSelect = None
@@ -34,13 +35,13 @@ class CTuiles():
         for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, False))
 
         random.shuffle(self.pioche)
-
+        
 # //
 # // ---   
     def piocher(self):
-        if len(self.pioche) > 0:
-            self.tuileSelect = self.pioche[0]
-            self.pioche.remove(self.pioche[0])
+        if len(self.pioche)-1 > self.piochePosition:
+            self.tuileSelect = self.pioche[self.piochePosition]
+            self.piochePosition += 1
 
 # //
 # // --- Force a redessiner chaque tuiles posés sur le plateau  

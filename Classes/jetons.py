@@ -10,6 +10,8 @@ class CJetons():
         print("    + Initialisation module << Jetons >>")
         
         self.pioche = [] 
+        self.piochePosition = 0
+        
         self.jetonSelect = None
          
     def charger(self):
@@ -26,8 +28,8 @@ class CJetons():
 # //
 # // ---   
     def piocher(self):
-        if len(self.pioche) > 0:
-            self.jetonSelect = self.pioche[0]
-            self.pioche.remove(self.pioche[0])   
+        if len(self.pioche)-1 > self.piochePosition:
+            self.jetonSelect = self.pioche[self.piochePosition]
+            self.piochePosition += 1
             return self.jetonSelect 
         return None

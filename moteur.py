@@ -15,6 +15,11 @@ from Classes.objets import *
 from Classes.camera import *
 from Classes.notifications import *
 from Classes.ui_recompense import *
+from Menu.clavier import *
+
+from partie import *
+from Menu.menu import *
+
 
 from ressources import *
 
@@ -26,12 +31,14 @@ from variables import *
 
 import fonctions as FCT
 import Classes.ui_transitions
-
+import pickle
 
 class CMoteur:
     def __init__(self):
         print("+ Initialisation module << Moteur >>")
 
+        VAR.menu = CMenu()
+        VAR.partie = CPartie()
         VAR.camera = CCamera()
         VAR.ressources = CRessources()    
         VAR.heros = Cheros()
@@ -46,7 +53,8 @@ class CMoteur:
         VAR.objets = CObjets()
         VAR.notifications = CNotifications()
         VAR.recompense = CRecompense()
-
+        VAR.clavier = CClavier()
+        
         VAR.boucle_principale = True
 
 
@@ -58,22 +66,67 @@ class CMoteur:
         pygame.display.set_caption("PyRAK v0.04")
 
         VAR.ressources.chargement()
+        #VAR.partie.charger()
+        
+        VAR.camera.centrer_sur_joueur()
+        VAR.notifications.initialiser_bandeau(VAR.joueur_en_cours.nom + ", a vous de jouer !")
+
         self.boucle()
-
-   
+    
         
-
+    def boucle(self):
         
-    def gestion_clavier_souris(self):
+        self.gestion_rythme(0)
+
+        while VAR.boucle_principale:
+            VAR.evenements = pygame.event.get()
+            self.gestion_souris()
+            
+            if VAR.phase_du_jeu == ENUM_Phase.MENU:
+                VAR.menu.afficher()
+                
+            else:
+                VAR.plateau.gestion_deplacement_plateau()
+                VAR.heros.gestion_deplacement_joueur()
+                VAR.camera.gestion()
+                
+                self.gestion_clavier()
+                VAR.plateau.fond()
+                
+                VAR.phase.gestion_des_phases_de_jeu()
+                VAR.interfaces.afficher()
+                VAR.notifications.afficher()
+
+            VAR.clavier.afficher()
+            
+            FCT.texte(VAR.fenetre, "FPS : " + str(VAR.fps), 32, 20, 10)
+            FCT.texte(VAR.fenetre, "ZOOM : " + str(VAR.Zoom), 32, 30, 10)
+            FCT.texte(VAR.fenetre, "PIOCHE : " + str(len(VAR.tuiles.pioche)), 32, 40, 10)
+
+            pygame.display.update()
+            self.gestion_rythme(1)
+
+        VAR.partie.enregistrer()
+        pygame.quit() 
+        
+        
+        
+    def gestion_souris(self):
         VAR.mouseG, VAR.mouseM, VAR.mouseD = pygame.mouse.get_pressed()
         VAR.mX, VAR.mY = pygame.mouse.get_pos()
-            
-        for event in pygame.event.get():        
+        
+        for event in VAR.evenements: #pygame.event.get():        
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                 VAR.boucle_principale = False
                 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 VAR.souris = pygame.mouse.get_pressed()
+        
+    def gestion_clavier(self):
+            
+        for event in VAR.evenements: #pygame.event.get():        
+            if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
+                VAR.boucle_principale = False
                     
             if event.type == KEYDOWN:  
                 if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:
@@ -87,47 +140,7 @@ class CMoteur:
                     if event.key == K_DOWN: VAR.OffsetY = VAR.OffsetY - VAR.v9
                     
                     if VAR.OffsetX > VAR.v9: VAR.OffsetX = VAR.v9
-                    if VAR.OffsetY > VAR.v9: VAR.OffsetY = VAR.v9
-    
-    
-        
-    def boucle(self):
-        
-
-        self.gestion_rythme(0)
-        #VAR.ressources.charger_musique("JEU1")
-        VAR.camera.centrer_sur_joueur()
-        VAR.notifications.initialiser_bandeau(VAR.joueur_en_cours.nom + ", a vous de jouer !")
-        
-        while VAR.boucle_principale:
-                 
-            VAR.plateau.gestion_deplacement_plateau()
-            VAR.heros.gestion_deplacement_joueur()
-            VAR.camera.gestion()
-            self.gestion_clavier_souris()
-
-            VAR.plateau.fond()
-            
-            VAR.phase.gestion_des_phases_de_jeu()
-            VAR.interfaces.afficher()
-            VAR.notifications.afficher()
-
-
-
-            # ---------------------------------
-
-            # ---------------------------------  
-            FCT.texte(VAR.fenetre, "FPS : " + str(VAR.fps), 32, 20, 10)
-            FCT.texte(VAR.fenetre, "ZOOM : " + str(VAR.Zoom), 32, 30, 10)
-            FCT.texte(VAR.fenetre, "PIOCHE : " + str(len(VAR.tuiles.pioche)), 32, 40, 10)
-
-            pygame.display.update()
-            self.gestion_rythme(1)
-
-        pygame.quit() 
-        
- 
-        
+                    if VAR.OffsetY > VAR.v9: VAR.OffsetY = VAR.v9        
         
     def gestion_rythme(self, id):
         if id == 0:

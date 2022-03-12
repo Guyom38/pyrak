@@ -26,7 +26,7 @@ class CTuile(object):
 
         self.depart = False
         self.pillier = False
-        
+       
     # -2 : Rien ne se passe
     # -1 : Objet a prendre
     #  0 : Reprise du combat

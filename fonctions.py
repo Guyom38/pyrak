@@ -1,4 +1,3 @@
-from tkinter import Y
 import pygame
 from pygame.locals import *
 
@@ -61,6 +60,9 @@ def icone(codeImg):
     # --- Colle le decors    
     tmp = pygame.transform.scale(tmp, (63, 66))
     return tmp
+
+def image_vide(dimx, dimy):
+    return pygame.Surface((dimx, dimy),pygame.SRCALPHA,32)
 
 def image_decoupe(img, x, y, dimx, dimy, dimxZ = -1, dimyZ = -1):
     tmp = pygame.Surface((dimx, dimy),pygame.SRCALPHA,32)
