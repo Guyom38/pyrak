@@ -68,8 +68,8 @@ class CMoteur:
         VAR.ressources.chargement()
         #VAR.partie.charger()
         
-        VAR.camera.centrer_sur_joueur()
-        VAR.notifications.initialiser_bandeau(VAR.joueur_en_cours.nom + ", a vous de jouer !")
+        #VAR.camera.centrer_sur_joueur()
+        #VAR.notifications.initialiser_bandeau(VAR.joueur_en_cours.nom + ", a vous de jouer !")
 
         self.boucle()
     
@@ -101,12 +101,11 @@ class CMoteur:
             
             FCT.texte(VAR.fenetre, "FPS : " + str(VAR.fps), 32, 20, 10)
             FCT.texte(VAR.fenetre, "ZOOM : " + str(VAR.Zoom), 32, 30, 10)
-            FCT.texte(VAR.fenetre, "PIOCHE : " + str(len(VAR.tuiles.pioche)), 32, 40, 10)
 
             pygame.display.update()
             self.gestion_rythme(1)
 
-        VAR.partie.enregistrer()
+        
         pygame.quit() 
         
         

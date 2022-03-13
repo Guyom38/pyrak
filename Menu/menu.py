@@ -11,32 +11,60 @@ class CMenu():
     def __init__(self):
         print("    + Initialisation module << Menu >>")
 
+        self.menu_nom = ""
         self.menu_principal()
         
         self.dimX, self.dimY, self.esp = 300, 50, 6
-        self.offX, self.offY = int((VAR.EcranX - self.dimX) / 2), VAR.EcranY - 300 - (len(self.MENU) * self.dimY + self.esp)
+        self.offX, self.offY = int((VAR.EcranX - self.dimX) / 2), VAR.EcranY - 100 - (len(self.MENU) * self.dimY + self.esp)
         self.fond_old = None
         
     def menu_principal(self):
+        self.menu_nom = "PRINCIPAL"
+        
         self.MENU = []
         self.MENU.append( (0, "Continuer") )
         self.MENU.append( (1, "Nouvelle partie") )
         self.MENU.append( (2, "Charger une partie") )
+        #self.MENU.append( (9, "Enregistrer la partie") )
         self.MENU.append( (3, "Partie réseau") )
         self.MENU.append( (4, "Options") )
         self.MENU.append( (5, "Quitter") )
     
+    def menu_noms_joueurs(self):
+        self.menu_nom = "JOUEURS"
+        
+        self.MENU = []
+        self.MENU.append( (-10, "JOUEUR 1") )
+        self.MENU.append( (-11, "JOUEUR 1") )
+        self.MENU.append( (-12, "JOUEUR 1") )
+        self.MENU.append( (-13, "JOUEUR 1") )
+        self.MENU.append( (-14, "JOUEUR 1") )
+        
     def menu_partie_reseau(self):
+        self.menu_nom = "RESEAU"
+        
         self.MENU = []
         self.MENU.append( (6, "Créer une partie réseau") )
         self.MENU.append( (7, "Entrer un code de partie") )
         self.MENU.append( (8, "Retour") )
 
-            
+    def menu_multijoueur_entrer_code(self):
+        self.menu_nom = "CODE"
+        
+        self.MENU = []
+        self.MENU.append( (-1, "Entrez le code la partie") )
+        self.MENU.append( (-2, "") )
+        self.MENU.append( (8, "Retour") )
+                
     def action_menu(self, id):
         if id == 5:
             VAR.boucle_principale = False
+        elif id < -1:
+            VAR.clavier.montrer()
         elif id == 0:
+            VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
+        elif id == 1:
+            VAR.partie.nouvelle_partie()
             VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
         elif id == 2:
             VAR.partie.charger()
@@ -44,8 +72,18 @@ class CMenu():
             
         elif id == 3:
             self.menu_partie_reseau()
+        elif id == 7:
+            self.menu_multijoueur_entrer_code()
         elif id == 8:   
-            self.menu_principal()
+            VAR.clavier.cacher()
+            
+            if self.menu_nom == "PRINCIPAL":
+                VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
+            else:
+                self.menu_principal()
+        elif id == 9:
+            VAR.partie.enregistrer()
+            
             
                     
     def afficher(self):
@@ -63,9 +101,19 @@ class CMenu():
         for id, txt_menu in self.MENU:
             x, y = self.offX, self.offY + y2 
             
+            if id == -1:
+                fond_bouton = (32,32,32,255)
+            else:
+                fond_bouton = (64,64,64,255)
+                
+            if id == -2:
+                txt_menu = VAR.clavier.mot
+            elif id < -2:
+                pass
+                
             # --- dessine fond de l'element
             fond_image = FCT.image_vide(self.dimX,self.dimY)
-            fond_image.fill((32,32,32,200))
+            fond_image.fill(fond_bouton)
             pygame.draw.rect(fond_image, (64,64,64,255), (0, 0, fond_image.get_width(), fond_image.get_height()), 2)
             VAR.fenetre.blit(fond_image, (x, y))
             

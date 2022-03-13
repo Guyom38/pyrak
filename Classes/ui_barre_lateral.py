@@ -11,11 +11,17 @@ class CBarre_Laterale():
     def __init__(self):
         print("    + Initialisation module << Barre laterale >>")
         
-        
+    def afficher_menu(self):
+        pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (VAR.EcranX-200, 0, 200, 50), 0)
+        pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (VAR.EcranX-200, 0, 200, 50), 2)
+        if VAR.objets_interface.afficher_bouton_image(VAR.EcranX-200, 16, VAR.IMG["mini_coeur"]) == ENUM_Clic.Clic: 
+            VAR.phase_du_jeu = ENUM_Phase.MENU
+            
+            
     def afficher_liste_joueurs(self):
-        hauteur, largeur = (len(VAR.heros.liste) * 50) + 50, 150
+        hauteur, largeur = (len(VAR.heros.liste) * 50) + 60, 150
            
-        pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (VAR.EcranX-50, 0, 50, VAR.EcranY), 0)
+        pygame.draw.rect(VAR.fenetre, pygame.Color(80,50,30,255), (VAR.EcranX-50, 0, 50, VAR.EcranY), 0)
         pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (VAR.EcranX-60, 0, 5, VAR.EcranY-60), 0)
 
         f = [(VAR.EcranX - largeur, 0), (VAR.EcranX, 0), (VAR.EcranX, hauteur), (VAR.EcranX - largeur, hauteur - 50)]

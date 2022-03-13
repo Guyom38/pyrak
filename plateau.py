@@ -16,8 +16,6 @@ class CPlateau():
         VAR.image_fond = None
         VAR.image_zone = [], []
 
-        VAR.terrain = FCT.GenereMat2D(VAR.PlateauX, VAR.PlateauY, 0)  #[[0 for x in range(self.MAX_LARGEUR)] for i in range(self.MAX_HAUTEUR)]
-
         self.animation_cycle = 0    
         self.animation_cpt = 0
         self.animation_delais = 30
@@ -25,6 +23,11 @@ class CPlateau():
         self.mX, self.mY, self.mXOld, self.mYOld = 0,0,0,0
         self.teleport_destination = (-1, -1)
         
+        self.creer_terrain()
+    
+    def creer_terrain(self):
+        VAR.terrain = FCT.GenereMat2D(VAR.PlateauX, VAR.PlateauY, 0)  #[[0 for x in range(self.MAX_LARGEUR)] for i in range(self.MAX_HAUTEUR)]
+            
     def fond(self):
         if VAR.image_fond is None:
             VAR.image_fond = pygame.Surface((VAR.EcranX, VAR.EcranY),pygame.SRCALPHA,32)

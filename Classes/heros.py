@@ -11,16 +11,16 @@ import csv
 class Cheros():
     def __init__(self):
         print("    + Initialisation module << Heros >>")
-        
-        self.liste = []
-        self.liste_heros = {}
-        self.joueur_liste_position = 0
-        
+
         self.cpt_cycle = 0
         self.cpt = 0
         
     def charger(self):
         print("\n    + Chargement du fichier de heros : infos.csv")
+        
+        self.liste = []
+        self.liste_heros = {}
+        self.joueur_liste_position = 0
         
         with open('images\\heros\\infos.csv') as fichier_csv:
             reader = csv.reader(fichier_csv, delimiter=';')

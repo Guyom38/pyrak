@@ -8,13 +8,12 @@ from Classes.mechant import *
 class CJetons():
     def __init__(self):
         print("    + Initialisation module << Jetons >>")
-        
-        self.pioche = [] 
-        self.piochePosition = 0
-        
-        self.jetonSelect = None
          
     def charger(self):
+        self.pioche = [] 
+        self.piochePosition = 0
+        self.jetonSelect = None
+        
         for i, monstre in VAR.mechants.liste.items():
             for j in range(0, monstre.quantite):
                 self.pioche.append( CJeton( i, monstre) )

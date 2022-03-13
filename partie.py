@@ -10,7 +10,19 @@ class CPartie():
     def __init__(self):
         print("    + Initialisation module << Partie >>")
 
-
+    def nouvelle_partie(self):
+        
+        VAR.tuiles.charger()
+        VAR.jetons.charger()
+        
+        
+        VAR.plateau.creer_terrain()
+        VAR.tuiles.placer_piece_centrale()
+        
+        VAR.heros.charger()
+        VAR.joueur_en_cours = VAR.heros.liste[0]
+        VAR.joueur_en_cours.recentrer_camera()
+        
     def enregistrer(self):
         sauvegarde = {}
         

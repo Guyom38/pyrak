@@ -10,18 +10,17 @@ import variables as VAR
 class CTuiles():
     def __init__(self):
         print("    + Initialisation module << Tuiles >>")
-
-        self.pioche = []
-        self.piochePosition = 0
-        
-        self.charger()
-        self.tuileSelect = None
+       
 
     def joueur_a_deja_pioche(self):
         return (self.tuileSelect != None)
 # //
 # // ---   
     def charger(self):
+        self.pioche = []
+        self.piochePosition = 0
+        self.tuileSelect = None
+        
         #def __init__(acces, piece, fontaine, teleport, x = -1, y = -1):
         for i in range(20):  self.pioche.append( CTuile( [True, True, False, False], False, True, False))
         for i in range(30):  self.pioche.append( CTuile( [True, True, False, False], False, False, False))
@@ -33,7 +32,10 @@ class CTuiles():
         for i in range(14):  self.pioche.append( CTuile( [True, True, True, True], False, False, False))
         for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, True))
         for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, False))
+        
+        self.melanger()
 
+    def melanger(self):
         random.shuffle(self.pioche)
         
 # //

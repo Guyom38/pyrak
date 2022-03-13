@@ -36,6 +36,7 @@ class CInterfaces():
     def afficher(self):
 
         self.afficher_cadre_joueur()
+        self.menu.afficher_menu()
         hauteur = self.menu.afficher_liste_joueurs()
         self.menu.afficher_liste_actions_joueur(hauteur)
         self.afficher_cadre_global()
