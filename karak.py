@@ -1,5 +1,5 @@
-from test import *
-import moteur 
+from ztest import *
+import classes.moteur as moteur 
 
 
 print("\n\n")
