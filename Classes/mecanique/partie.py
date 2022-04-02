@@ -60,7 +60,7 @@ class CPartie():
         
         
         # --- Enregistrement des données
-        with open("data_file.json", "w") as write_file:
+        with open("donnees\\data_file.json", "w") as write_file:
             json.dump(sauvegarde, write_file)
 
 
@@ -74,7 +74,7 @@ class CPartie():
 
 
     def charger(self):
-        with open("data_file.json", "r") as read_file:
+        with open("donnees\\data_file.json", "r") as read_file:
             sauvegarde = json.load(read_file)
             
             self.reinitialisation_tuiles(sauvegarde['tuiles'])

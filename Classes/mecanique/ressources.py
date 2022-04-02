@@ -2,10 +2,8 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
-
 import classes.commun.fonctions as FCT
-import time
+
 
 class CRessources:
     def __init__(self):
@@ -31,7 +29,7 @@ class CRessources:
         pygame.display.update()
         
     def charger_musique(self, musique):
-        pygame.mixer.music.load("Audios\\" + VAR.MUSICS[musique])
+        pygame.mixer.music.load("audios\\" + VAR.MUSICS[musique])
         pygame.mixer.music.set_volume(0.7)
         pygame.mixer.music.play()
             
@@ -52,31 +50,31 @@ class CRessources:
         self.afficher()
         print("\n+ Chargements des ressources")
 
-        VAR.texture = pygame.image.load("Images\\donjon.png").convert_alpha()   
-        VAR.icones = pygame.image.load("Images\\icones.png").convert_alpha()   
-        VAR.icones_mechants = pygame.image.load("Images\\mechants\\icones.png").convert_alpha()   
+        VAR.texture = pygame.image.load("images\\donjon.png").convert_alpha()   
+        VAR.icones = pygame.image.load("images\\icones.png").convert_alpha()   
+        VAR.icones_mechants = pygame.image.load("images\\mechants\\icones.png").convert_alpha()   
         self.barre_progression(10)
 
-        VAR.perso = pygame.image.load("Images\\EnemySpriteSheet1.png-par-Kazzador.png").convert_alpha()   
+        VAR.perso = pygame.image.load("images\\EnemySpriteSheet1.png-par-Kazzador.png").convert_alpha()   
         
        
         # --- eau
         i = 0
-        tmp = pygame.image.load("Images\\eau2.png").convert_alpha()   
+        tmp = pygame.image.load("images\\eau2.png").convert_alpha()   
         for y in range(0, 4):
             for x in range(0, 8):
                 VAR.IMG["eau" + str(i)] = FCT.image_decoupe(tmp, x, y, 48, 48 )
                 i = i +1
 
         i = 0
-        tmp = pygame.image.load("Images\\passage2.png").convert_alpha()   
+        tmp = pygame.image.load("images\\passage2.png").convert_alpha()   
         for y in range(0, 3):
             for x in range(0, 8):
                 VAR.IMG["passage" + str(i)] = FCT.image_decoupe(tmp, x, y, 48, 48 )
                 i = i +1
 
-        tmp = pygame.image.load("Images\\icones2.png").convert_alpha()   
-        VAR.IMG["coffre_ouvert"] = pygame.image.load("Images\\objets\\coffre_ouvert.png").convert_alpha()   
+        tmp = pygame.image.load("images\\icones2.png").convert_alpha()   
+        VAR.IMG["coffre_ouvert"] = pygame.image.load("images\\objets\\coffre_ouvert.png").convert_alpha()   
         VAR.IMG["coeur"] = FCT.image_decoupe(tmp, 0, 0, 42, 42 )
         VAR.IMG["mini_coeur"] = FCT.image_decoupe(tmp, 0, 0, 42, 42, 16, 16 )
         VAR.IMG["mort"] = FCT.image_decoupe(tmp,  1, 0, 42, 42 )
@@ -84,20 +82,20 @@ class CRessources:
         VAR.IMG["energie"] = FCT.image_decoupe(tmp,  3, 0, 42, 42 )
         self.barre_progression(20)
 
-        for i, j in enumerate(ENUM_Actions):
+        for i, j in enumerate(VAR.ENUM_Actions):
             id = j.value
-            VAR.IMG[id] = FCT.image_decoupe(pygame.image.load("Images\\icones.png").convert_alpha(), id, 0, 63, 66 )
+            VAR.IMG[id] = FCT.image_decoupe(pygame.image.load("images\\icones.png").convert_alpha(), id, 0, 63, 66 )
         self.barre_progression(30)  
 
-        VAR.img0 = pygame.image.load("Images\\1674_1057998444.png").convert_alpha()  
+        VAR.img0 = pygame.image.load("images\\1674_1057998444.png").convert_alpha()  
   
-        VAR.img2 = pygame.transform.flip(pygame.image.load("Images\\mechants\\00.png").convert_alpha(), True, False) 
-        VAR.des = pygame.image.load("Images\\des.png").convert_alpha()
+        VAR.img2 = pygame.transform.flip(pygame.image.load("images\\mechants\\00.png").convert_alpha(), True, False) 
+        VAR.des = pygame.image.load("images\\des.png").convert_alpha()
         
         VAR.objets.image_icones = pygame.image.load("images\\objets\\icones.png").convert_alpha()
 
-        VAR.SONS["rotation"] = pygame.mixer.Sound("Audios\\2005.wav")
-        VAR.SONS["poser"] = pygame.mixer.Sound("Audios\\591.wav")
+        VAR.SONS["rotation"] = pygame.mixer.Sound("audios\\2005.wav")
+        VAR.SONS["poser"] = pygame.mixer.Sound("audios\\591.wav")
 
         VAR.MUSICS["JEU1"] = "Krzysztof_Kurkowski_-_A_forest_village_.mp3"
         VAR.MUSICS["JEU2"] = "Krzysztof_Kurkowski_-_A_walk_.mp3"
@@ -118,7 +116,7 @@ class CRessources:
 
         for taille in (10,20,30,60,90,120,150):
             VAR.fonts[taille] = pygame.font.SysFont('arial', taille) 
-
+            
 
         #VAR.notifications.ajouter("","","Bonjour et bienvenu !")
         #VAR.notifications.ajouter("","","Piocher une carte")

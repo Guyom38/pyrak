@@ -1,0 +1,9 @@
+A faire :
+- affichage des dés pour tout le monde
+- refaire les tuiles avec l'eau
+
+
+Regle :
+- Quand le joueur n'a plus de vie.
+    - Ne joue pas pendant un tour
+    - Ajoute une vie le tour suivant, il peut rejouer

@@ -9,11 +9,13 @@ class Chero(object):
     def __init__(self, id, nom):
 
         
-        self.animationCycle = 0
-        self.animationCpt = 0
+        #self.animationCycle = 0
+        #self.animationCpt = 0
         
         self.nom = nom
         self.id = int(id)
+        
+        self.vie_max = 5
         self.vie = 5
         self.mouvement = 4
         self.pouvoirs = [None, None]
@@ -36,7 +38,7 @@ class Chero(object):
         self.direction = VAR.BAS
         self.mort = False
         
-        self.image = pygame.image.load("Images\\heros\\" + id + ".png").convert_alpha()
+        self.image = pygame.image.load("images\\heros\\" + id + ".png").convert_alpha()
         self.masque = FCT.Generer_Mask_Image(self.image)
         self.ordre_images = (1,3,2,0)
         self.image_offsetx, self.image_offsety = 8, 20
@@ -170,12 +172,19 @@ class Chero(object):
     
     
     def afficher(self):
-        t = VAR.heros.cpt % 3
+        t = FCT.iif(self.mort, 0, VAR.heros.cpt % 3)        
         x, y = self.position_sur_ecran()
         
-        if self == VAR.joueur_en_cours:
+        if self == VAR.joueur_en_cours and not self.mort:
             pygame.draw.circle(VAR.fenetre, pygame.Color(255,0,0,255), (x+16, y+24), 16+t, 3)
         
         VAR.fenetre.blit(FCT.image_decoupe(VAR.perso, (self.id * 3) +t, self.ordre_images[self.direction], 32, 32), (x, y))
         FCT.texte(VAR.fenetre, self.nom, x, y-16, 10, pygame.Color(0,0,0,255))
         FCT.texte(VAR.fenetre, self.nom, x+2, y-14, 10, pygame.Color(255,255,255,255))
+        
+        if self.mort:
+            i, liste = 0, outils.cercle_COS(x+16, y, 16)
+            for cX, cY in liste:
+                if (i % 40) == (VAR.cpt % 10)*4:
+                    FCT.texte(VAR.fenetre, "z",  cX, cY, 10, (255,255,0,0))
+                i+=1

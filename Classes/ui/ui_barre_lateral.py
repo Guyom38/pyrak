@@ -55,7 +55,7 @@ class CBarre_Laterale():
         # - MENU ACTIONS JOUEURS
         # ------------------------------------------------------------
         
-        for action in (VAR.ENUM_Actions.PIOCHER, VAR.ENUM_Actions.PRENDRE, VAR.ENUM_Actions.PAUSE, VAR.ENUM_Actions.COMBATTRE):
+        for action in (VAR.ENUM_Actions.PIOCHER, VAR.ENUM_Actions.PRENDRE, VAR.ENUM_Actions.PAUSE, VAR.ENUM_Actions.COMBATTRE, VAR.ENUM_Actions.SE_BAIGNER):
             ico = action.value
             if VAR.phase_du_jeu == VAR.ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.seDeplace == False:
                 if action == VAR.ENUM_Actions.PIOCHER and VAR.plateau.on_peut_construire() == True and VAR.joueur_en_cours.peut_bouger() and VAR.tuiles.joueur_a_deja_pioche() == False:                                       # --- PIOCHE disponible si un acces est visible
@@ -81,7 +81,13 @@ class CBarre_Laterale():
                             VAR.phase_du_jeu = VAR.ENUM_Phase.INVENTAIRE
                         yP = (yP +(hIco + 8))
                         
-                    
+                elif action == VAR.ENUM_Actions.SE_BAIGNER and VAR.tuiles.tuileSelect == None \
+                    and VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].fontaine == True and VAR.joueur_en_cours.vie < VAR.joueur_en_cours.vie_max:
+                        
+                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == VAR.ENUM_Clic.Clic:
+                            VAR.joueur_en_cours.vie = VAR.joueur_en_cours.vie_max
+                            VAR.notifications.ajouter(VAR.joueur_en_cours, "", "Pète la forme !")
+                            VAR.heros.joueur_suivant()
                     
             elif VAR.phase_du_jeu == VAR.ENUM_Phase.COMBAT:
                 if VAR.combat.lance_de_des == False and VAR.combat.combat_termine == False:

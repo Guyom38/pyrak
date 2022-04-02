@@ -71,7 +71,24 @@ class Cheros():
             self.joueur_liste_position = 0
 
         VAR.joueur_en_cours = self.liste[self.joueur_liste_position]
-        VAR.joueur_en_cours.mouvement = 4
         VAR.joueur_en_cours.recentrer_camera()
+        
+        if VAR.joueur_en_cours.mort:            
+            self.gestion_du_reveille()
+        else:
+            VAR.joueur_en_cours.mouvement = 4
+
+    def gestion_du_reveille(self):
+        if VAR.joueur_en_cours.mouvement == -99:                # le joueur est mort depuis 1 tour
+            VAR.joueur_en_cours.vie = 1
+            VAR.joueur_en_cours.mouvement = 4
+            VAR.joueur_en_cours.mort = False            
+            VAR.notifications.ajouter(VAR.joueur_en_cours, "", "Reprend quelques forces !")
+            
+        else :
+            VAR.joueur_en_cours.mouvement = -99                 # le joueur ne jouera pas ce tour !
+            VAR.notifications.ajouter(VAR.joueur_en_cours, "", "Est dans les vappes !")
+            
+        
 
 

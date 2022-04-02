@@ -164,11 +164,6 @@ class CPlateau():
                     elif VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.peut_bouger():                               # --- Se déplacer 
                         if VAR.tuiles.verification_placement(VAR.terrain[x][y], x, y, VAR.terrain[x-xD][y-yD]) and VAR.Zoom > 15 and VAR.tuiles.tuileSelect == None:
                             self.Animation_Fleches(xP, yP, xD, yD)
-                            #VAR.plateau.Animation_Curseur((xP, yP))      
-                            
-
-                            ###ico = FCT.iif(VAR.terrain[x][y].jeton == None or VAR.terrain[x][y].piece == False, 1, 6)
-                            ###VAR.fenetre.blit(FCT.icone(ico), (xP, yP, 63, 66))
                             
                             if VAR.objets_interface.zone_clickable(xP, yP, VAR.v9, VAR.v9, 0) == ENUM_Clic.Clic:
                                 VAR.joueur_en_cours.deplacer(x, y)

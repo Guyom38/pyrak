@@ -42,6 +42,7 @@ class ENUM_Actions(Enum):
     OUVRIR = 7
     DEVERROUILLER = 8
     PIOCHER = 9
+    SE_BAIGNER = 5
     
     
 class ENUM_Phase(Enum):
