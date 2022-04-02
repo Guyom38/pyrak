@@ -3,7 +3,6 @@ from pygame.locals import *
 
 import fonctions as FCT
 import variables as VAR
-import outils
 
 
 class CJeton(object):

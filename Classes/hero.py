@@ -2,8 +2,6 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
-
 import fonctions as FCT
 import outils
 
@@ -114,15 +112,15 @@ class Chero(object):
 
         # --- Si c'est une piece et pas la piece de depart, en avant pour un combat.
         que_fait_on = VAR.terrain[self.x][self.y].faut_il_tirer_un_jeton()
-        if que_fait_on == ENUM_Piece.TIRAGE_AU_SORT or que_fait_on == ENUM_Piece.COMBATTRE:
-            VAR.phase_du_jeu = ENUM_Phase.TRANSITION
+        if que_fait_on == VAR.ENUM_Piece.TIRAGE_AU_SORT or que_fait_on == VAR.ENUM_Piece.COMBATTRE:
+            VAR.phase_du_jeu = VAR.ENUM_Phase.TRANSITION
                 
-            if que_fait_on == ENUM_Piece.TIRAGE_AU_SORT: 
-                VAR.phase_du_jeu_suivant = ENUM_Phase.TIRAGE   
-            elif que_fait_on == ENUM_Piece.COMBATTRE:
-                VAR.phase_du_jeu_suivant = ENUM_Phase.COMBAT   
+            if que_fait_on == VAR.ENUM_Piece.TIRAGE_AU_SORT: 
+                VAR.phase_du_jeu_suivant = VAR.ENUM_Phase.TIRAGE   
+            elif que_fait_on == VAR.ENUM_Piece.COMBATTRE:
+                VAR.phase_du_jeu_suivant = VAR.ENUM_Phase.COMBAT   
             
-        elif que_fait_on == ENUM_Piece.OBJET_A_RECUPERER :                                        # --- Objet a prendre ?
+        elif que_fait_on == VAR.ENUM_Piece.OBJET_A_RECUPERER :                                        # --- Objet a prendre ?
             if VAR.joueur_en_cours.cle == False:
                 if VAR.terrain[self.x][self.y].recompense == "CLE":
                     VAR.joueur_en_cours.cle = True
@@ -151,7 +149,7 @@ class Chero(object):
             if nb_coffres >0:
                 VAR.terrain[self.x][self.y].recompense = None
                 VAR.terrain[self.x][self.y].pillier = True
-                VAR.phase_du_jeu = ENUM_Phase.RECOMPENSE
+                VAR.phase_du_jeu = VAR.ENUM_Phase.RECOMPENSE
                 VAR.joueur_en_cours.coffres += nb_coffres
 
 

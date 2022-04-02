@@ -2,10 +2,9 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
-import fonctions as FCT
-import Classes.ui_transitions as TRANSITION
-import Classes.notification
+
+import Classes.ui_transitions as CT
+import Classes.notification as CN
 
 
 class CRecompense():
@@ -33,7 +32,7 @@ class CRecompense():
                     boucle_active = False
             
             # --- Tourbillons
-            VAR.fenetre.blit(TRANSITION.image_tourbillon((centreX, centreY), k % 358, (34,202,238), 20, 0 ),(0,0))
+            VAR.fenetre.blit(CT.image_tourbillon((centreX, centreY), k % 358, (34,202,238), 20, 0 ),(0,0))
             
             #VAR.fenetre.blit(TRANSITION.image_tourbillon((centreX, centreY), -(k % 358), (40,40,40), 7, 20 ),(0,0))
             
@@ -41,8 +40,8 @@ class CRecompense():
 
             VAR.notifications.afficher()
             
-            if VAR.notifications.bandeau.animation_etape == Classes.notification.CNotification.TERMINE:
-                VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
+            if VAR.notifications.bandeau.animation_etape == CN.CNotification.TERMINE:
+                VAR.phase_du_jeu = VAR.ENUM_Phase.DEPLACEMENT
                 boucle_active = False
 
             k=k+1

@@ -2,9 +2,7 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
-import outils
-from Classes.class_bresenham import *
+import Classes.class_bresenham as CB 
 
 class CCamera():
     def __init__(self):
@@ -39,7 +37,7 @@ class CCamera():
 
     
     def deplacer(self, x, y):
-        self.listeDeplacement = bresenham([self.x, self.y], self.ou_est_le_joueur_sur_lecran(x,y),10).path
+        self.listeDeplacement = CB.bresenham([self.x, self.y], self.ou_est_le_joueur_sur_lecran(x,y),10).path
         print((self.x, self.y, self.ou_est_le_joueur_sur_lecran(x,y)))
         self.seDeplace = True
 

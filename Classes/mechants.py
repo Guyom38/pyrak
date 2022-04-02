@@ -2,12 +2,11 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
 import fonctions as FCT
 import Classes.ui_transitions as TRANSITION
 
 import csv, math, random
-from Classes.mechant import *
+import Classes.mechant as CM
 
 class CMechants():
     def __init__(self):
@@ -32,7 +31,7 @@ class CMechants():
                         tmp_image, tmp_icone = pygame.image.load("Images\\mechants\\" + numero + ".png").convert_alpha(), None
                         #tmp_image = FCT.Generer_Mask_Image(tmp_image)
                         
-                        self.liste[numero] = CMechant(nom.strip(), int(force), int(tirage), tmp_image, tmp_icone, recompense.strip(), specialite.strip(), int(quantite))
+                        self.liste[numero] = CM.CMechant(nom.strip(), int(force), int(tirage), tmp_image, tmp_icone, recompense.strip(), specialite.strip(), int(quantite))
                         print ("        + " + quantite + "x Mechant << " + nom + " >> ajouté.")
         
 

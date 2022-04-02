@@ -2,8 +2,6 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
-
 import fonctions as FCT
 
 import random
@@ -151,8 +149,8 @@ class CCombat():
             
             # --- Pause de 3s avant de revenir au jeu
             if pygame.time.get_ticks() - self.resultat_cycle > 2000:      
-                VAR.phase_du_jeu = ENUM_Phase.TRANSITION
-                VAR.phase_du_jeu_suivant = ENUM_Phase.DEPLACEMENT
+                VAR.phase_du_jeu = VAR.ENUM_Phase.TRANSITION
+                VAR.phase_du_jeu_suivant = VAR.ENUM_Phase.DEPLACEMENT
                 VAR.notifications.ajouter(VAR.joueur_en_cours, "COMBAT", VAR.joueur_en_cours.nom + " " + self.message_fin_de_combat)
 
 

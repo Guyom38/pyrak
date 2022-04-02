@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 
-from Classes.hero import *
+import Classes.hero as HE
 
 import variables as VAR
 import fonctions as FCT
@@ -28,7 +28,7 @@ class Cheros():
                 if len(ligne) == 4:                                                     # --- il faut que la ligne comporte chaque colonne importante
                     numero, nom, capacite1, capacite2 = ligne
                     if numero.__contains__("#") == False:                             # --- evite les lignes commentées
-                        self.liste_heros[numero.strip()] = Chero(numero.strip(), nom.strip())
+                        self.liste_heros[numero.strip()] = HE.Chero(numero.strip(), nom.strip())
                         print ("        + Heros << " + nom + " >> ajouté.")
         
 
@@ -38,7 +38,7 @@ class Cheros():
         
 
     def gestion_deplacement_joueur(self):
-        if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:
+        if VAR.phase_du_jeu == VAR.ENUM_Phase.DEPLACEMENT:
             if VAR.joueur_en_cours.seDeplace == True: 
                 VAR.joueur_en_cours.gestion_deplacement()
             

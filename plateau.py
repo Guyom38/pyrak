@@ -141,7 +141,7 @@ class CPlateau():
             
             if FCT.SurEcran(xP, yP, VAR.v9, VAR.v9) == True:
                 if enDehors == False:
-                    if isinstance(VAR.terrain[x][y], CTuile) == False:
+                    if isinstance(VAR.terrain[x][y], CT.CTuile) == False:
                         if VAR.tuiles.joueur_a_deja_pioche() == True:
                             if VAR.mX >= xP and VAR.mX <= xP + VAR.v9 and VAR.mY >= yP and VAR.mY <= yP + VAR.v9:
                                 VAR.tuiles.tuileSelect.generer()

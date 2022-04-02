@@ -2,8 +2,6 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
-
 import fonctions as FCT
 
 class CNotification():
@@ -41,10 +39,10 @@ class CNotification():
             self.animation_delais_pause = 1200
 
             self.phases_de_jeu_apres = (VAR.phase_du_jeu, VAR.phase_du_jeu_suivant)
-            VAR.phase_du_jeu = ENUM_Phase.BANDEAU
+            VAR.phase_du_jeu = VAR.ENUM_Phase.BANDEAU
                 
         else:
-            self.max_mouvement_x = EcranX - VAR.notif_largeur
+            self.max_mouvement_x = VAR.EcranX - VAR.notif_largeur
             self.pas_mouvement_x = 16
             self.animation_delais_pause = 5000
       

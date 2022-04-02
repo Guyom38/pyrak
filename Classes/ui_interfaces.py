@@ -2,20 +2,16 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
-
 import fonctions as FCT
 
-import outils
-
-from Classes.ui_barre_lateral import *
-from Classes.ui_objets_interface import *
+import Classes.ui_barre_lateral as CBL
+import Classes.ui_objets_interface as COI
 
 
 class CInterfaces():
     def __init__(self):
         print("    + Initialisation module << Interface >>")
-        self.menu = CBarre_Laterale()
+        self.menu = CBL.CBarre_Laterale()
         
         # --- Dimensions
         self.largeur_cadre_joueur = 330
@@ -58,7 +54,7 @@ class CInterfaces():
 
     
     def afficher_cadre_joueur(self):
-        phase_normale = ( VAR.phase_du_jeu in (ENUM_Phase.DEPLACEMENT, ENUM_Phase.INVENTAIRE, ENUM_Phase.BANDEAU) )
+        phase_normale = ( VAR.phase_du_jeu in (VAR.ENUM_Phase.DEPLACEMENT, VAR.ENUM_Phase.INVENTAIRE, VAR.ENUM_Phase.BANDEAU) )
 
         xJ, yJ = VAR.joueur_en_cours.x, VAR.joueur_en_cours.y
         img = VAR.joueur_en_cours.image
@@ -87,8 +83,8 @@ class CInterfaces():
             elif typeItem == "MAGIE":
                 if VAR.joueur_en_cours.magies[posItem] != None: 
                     nomObjet = VAR.joueur_en_cours.magies[posItem]
-                    if VAR.phase_du_jeu == ENUM_Phase.COMBAT:
-                        if VAR.objets_interface.zone_clickable(xP, yP, taille_ico, taille_ico, 0) == ENUM_Clic.Clic:
+                    if VAR.phase_du_jeu == VAR.ENUM_Phase.COMBAT:
+                        if VAR.objets_interface.zone_clickable(xP, yP, taille_ico, taille_ico, 0) == VAR.ENUM_Clic.Clic:
                             VAR.combat.magies_selectionnees[posItem] = VAR.joueur_en_cours.magies[posItem]  
 
             # --- Dessine l'objet trouvé
@@ -100,12 +96,12 @@ class CInterfaces():
                     pygame.draw.rect(VAR.fenetre, self.couleur2, (xP, yP, taille_ico, taille_ico), 0)
                 
                 # --- Gestion du ramassage
-                objetAPrendre = (VAR.phase_du_jeu == ENUM_Phase.INVENTAIRE and VAR.terrain[xJ][yJ].recompense != None)
+                objetAPrendre = (VAR.phase_du_jeu == VAR.ENUM_Phase.INVENTAIRE and VAR.terrain[xJ][yJ].recompense != None)
                 if objetAPrendre == True:
                     if typeItem != "CLE":
                         if VAR.terrain[xJ][yJ].recompense.__contains__(typeItem) == True:
                             VAR.objets_interface.tracer_pointilles_entre_joueur_et_inventaire(xP, yP, taille_ico, taille_ico)   
-                            if VAR.objets_interface.zone_clickable(xP, yP, taille_ico, taille_ico, 0) == ENUM_Clic.Clic:
+                            if VAR.objets_interface.zone_clickable(xP, yP, taille_ico, taille_ico, 0) == VAR.ENUM_Clic.Clic:
                                 
                                 if typeItem == "ARME":
                                     objet_du_joueur = VAR.joueur_en_cours.armes[posItem]
@@ -118,7 +114,7 @@ class CInterfaces():
                                     VAR.terrain[xJ][yJ].recompense = objet_du_joueur
                                     
                                 VAR.terrain[xJ][yJ].pillier = (objet_du_joueur == None)                 # --- Si le joueur ne depose rien a la place, la piece est consideree pilliée
-                                VAR.phase_du_jeu = ENUM_Phase.DEPLACEMENT
+                                VAR.phase_du_jeu = VAR.ENUM_Phase.DEPLACEMENT
                                 VAR.joueur_en_cours.mouvement = 0       
 
                 pygame.draw.rect(VAR.fenetre, self.couleur3, (xP, yP, taille_ico, taille_ico), 4)   # --- Contour objet

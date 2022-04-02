@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import *
 
-from Classes.notification import *
-from variables import ENUM_Phase
+import Classes.notification as CN
+import variables as VAR
 
 class CNotifications():
 
@@ -14,17 +14,17 @@ class CNotifications():
     def afficher(self):
         self.afficher_liste_notifications()
         
-        if VAR.phase_du_jeu == ENUM_Phase.BANDEAU:  
+        if VAR.phase_du_jeu == VAR.ENUM_Phase.BANDEAU:  
             if self.bandeau == None: 
                 self.initialiser_bandeau("")
-            if self.bandeau.animation_etape != CNotification.TERMINE:
+            if self.bandeau.animation_etape != CN.CNotification.TERMINE:
                 self.bandeau.afficher()
 
     def ajouter(self, joueur, icone, texte):
-        self.liste.append ( CNotification(joueur, icone, texte, False) )
+        self.liste.append ( CN.CNotification(joueur, icone, texte, False) )
     
     def initialiser_bandeau(self, txt):
-        self.bandeau = CNotification("", "", txt, True)
+        self.bandeau = CN.CNotification("", "", txt, True)
 
         
     def nb_notifications(self):
@@ -37,7 +37,7 @@ class CNotifications():
             notification.afficher(y)
             y+= (VAR.notif_hauteur + 4)
 
-            if notification.animation_etape == CNotification.TERMINE:
+            if notification.animation_etape == CN.CNotification.TERMINE:
                 self.liste.remove(notification)
 
     

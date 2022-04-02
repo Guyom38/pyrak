@@ -4,7 +4,7 @@ from pygame.locals import *
 import variables as VAR
 import fonctions as FCT
 import outils
-from Classes.class_bresenham import *
+import Classes.class_bresenham as CB
 
 
 class CObjets_Interface():
@@ -58,9 +58,9 @@ class CObjets_Interface():
         d2 = dimX / 2
 
         trajets = []
-        trajets.append(bresenham([xT+d2, yT+dimY], [xT+d2, yT+dimY-yM]).path)      #      |
-        trajets.append(bresenham([xT+d2, yT+dimY-yM], [xP+d2, yT+dimY-yM]).path)   #      -----
-        trajets.append(bresenham([xP+d2, yT+dimY-yM], [xP+d2, yP]).path)           #          |
+        trajets.append(CB.bresenham([xT+d2, yT+dimY], [xT+d2, yT+dimY-yM]).path)      #      |
+        trajets.append(CB.bresenham([xT+d2, yT+dimY-yM], [xP+d2, yT+dimY-yM]).path)   #      -----
+        trajets.append(CB.bresenham([xP+d2, yT+dimY-yM], [xP+d2, yP]).path)           #          |
 
         debut = (xP, yP, dimX, dimY)
         fin = (xT, yT, dimX, dimY)

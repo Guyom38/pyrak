@@ -1,59 +1,53 @@
  
 import pygame
 from pygame.locals import *
-from Classes.mechants import CMechants
 
+import Classes.mechants as CMS
+import Classes.tuiles as CTS
+import plateau as CPL
+import Classes.ui_interfaces as CUI
+import Classes.heros as CHS
+import Classes.ui_combat as CUC
+import Classes.jetons as CJS
+import phase as CPH
+import Classes.objets as COS
+import Classes.camera as CCA
+import Classes.notifications as CNS
+import Classes.ui_recompense as CRE
+import Menu.clavier as CCL
+import Classes.ui_transitions as CUT
+import Classes.ui_objets_interface as CUO
+import partie as CPA
+import Menu.menu as CME
+import ressources as CRS
 
-from Classes.tuiles import *
-from plateau import *
-from Classes.ui_interfaces import *
-from Classes.heros import *
-from Classes.ui_combat import *
-from Classes.jetons import *
-from phase import *
-from Classes.objets import *
-from Classes.camera import *
-from Classes.notifications import *
-from Classes.ui_recompense import *
-from Menu.clavier import *
-
-from partie import *
-from Menu.menu import *
-
-
-from ressources import *
-
-import Classes.ui_transitions as TRANSITION
 
  
 import variables as VAR
-from variables import *
-
 import fonctions as FCT
-import Classes.ui_transitions
-import pickle
+
 
 class CMoteur:
     def __init__(self):
         print("+ Initialisation module << Moteur >>")
 
-        VAR.menu = CMenu()
-        VAR.partie = CPartie()
-        VAR.camera = CCamera()
-        VAR.ressources = CRessources()    
-        VAR.heros = Cheros()
-        VAR.tuiles = CTuiles()
-        VAR.plateau = CPlateau()
-        VAR.interfaces = CInterfaces()
-        VAR.objets_interface = CObjets_Interface()
-        VAR.combat = CCombat()
-        VAR.jetons = CJetons()
-        VAR.mechants = CMechants()
-        VAR.phase = CPhase()
-        VAR.objets = CObjets()
-        VAR.notifications = CNotifications()
-        VAR.recompense = CRecompense()
-        VAR.clavier = CClavier()
+        VAR.menu = CME.CMenu()
+        VAR.partie = CPA.CPartie()
+        VAR.camera = CCA.CCamera()
+        VAR.ressources = CRS.CRessources()    
+        VAR.heros = CHS.Cheros()
+        VAR.tuiles = CTS.CTuiles()
+        VAR.plateau = CPL.CPlateau()
+        VAR.interfaces = CUI.CInterfaces()
+        VAR.objets_interface = CUO.CObjets_Interface()
+        VAR.combat = CUC.CCombat()
+        VAR.jetons = CJS.CJetons()
+        VAR.mechants = CMS.CMechants()
+        VAR.phase = CPH.CPhase()
+        VAR.objets = COS.CObjets()
+        VAR.notifications = CNS.CNotifications()
+        VAR.recompense = CRE.CRecompense()
+        VAR.clavier = CCL.CClavier()
         
         VAR.boucle_principale = True
 
@@ -82,7 +76,7 @@ class CMoteur:
             VAR.evenements = pygame.event.get()
             self.gestion_souris()
             
-            if VAR.phase_du_jeu == ENUM_Phase.MENU:
+            if VAR.phase_du_jeu == VAR.ENUM_Phase.MENU:
                 VAR.menu.afficher()
                 
             else:
@@ -128,7 +122,7 @@ class CMoteur:
                 VAR.boucle_principale = False
                     
             if event.type == KEYDOWN:  
-                if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT:
+                if VAR.phase_du_jeu == VAR.ENUM_Phase.DEPLACEMENT:
                     if event.key == 270 and VAR.Zoom < 64: FCT.zoom(True)
                     if event.key == 269 and VAR.Zoom > 5: FCT.zoom(False)
                         

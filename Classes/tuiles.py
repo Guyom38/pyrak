@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import random
 
-from Classes.tuile import *
+import Classes.tuile as CT
 import fonctions as FCT
 import variables as VAR
 
@@ -22,16 +22,16 @@ class CTuiles():
         self.tuileSelect = None
         
         #def __init__(acces, piece, fontaine, teleport, x = -1, y = -1):
-        for i in range(20):  self.pioche.append( CTuile( [True, True, False, False], False, True, False))
-        for i in range(30):  self.pioche.append( CTuile( [True, True, False, False], False, False, False))
-        for i in range(13): self.pioche.append( CTuile( [True, False, True, False], True, False, False))
-        for i in range(13): self.pioche.append( CTuile( [True, True, False, False], True, False, False))
-        for i in range(14): self.pioche.append( CTuile( [True, True, True, True], True, False, False))
-        for i in range(10):  self.pioche.append( CTuile( [True, True, True, False], False, False, False))
-        for i in range(13): self.pioche.append( CTuile( [True, True, True, False], True, False, False))
-        for i in range(14):  self.pioche.append( CTuile( [True, True, True, True], False, False, False))
-        for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, True))
-        for i in range(20):  self.pioche.append( CTuile( [True, False, True, False], False, False, False))
+        for i in range(20):  self.pioche.append( CT.CTuile( [True, True, False, False], False, True, False))
+        for i in range(30):  self.pioche.append( CT.CTuile( [True, True, False, False], False, False, False))
+        for i in range(13): self.pioche.append( CT.CTuile( [True, False, True, False], True, False, False))
+        for i in range(13): self.pioche.append( CT.CTuile( [True, True, False, False], True, False, False))
+        for i in range(14): self.pioche.append( CT.CTuile( [True, True, True, True], True, False, False))
+        for i in range(10):  self.pioche.append( CT.CTuile( [True, True, True, False], False, False, False))
+        for i in range(13): self.pioche.append( CT.CTuile( [True, True, True, False], True, False, False))
+        for i in range(14):  self.pioche.append( CT.CTuile( [True, True, True, True], False, False, False))
+        for i in range(20):  self.pioche.append( CT.CTuile( [True, False, True, False], False, False, True))
+        for i in range(20):  self.pioche.append( CT.CTuile( [True, False, True, False], False, False, False))
         
         self.melanger()
 
@@ -50,7 +50,7 @@ class CTuiles():
     def reset_images_tuiles(self):
         for x in range(len(VAR.terrain)):
             for y in range(len(VAR.terrain[x])):
-                if isinstance(VAR.terrain[x][y], CTuile) == True:
+                if isinstance(VAR.terrain[x][y], CT.CTuile) == True:
                     VAR.terrain[x][y].aMettreAjour = True
                     
         if self.tuileSelect != None:
@@ -64,7 +64,7 @@ class CTuiles():
                 xP, yP = VAR.OffsetX + ((x * VAR.Zoom) * 9), (VAR.OffsetY + (y * VAR.Zoom) * 9)
                 
                 if FCT.SurEcran(xP, yP, VAR.v9, VAR.v9) == True:
-                    if isinstance(VAR.terrain[x][y], CTuile) == True:
+                    if isinstance(VAR.terrain[x][y], CT.CTuile) == True:
                         # --- Pièces déjà posées
                         VAR.terrain[x][y].generer()
                         VAR.terrain[x][y].afficher()
@@ -83,7 +83,7 @@ class CTuiles():
             acces = tu.acces[accesPiece]        # --- Il y a t-il un acces sur ce coté ?
 
             if acces == True:
-                if isinstance(VAR.terrain[xPieceACote][yPieceACote], CTuile) == True:              # --- Teste si il y a une zone voisine
+                if isinstance(VAR.terrain[xPieceACote][yPieceACote], CT.CTuile) == True:              # --- Teste si il y a une zone voisine
                     accesVoisine = VAR.terrain[xPieceACote][yPieceACote].acces[accesPieceACote]
                     
                     if acces != accesVoisine: blocage, mur = True, True        # --- Pas de passage partagé
@@ -115,7 +115,7 @@ class CTuiles():
 # // ---
     def placer_piece_centrale(self):
         VAR.posPieceCentrale = int(VAR.PlateauX/2), int(VAR.PlateauY/2)
-        piece_centrale = CTuile( [True, True, True, True], True, True, False)
+        piece_centrale = CT.CTuile( [True, True, True, True], True, True, False)
         
         self.placer(VAR.posPieceCentrale[0], VAR.posPieceCentrale[1], piece_centrale, None, True)
 

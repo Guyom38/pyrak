@@ -1,9 +1,10 @@
 import random
  
-from Classes.jeton import *
+import Classes.jeton as CJ
 
-from Classes.mechants import *
-from Classes.mechant import *
+import Classes.mechants as CMS
+import Classes.mechant as CM
+import variables as VAR
 
 class CJetons():
     def __init__(self):
@@ -16,7 +17,7 @@ class CJetons():
         
         for i, monstre in VAR.mechants.liste.items():
             for j in range(0, monstre.quantite):
-                self.pioche.append( CJeton( i, monstre) )
+                self.pioche.append( CJ.CJeton( i, monstre) )
 
         self.melanger()
         

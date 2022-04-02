@@ -1,5 +1,5 @@
 from test import *
-from moteur import *
+import moteur 
 
 
 print("\n\n")
@@ -21,7 +21,7 @@ print("------------------------------------------------------\n")
 
 
 
-KARAK = CMoteur()
+KARAK = moteur.CMoteur()
 KARAK.demarre()
 
 

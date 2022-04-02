@@ -1,9 +1,6 @@
 import pygame
 from pygame.locals import *
 import variables as VAR
-from variables import *
-
-import outils
 import fonctions as FCT
 
 
@@ -33,17 +30,17 @@ class CTuile(object):
     #  1 : Tirage avant combat
 
     def faut_il_tirer_un_jeton(self):
-        lance_combat = ENUM_Piece.RIEN_FAIRE
+        lance_combat = VAR.ENUM_Piece.RIEN_FAIRE
 
         if self.piece == True and self.depart == False and self.pillier == False:             # --- Est-ce une piece qui n'est pas la piece centrale ?
-            lance_combat = ENUM_Piece.TIRAGE_AU_SORT                                           # --- Va y avoir un tirage !
+            lance_combat = VAR.ENUM_Piece.TIRAGE_AU_SORT                                           # --- Va y avoir un tirage !
             
             if self.jeton != None:                                      # --- Tirage déjà fait, pièce déjà découverte !
                 if self.jeton.nom != VAR.COFFRE:                            # --- Si c'est pas un coffre !
-                    lance_combat = ENUM_Piece.COMBATTRE                                            # --- On combat !
+                    lance_combat = VAR.ENUM_Piece.COMBATTRE                                            # --- On combat !
                     
             if self.recompense != None:                                     # --- Il y a t-il une recompense a prendre ?
-                lance_combat = ENUM_Piece.OBJET_A_RECUPERER                                                # --- Indique qu'il y a un objet donc pas de combat !
+                lance_combat = VAR.ENUM_Piece.OBJET_A_RECUPERER                                                # --- Indique qu'il y a un objet donc pas de combat !
         return lance_combat
                     
 

@@ -3,9 +3,8 @@ from pygame.locals import *
 
 import csv
 import variables as VAR
-import fonctions as FCT
 
-from Classes.objet import *
+import Classes.objet as CO
 
 class CObjets():
     def __init__(self):
@@ -25,5 +24,5 @@ class CObjets():
                 if len(ligne) == 2:                                                     # --- il faut que la ligne comporte chaque colonne importante
                     numero, nom = ligne
                     if numero.__contains__("#") == False:  
-                        self.liste[nom.strip()] = CObjet(numero, nom.strip())
+                        self.liste[nom.strip()] = CO.CObjet(numero, nom.strip())
                         print ("        + Objet << " + nom.strip() + " >> ajouté.")

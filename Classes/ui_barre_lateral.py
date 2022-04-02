@@ -2,8 +2,6 @@ import pygame
 from pygame.locals import *
 
 import variables as VAR
-from variables import *
-
 import fonctions as FCT
 
 
@@ -14,8 +12,8 @@ class CBarre_Laterale():
     def afficher_menu(self):
         pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (VAR.EcranX-200, 0, 200, 50), 0)
         pygame.draw.rect(VAR.fenetre, pygame.Color(105,74,64,255), (VAR.EcranX-200, 0, 200, 50), 2)
-        if VAR.objets_interface.afficher_bouton_image(VAR.EcranX-200, 16, VAR.IMG["mini_coeur"]) == ENUM_Clic.Clic: 
-            VAR.phase_du_jeu = ENUM_Phase.MENU
+        if VAR.objets_interface.afficher_bouton_image(VAR.EcranX-200, 16, VAR.IMG["mini_coeur"]) == VAR.ENUM_Clic.Clic: 
+            VAR.phase_du_jeu = VAR.ENUM_Phase.MENU
             
             
     def afficher_liste_joueurs(self):
@@ -37,7 +35,7 @@ class CBarre_Laterale():
             pygame.draw.rect(VAR.fenetre, pygame.Color(50,30,20,255), (x, y, d, 32), 0)
             pygame.draw.rect(VAR.fenetre, pygame.Color(76,54,44,255), (x, y, d, 32), 4)
             
-            if VAR.objets_interface.afficher_bouton_image(x, y, FCT.image_decoupe(VAR.perso, (VAR.heros.liste[i].id * 3) +t , 0, 32, 32)) == ENUM_Clic.Clic:
+            if VAR.objets_interface.afficher_bouton_image(x, y, FCT.image_decoupe(VAR.perso, (VAR.heros.liste[i].id * 3) +t , 0, 32, 32)) == VAR.ENUM_Clic.Clic:
                 VAR.heros.liste[i].recentrer_camera()
                 
             VAR.fenetre.blit(FCT.image_decoupe(VAR.perso, (VAR.heros.liste[i].id * 3) +t , 0, 32, 32), (x, y))
@@ -57,38 +55,38 @@ class CBarre_Laterale():
         # - MENU ACTIONS JOUEURS
         # ------------------------------------------------------------
         
-        for action in (ENUM_Actions.PIOCHER, ENUM_Actions.PRENDRE, ENUM_Actions.PAUSE, ENUM_Actions.COMBATTRE):
+        for action in (VAR.ENUM_Actions.PIOCHER, VAR.ENUM_Actions.PRENDRE, VAR.ENUM_Actions.PAUSE, VAR.ENUM_Actions.COMBATTRE):
             ico = action.value
-            if VAR.phase_du_jeu == ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.seDeplace == False:
-                if action == ENUM_Actions.PIOCHER and VAR.plateau.on_peut_construire() == True and VAR.joueur_en_cours.peut_bouger() and VAR.tuiles.joueur_a_deja_pioche() == False:                                       # --- PIOCHE disponible si un acces est visible
-                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic: 
+            if VAR.phase_du_jeu == VAR.ENUM_Phase.DEPLACEMENT and VAR.joueur_en_cours.seDeplace == False:
+                if action == VAR.ENUM_Actions.PIOCHER and VAR.plateau.on_peut_construire() == True and VAR.joueur_en_cours.peut_bouger() and VAR.tuiles.joueur_a_deja_pioche() == False:                                       # --- PIOCHE disponible si un acces est visible
+                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == VAR.ENUM_Clic.Clic: 
                         VAR.tuiles.piocher()
                     yP = (yP +(hIco + 8))
                 
-                elif action == ENUM_Actions.PAUSE and VAR.tuiles.tuileSelect == None and VAR.joueur_en_cours.peut_bouger() == False:       
+                elif action == VAR.ENUM_Actions.PAUSE and VAR.tuiles.tuileSelect == None and VAR.joueur_en_cours.peut_bouger() == False:       
                                                         # --- PAUSE disponible si aucune pioche n'a été tirée
-                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic: 
+                    if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == VAR.ENUM_Clic.Clic: 
                         VAR.heros.joueur_suivant()
                     yP = (yP +(hIco + 8))
                 
-                elif action == ENUM_Actions.PRENDRE and VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense != None:                                                                                  # --- PRENDRE objet par terre
+                elif action == VAR.ENUM_Actions.PRENDRE and VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense != None:                                                                                  # --- PRENDRE objet par terre
                     
                     cle = (VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense == "CLE")
                     coffre = (VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense == "COFFRE")
                     joueur_a_une_cle = VAR.joueur_en_cours.cle
 
                     if (coffre == False or joueur_a_une_cle == True) and cle == False:
-                        if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic:
+                        if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == VAR.ENUM_Clic.Clic:
                             print(VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense)
-                            VAR.phase_du_jeu = ENUM_Phase.INVENTAIRE
+                            VAR.phase_du_jeu = VAR.ENUM_Phase.INVENTAIRE
                         yP = (yP +(hIco + 8))
                         
                     
                     
-            elif VAR.phase_du_jeu == ENUM_Phase.COMBAT:
+            elif VAR.phase_du_jeu == VAR.ENUM_Phase.COMBAT:
                 if VAR.combat.lance_de_des == False and VAR.combat.combat_termine == False:
-                    if action == ENUM_Actions.COMBATTRE:
-                        if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == ENUM_Clic.Clic: 
+                    if action == VAR.ENUM_Actions.COMBATTRE:
+                        if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == VAR.ENUM_Clic.Clic: 
                             VAR.combat.nombre_lances = 0
                             VAR.combat.lance_de_des = True
                         yP = (yP +(hIco + 8))
