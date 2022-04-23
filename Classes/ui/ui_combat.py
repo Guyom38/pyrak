@@ -21,7 +21,7 @@ class CCombat():
         self.cpt = 0
         
         self.lance_de_des = False
-        self.de1, self.de2 = -1, -1
+        self.des_a_jouer = []
         
         self.combat_termine = False
       
@@ -36,10 +36,21 @@ class CCombat():
         self.magies_selectionnees = [None, None, None]
 
     def lancer_les_des(self):
-        self.combat_termine = False
-        self.de1 = random.randint(0,5)
-        self.de2 = random.randint(0,5)
+        self.combat_termine = False        
+        self.des_a_jouer = []
+        
+        self.des_a_jouer.append(random.randint(1,6)) # de1
+        self.des_a_jouer.append(random.randint(1,6)) # de2
+        
+        somme_armes = 0
+        for i in range(2):
+            if VAR.joueur_en_cours.armes[i] != None:
+                somme_armes = int(VAR.joueur_en_cours.armes[i].split("+")[1])
+        if somme_armes > 0 : self.des_a_jouer.append(somme_armes) 
+        
+        #self.lance_de_des.append(0) # magies 1 + 2 + 3
 
+     
         
     def afficher(self):
         x, y, w, h = 128, 128, VAR.EcranX - 254, VAR.EcranY - 256
@@ -61,7 +72,7 @@ class CCombat():
         tmp = pygame.transform.scale(img_hero, (img_hero.get_width(), img_hero.get_height() + t))
         xP1, yP1 = x+32, y+h-tmp.get_height()-32
         
-        if self.de1 != -1 and self.de2 != -1:
+        if len(self.des_a_jouer) > 0:
             points_attaques = self.calcul_attaque()
             FCT.texte(VAR.fenetre, str(points_attaques), xP1+img_hero.get_width()-30, yP1 - 70, 120)
             
@@ -76,18 +87,36 @@ class CCombat():
         tmp = pygame.transform.flip(pygame.transform.scale(img2, (img2.get_width(), img2.get_height() + t)), True, False) 
         xP2, yP2 = x+w-tmp.get_width()-32, y+h-tmp.get_height()-32
         
-        FCT.texte(VAR.fenetre, str(self.jeton.force), xP2-30, yP2 - 70, 120)
+        #FCT.texte(VAR.fenetre, str(self.jeton.force), xP2-30, yP2 - 70, 120)
         VAR.fenetre.blit(tmp, (xP2, yP2))
         
         # ---------------------------------------------------------------------
         # --- dessin des dés
+        
+        des_mechants = []
+        for i in range(self.jeton.force // 6):      des_mechants.append(6)
+        if self.jeton.force % 6 > 0:                des_mechants.append(self.jeton.force % 6)
+        
+        dX, dY = 120, 80
+        for de_mechant in des_mechants:
+            dd = FCT.image_decoupe(VAR.des, int(de_mechant)-1, 1, 85, 85)
+            VAR.fenetre.blit(dd, (xP2-dX, yP2+tmp.get_height()-dY))
+            dX -= 40
+            dY -= 30
+            
+        
         self.animation_des_des()
         
         x = x+img_hero.get_width()
-        if self.de1 != -1 and self.de2 != -1:
-            for des, id, xD, yD in ((self.de1, 1, 12, 216), (self.de2, 2, 52, 186)):
-                dd = FCT.image_decoupe(VAR.des, des, id, 85, 85)
-                VAR.fenetre.blit(dd, (x+xD, y+h-yD))
+        if len(self.des_a_jouer) > 0:
+            id, dX, dY = 1, 12, 216
+            for de_a_jouer in self.des_a_jouer:
+            #for des, id, xD, yD in ((self.de1, 1, 12, 216), (self.de2, 2, 52, 186)):
+                dd = FCT.image_decoupe(VAR.des, int(de_a_jouer)-1, id, 85, 85)
+                VAR.fenetre.blit(dd, (x+dX, y+h-dY))
+                dX += 40
+                dY -= 30
+         
               
 
 
@@ -103,12 +132,8 @@ class CCombat():
 
 
     def calcul_attaque(self):
-        bonus = 0
-        for i in range(2):
-            if VAR.joueur_en_cours.armes[i] != None:
-                bonus = bonus + int(VAR.joueur_en_cours.armes[i].split("+")[1])
-        return (self.de1+self.de2+2) +bonus  
-    
+        return sum(self.des_a_jouer)
+
     
     def calcul_qui_gagne(self):
         if VAR.combat.combat_termine == False: return -2
@@ -148,7 +173,7 @@ class CCombat():
                 self.resultat_cycle = pygame.time.get_ticks()
             
             # --- Pause de 3s avant de revenir au jeu
-            if pygame.time.get_ticks() - self.resultat_cycle > 2000:      
+            if pygame.time.get_ticks() - self.resultat_cycle > 3000:      
                 VAR.phase_du_jeu = VAR.ENUM_Phase.TRANSITION
                 VAR.phase_du_jeu_suivant = VAR.ENUM_Phase.DEPLACEMENT
                 VAR.notifications.ajouter(VAR.joueur_en_cours, "COMBAT", VAR.joueur_en_cours.nom + " " + self.message_fin_de_combat)

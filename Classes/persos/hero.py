@@ -20,7 +20,7 @@ class Chero(object):
         self.mouvement = 4
         self.pouvoirs = [None, None]
         
-        self.armes = [None, None]
+        self.armes = ["ARME+3", None]
         self.magies = ["MAGIE_VIE", None, "MAGIE_VIE"]
         self.cle = False
         self.coffres = 0

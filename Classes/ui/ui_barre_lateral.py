@@ -77,7 +77,6 @@ class CBarre_Laterale():
 
                     if (coffre == False or joueur_a_une_cle == True) and cle == False:
                         if VAR.objets_interface.afficher_bouton_image(xP, yP, VAR.IMG[ico]) == VAR.ENUM_Clic.Clic:
-                            print(VAR.terrain[VAR.joueur_en_cours.x][VAR.joueur_en_cours.y].recompense)
                             VAR.phase_du_jeu = VAR.ENUM_Phase.INVENTAIRE
                         yP = (yP +(hIco + 8))
                         
